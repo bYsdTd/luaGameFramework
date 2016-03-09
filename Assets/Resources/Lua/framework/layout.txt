@@ -1,0 +1,11 @@
+layout = class("layout");
+
+function layout:ctor(layoutType, layoutIndex)
+
+	self._layoutType = layoutType;
+	self._layoutIndex = layoutIndex;
+
+	-- load prefab
+	
+end
+

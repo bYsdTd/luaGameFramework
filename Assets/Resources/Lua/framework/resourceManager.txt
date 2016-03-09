@@ -1,0 +1,9 @@
+resourceManager = {};
+
+function  resourceManager.init()
+    
+end
+
+function  resourceManager.load(name, successCallback, failedCallback)
+    
+end

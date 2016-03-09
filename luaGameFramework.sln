@@ -1,0 +1,35 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{37130F7E-7940-4258-11E2-DB10C735C291}") = "luaGameFramework", "Assembly-CSharp-firstpass.csproj", "{E051503B-8E28-F1BC-C55E-543C2D4DCCE1}"
+EndProject
+Project("{37130F7E-7940-4258-11E2-DB10C735C291}") = "luaGameFramework", "Assembly-CSharp.csproj", "{150A010C-9E5B-A156-E988-7B9E3F829C11}"
+EndProject
+Project("{37130F7E-7940-4258-11E2-DB10C735C291}") = "luaGameFramework", "Assembly-CSharp-Editor.csproj", "{4ADC2B58-4206-E23F-2BB1-5E5A45BF76A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E051503B-8E28-F1BC-C55E-543C2D4DCCE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E051503B-8E28-F1BC-C55E-543C2D4DCCE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E051503B-8E28-F1BC-C55E-543C2D4DCCE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E051503B-8E28-F1BC-C55E-543C2D4DCCE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{150A010C-9E5B-A156-E988-7B9E3F829C11}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{150A010C-9E5B-A156-E988-7B9E3F829C11}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{150A010C-9E5B-A156-E988-7B9E3F829C11}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{150A010C-9E5B-A156-E988-7B9E3F829C11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4ADC2B58-4206-E23F-2BB1-5E5A45BF76A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4ADC2B58-4206-E23F-2BB1-5E5A45BF76A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4ADC2B58-4206-E23F-2BB1-5E5A45BF76A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4ADC2B58-4206-E23F-2BB1-5E5A45BF76A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal

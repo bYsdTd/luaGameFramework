@@ -1,0 +1,13 @@
+-- game class
+-- hold all manager
+-- tick 
+
+game = class("game")
+
+function game:ctor()
+
+	layoutManager.init();
+	
+	resourceManager.init();
+
+end

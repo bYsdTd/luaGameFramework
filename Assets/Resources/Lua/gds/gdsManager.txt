@@ -1,0 +1,3 @@
+gds = {};
+
+include("gds.uiConfig")

@@ -1,0 +1,10 @@
+-- framework
+include("framework.eventManager")
+include("framework.resourceManager")
+include("framework.debugs")
+include("framework.functions")
+include("framework.layoutManager")
+include("framework.layout")
+
+-- gds
+include("gds.gdsManager")

@@ -1,0 +1,8 @@
+gds.uiConfig ={
+	[1] = {
+		['id'] = 1,
+		['name'] = 'loadingView',
+		['prefab'] = 'loadingView',
+		['script'] = 'loadingView',
+	},
+}

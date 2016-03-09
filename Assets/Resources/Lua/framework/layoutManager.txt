@@ -1,0 +1,38 @@
+layoutManager = {};
+
+function layoutManager.init()
+
+	layoutManager.registerEvent();
+
+end
+
+-- register event
+function layoutManager.registerEvent()
+	
+	for k, v in pairs(gds.uiConfig) do
+		
+		local showEventName = string.upper(v.name).."_SHOW";
+		local hideEventName = string.upper(v.name).."_HIDE";
+
+		print(showEventName);
+		print(hideEventName);
+
+		eventManager.addEvent(showEventName, layoutManager.onShowLayout);
+		eventManager.addEvent(hideEventName, layoutManager.onHideLayout);
+	end
+
+end
+
+-- on show event
+function  layoutManager.onShowLayout( )
+	
+	print("onShowLayout");
+
+end
+
+-- on hide event
+function layoutManager.onHideLayout( )
+
+	print("onHideLayout");
+
+end

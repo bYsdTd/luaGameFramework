@@ -1,0 +1,370 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"in",
+				"init"
+			],
+			[
+				"for",
+				"forp	for k,v in pairs()"
+			],
+			[
+				"regi",
+				"registerEvent"
+			],
+			[
+				"fun",
+				"function	function"
+			],
+			[
+				"worl",
+				"worldCorner"
+			],
+			[
+				"ancho",
+				"anchoredPosition"
+			],
+			[
+				"Gam",
+				"GameObject"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"package",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 125.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/zhangyi/code/unity/slua/Assets/Slua/Resources/init.txt",
+		"/Users/zhangyi/code/unity/slua/Assets/Slua/Resources/include.txt",
+		"/Users/zhangyi/code/unity/slua/Assets/Slua/Resources/eventManager.txt",
+		"/Users/zhangyi/code/unity/slua/Assets/Slua/Resources/main.txt",
+		"/Users/zhangyi/work/throne_client/client/proj_unity/Assets/Resources/City/Buildings/building_secondarycity_1_1_1.prefab",
+		"/Users/zhangyi/Desktop/valuetype.lua",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/helpers/csv_helpers/city_building/city_building.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/helpers/csv_helpers/secondary_city/secondary_city.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/throne.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/common/errors.pb.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/Setting.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/handlers/UnitHandler.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/handlers/ItemHandler.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/handlers/GeneralHandler.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/task.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/GDS.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/structs/DailyKingdomQuest.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/helpers/csv_helpers/daily_quest_stars/daily_quest_stars.go",
+		"/Users/zhangyi/work/server/src/throne/tools/proto/common/errors.proto",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/structs/BlackMarket.go",
+		"/Users/zhangyi/work/server/src/throne/tools/proto/rq_daily_kingdom_quest_operation.proto",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/helpers/csv_helpers/parameter/parameter.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/handlers/DailyKingdomQuestsHandler.go",
+		"/Users/zhangyi/work/throne_client/client/tools/GDSTranslator/src/GDSTool/go.code",
+		"/Users/zhangyi/work/server/src/throne/tools/proto/rp_daily_kingdom_quest.proto",
+		"/Users/zhangyi/work/server/src/throne/tools/proto/rq_take_daily_kingdom_quest.proto",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/I18n.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/message_services/ClientMsgService.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/handlers/BuildingHandler.go",
+		"/Users/zhangyi/work/server/src/throne/server/throne/app/handlers/DrawLuckyHandler.go",
+		"/Users/zhangyi/code/unity/uLua/Assets/uLua/Lua/debugs.lua",
+		"/Users/zhangyi/code/unity/uLua/Assets/uLua/Lua/string.lua",
+		"/Users/zhangyi/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/zhangyi/code/unity/uLua/Assets/uLua/Lua/System/Main.lua",
+		"/Users/zhangyi/Desktop/CGIncludes/HLSLSupport.cginc",
+		"/Volumes/C/Program Files (x86)/Autodesk/3ds Max 2012/maxsdk/about.txt",
+		"/Users/zhangyi/code/unity/uluaTest/Assets/Resources/lua/include.lua.txt"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+			"",
+			"<open folders>,/Users/zhangyi/code/fbzziap/res/client/Media/Lua",
+			"<open folders>",
+			"/Users/zhangyi/Desktop/CGIncludes"
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"dump",
+			"table.nums",
+			"end",
+			"split",
+			"string.",
+			"dump",
+			"RegiserEvent",
+			"lightprobe",
+			"lighting",
+			"10101",
+			"Raw",
+			"luaL_loadbuffer",
+			"report.fl",
+			"sencond",
+			"city",
+			"FillBuildingList",
+			"GetMarchTeamEffect",
+			"_updateAlliancePower",
+			"Power",
+			"dialog.dai",
+			"TakeDailyKingdomQuest",
+			"Number",
+			"daily_quest_stars",
+			"alliance_shop",
+			"InitResources",
+			"initdata",
+			"UpdateLocale",
+			"ErrorId_E_GOLD_NOT_SATISFIED",
+			"\"errors.gold-not-satisfied\"",
+			"ErrorId_E_USE_ITEM_ERROR",
+			"temp_id",
+			"generate",
+			"string.trim",
+			"trim",
+			"DumpTable",
+			"DumpTable\nDumpTable",
+			"file_exclude_patterns",
+			"blockTyps",
+			"insd∂tance1",
+			"\n	",
+			"bundle",
+			"Event(",
+			"read",
+			"\n",
+			"\nread\nread\n\n\n",
+			"fopen",
+			"UNITY_INITIALIZE_OUTPUT",
+			"class",
+			"classs",
+			"com.wing.fbzziap.30",
+			"SurfaceOutput\n\n\nSurfaceOutput",
+			"transaction_id",
+			"_Time\n_Time",
+			"qingbing",
+			"login(",
+			"UnpackNormal"
+		],
+		"highlight": false,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			""
+		],
+		"reverse": true,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"replace":
+	{
+		"height": 0.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"server/throne/app/GDS.go"
+			],
+			[
+				"secon",
+				"server/throne/app/helpers/csv_helpers/secondary_city/secondary_city.go"
+			],
+			[
+				"gds",
+				"server/throne/app/GDS.go"
+			],
+			[
+				"citybuil",
+				"server/throne/app/helpers/csv_helpers/city_building/city_building.go"
+			],
+			[
+				"city",
+				"server/throne/app/helpers/csv_helpers/citywar_buff_tile/citywar_buff_tile.go"
+			],
+			[
+				"build",
+				"server/throne/app/structs/Building.go"
+			],
+			[
+				"citywarbu",
+				"server/throne/app/helpers/csv_helpers/citywar_buff_tile/citywar_buff_tile.go"
+			],
+			[
+				"ciyt",
+				"server/throne/app/helpers/csv_helpers/citywar_tile/citywar_tile.go"
+			],
+			[
+				"marchtea",
+				"server/throne/app/structs/MarchTeam.go"
+			],
+			[
+				"march",
+				"tools/proto/march_info.proto"
+			],
+			[
+				"kingqu",
+				"server/throne/app/structs/DailyKingdomQuest.go"
+			],
+			[
+				"dailyhandle",
+				"server/throne/app/handlers/DailyKingdomQuestsHandler.go"
+			],
+			[
+				"par",
+				"server/throne/app/helpers/csv_helpers/parameter/parameter.go"
+			],
+			[
+				"daily_quest_stars",
+				"server/throne/app/helpers/csv_helpers/daily_quest_stars/daily_quest_stars.go"
+			],
+			[
+				"kingdom",
+				"tools/proto/rq_daily_kingdom_quest_operation.proto"
+			],
+			[
+				"blackma",
+				"server/throne/app/structs/BlackMarket.go"
+			],
+			[
+				"dailyking",
+				"tools/proto/rp_daily_kingdom_quest.proto"
+			],
+			[
+				"error",
+				"tools/proto/common/errors.proto"
+			],
+			[
+				"erro",
+				"server/throne/app/common/errors.pb.go"
+			],
+			[
+				"gds.",
+				"server/throne/app/GDS.go"
+			],
+			[
+				"task",
+				"server/throne/task.go"
+			],
+			[
+				"i1",
+				"server/throne/app/I18n.go"
+			],
+			[
+				"clientms",
+				"server/throne/app/message_services/ClientMsgService.go"
+			],
+			[
+				"err",
+				"server/throne/app/common/errors.pb.go"
+			],
+			[
+				"throne.go",
+				"server/throne/throne.go"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+		],
+		"width": 380.0
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 246.0,
+	"status_bar_visible": true
+}
