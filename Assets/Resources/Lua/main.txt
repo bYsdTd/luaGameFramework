@@ -1,0 +1,44 @@
+
+-- re define include function
+include = function (name)
+	
+	name = "Lua."..name;
+	return require(name);
+end
+
+include("include")
+include("game")
+
+function main()
+
+	init();
+
+	eventManager.postEvent({name = "LOADINGVIEW_SHOW", param = {"param1", "param2"}});
+
+end
+
+function init( ... )
+	
+	layoutManager.init();
+	
+	resourceManager.init();
+end
+
+function HandleTouchDown( x, y )
+
+	print("HandleTouchDown "..x.." "..y);
+
+end
+
+
+function HandleTouchMove( x, y)
+	
+	print("HandleTouchMove "..x.." "..y);
+
+end
+
+function HandleTouchUp( x, y )
+	
+	print("HandleTouchUp "..x.." "..y);
+	
+end

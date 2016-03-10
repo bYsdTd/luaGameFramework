@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/Resources/Scene/scn_loading.unity
+  isLoaded: 1
+  isActive: 1
