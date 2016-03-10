@@ -23,7 +23,7 @@ function layout:ctor(layoutConig, event)
 		self:onShow(event);
 
 		-- test date
-		eventManager.postEvent({name = "LOADINGVIEW_UPDATE", param = {"param1", "param2"}});
+		eventManager.postEvent({name = global_uiEvent.LOADINGVIEW_UPDATE, param = {"param1", "param2"}});
 
 	end);
 

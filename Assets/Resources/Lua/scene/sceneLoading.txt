@@ -1,0 +1,18 @@
+sceneLoading = class("sceneLoading", scene)
+
+function sceneLoading:ctor(sceneid)
+	
+end
+
+function sceneLoading:onEnterScene( ... )
+	-- body
+end
+
+function sceneLoading:onLeaveScene( ... )
+	-- body
+end
+
+function sceneLoading:tick( ... )
+	-- body
+end
+

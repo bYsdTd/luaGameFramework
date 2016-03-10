@@ -12,7 +12,7 @@ function main()
 
 	init();
 
-	eventManager.postEvent({name = "LOADINGVIEW_SHOW", param = {"param1", "param2"}});
+	eventManager.postEvent({name = "EVENT_UI_LOADINGVIEW_SHOW", param = {"param1", "param2"}});
 
 end
 
@@ -21,6 +21,9 @@ function init( ... )
 	layoutManager.init();
 	
 	resourceManager.init();
+
+	sceneManager.init();
+
 end
 
 function HandleTouchDown( x, y )

@@ -1,0 +1,45 @@
+sceneManager = {};
+
+-- global define
+sceneManager.EVENT_SCENE_SWITCH_SCENE = "EVENT_SCENE_SWITCH_SCENE";
+sceneManager.SCENE_ID = {};
+sceneManager.SCENE_ID.LOADING = 1;
+sceneManager.SCENE_ID.BATTLE = 2;
+sceneManager.currentScene = nil;
+
+
+function sceneManager.init()
+	
+	-- register event
+	eventManager.addEvent(sceneManager.EVENT_SCENE_SWITCH_SCENE, sceneManager.onSwitchScene);
+
+end
+
+function sceneManager.onSwitchScene(event)
+	
+	if sceneManager.currentScene and event.sceneid == sceneManager.currentScene:sceneid() then
+		
+		print("current is already in scene name: "..event.sceneid);
+		return;
+	end
+
+	if sceneManager.currentScene then
+		
+		sceneManager.currentScene:onLeaveScene();
+
+		UnityEngine.SceneManagement.SceneManager:UnloadScene(sceneManager.currentScene:sceneid());
+
+		sceneManager.currentScene = nil;
+
+	end
+
+	local config = gds.sceneConfig[event.sceneid];
+
+	UnityEngine.SceneManagement.SceneManager:LoadSceneAsync(config.name);
+
+	local sceneClass = include("scene."..config.script);
+
+	sceneManager.currentScene = sceneClass.new(config.id);
+
+	sceneManager.currentScene:onEnterScene(event);
+end

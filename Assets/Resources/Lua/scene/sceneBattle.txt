@@ -1,0 +1,19 @@
+sceneBattle = class("sceneBattle", scene)
+
+function sceneBattle:ctor(sceneid)
+	
+end
+
+function sceneBattle:onEnterScene( ... )
+	-- body
+end
+
+function sceneBattle:onLeaveScene( ... )
+	-- body
+end
+
+function sceneBattle:tick( ... )
+	-- body
+end
+
+

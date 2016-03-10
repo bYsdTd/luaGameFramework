@@ -20,8 +20,8 @@ function layoutManager.registerEvent()
 	
 	for k, v in pairs(gds.uiConfig) do
 		
-		local showEventName = string.upper(v.name).."_SHOW";
-		local hideEventName = string.upper(v.name).."_HIDE";
+		local showEventName = "EVENT_UI_"..string.upper(v.name).."_SHOW";
+		local hideEventName = "EVENT_UI_"..string.upper(v.name).."_HIDE";
 
 		print(showEventName);
 		print(hideEventName);

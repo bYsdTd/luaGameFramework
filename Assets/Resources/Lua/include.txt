@@ -8,8 +8,16 @@ include("framework.debugs")
 include("framework.functions")
 include("framework.layoutManager")
 include("framework.layout")
+
+include("framework.scene")
+include("framework.sceneManager")
+
 include("framework.utils")
 include("framework.uiTypeCast")
+
+-- scene
+include("scene.sceneLoading")
+include("scene.sceneBattle")
 
 -- gds
 include("gds.gdsManager")

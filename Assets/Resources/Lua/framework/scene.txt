@@ -1,0 +1,27 @@
+scene = class("scene")
+
+function scene:ctor(sceneid)
+	
+	self._sceneid = sceneid;
+
+end
+
+-- 返回场景ID
+function scene:sceneid()
+
+	return self._sceneid;
+
+end
+
+function scene:onEnterScene( ... )
+	-- body
+end
+
+function scene:onLeaveScene( ... )
+	-- body
+end
+
+function scene:tick( ... )
+	-- body
+end
+

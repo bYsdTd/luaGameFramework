@@ -1,0 +1,12 @@
+gds.sceneConfig ={
+	[1] = {
+		['id'] = 1,
+		['name'] = 'scn_loading',
+		['script'] = 'sceneLoading',
+	},
+	[2] = {
+		['id'] = 2,
+		['name'] = 'scn_battle',
+		['script'] = 'sceneBattle',
+	},
+}
