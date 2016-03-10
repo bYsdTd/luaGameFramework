@@ -2,6 +2,8 @@ local sceneBattle = class("sceneBattle", scene)
 
 function sceneBattle:ctor(sceneid)
 	
+	sceneBattle.super.ctor(self, sceneid);
+
 end
 
 function sceneBattle:onEnterScene( ... )

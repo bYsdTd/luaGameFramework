@@ -4,7 +4,7 @@ using System.Collections;
 public class GameManager 
 {
 	static GameManager _instance;
-
+	static bool _isInit = false;
 	static public GameManager instance()
 	{
 		if(_instance == null)
@@ -22,6 +22,11 @@ public class GameManager
 
 	public void InitAllManager()
 	{
+		if(_isInit)
+		{
+			return;
+		}
+
 		GameObject gameObj = new GameObject("gameManager");
 		GameObject.DontDestroyOnLoad(gameObj);
 
@@ -46,5 +51,7 @@ public class GameManager
 		GameObject.DontDestroyOnLoad(luaObj);
 		luaObj.transform.SetParent(gameObj.transform);
 
+
+		_isInit = true;
 	}
 }

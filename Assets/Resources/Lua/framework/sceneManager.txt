@@ -26,8 +26,10 @@ function sceneManager.onSwitchScene(event)
 	if sceneManager.currentScene then
 		
 		sceneManager.currentScene:onLeaveScene();
+		print("sceneManager.currentScene:sceneid()  "..sceneManager.currentScene:sceneid());
 
-		UnityEngine.SceneManagement.SceneManager:UnloadScene(sceneManager.currentScene:sceneid());
+		local config = gds.sceneConfig[sceneManager.currentScene:sceneid()];
+		UnityEngine.SceneManagement.SceneManager.UnloadScene(config.name);
 
 		sceneManager.currentScene = nil;
 

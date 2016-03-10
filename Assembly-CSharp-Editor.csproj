@@ -58,6 +58,7 @@
      <None Include="Assets\Slua\Resources\originalResource\custom.txt" />
      <None Include="Assets\Resources\Lua\global_define.txt" />
      <None Include="Assets\Resources\Lua\framework\uiTypeCast.txt" />
+     <None Include="Assets\Resources\Lua\ui\battleView.txt" />
      <None Include="Assets\Resources\Lua\framework\scene.txt" />
      <None Include="Assets\Resources\Lua\framework\utils.txt" />
      <None Include="Assets\Resources\Lua\framework\resourceManager.txt" />

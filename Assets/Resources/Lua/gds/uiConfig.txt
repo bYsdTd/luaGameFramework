@@ -5,4 +5,10 @@ gds.uiConfig ={
 		['prefab'] = 'loadingView',
 		['script'] = 'loadingView',
 	},
+	[2] = {
+		['id'] = 2,
+		['name'] = 'battleView',
+		['prefab'] = 'battleView',
+		['script'] = 'battleView',
+	},
 }

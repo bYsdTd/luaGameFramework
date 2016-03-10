@@ -66,15 +66,17 @@ function layoutManager.onHideLayout( event )
 
 	print("onHideLayout");
 
-	if layoutManager.layoutMap[event.layoutName] and layoutManager.layoutMap[event.layoutName][event.layoutIndex] then
+	local config = layoutManager.eventMap[event.name];
 
-		local layoutInstance = layoutManager.layoutMap[event.layoutName][event.layoutIndex];
+	if layoutManager.layoutMap[config.name] and layoutManager.layoutMap[config.name][event.layoutIndex] then
+
+		local layoutInstance = layoutManager.layoutMap[config.name][event.layoutIndex];
 
 		layoutInstance:onHide(event);
 		
 		layoutInstance:destroy();
 
-		layoutManager.layoutMap[event.layoutName][event.layoutIndex] = nil;
+		layoutManager.layoutMap[config.name][event.layoutIndex] = nil;
 	end
 
 

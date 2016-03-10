@@ -1,0 +1,30 @@
+local battleView = class("battleView", layout);
+
+-- event define
+global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE = "EVENT_UI_BATTLEVIEW_UPDATE";
+
+function battleView:ctor(layoutConig, event)
+
+	battleView.super.ctor(self, layoutConig, event);
+	
+	self:registerEvent(global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE, self.onUpdate);
+
+end
+
+function  battleView:onShow(event)
+	
+	self.btnClose = uiTypeCast.toButton(self:getChild("btnClose"));
+	
+	self.btnClose.onClick:AddListener(function ()
+		
+		eventManager.postEvent({name = sceneManager.EVENT_SCENE_SWITCH_SCENE, sceneid = sceneManager.SCENE_ID.LOADING } );
+		eventManager.postEvent({name = "EVENT_UI_BATTLEVIEW_HIDE", layoutIndex = self._layoutIndex } );
+	end);
+
+end
+
+function battleView:onUpdate(event)
+
+end
+
+return battleView;

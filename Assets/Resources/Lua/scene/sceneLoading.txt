@@ -2,10 +2,14 @@ local sceneLoading = class("sceneLoading", scene)
 
 function sceneLoading:ctor(sceneid)
 	
+	sceneLoading.super.ctor(self, sceneid);
+
 end
 
 function sceneLoading:onEnterScene( ... )
-	-- body
+	
+	eventManager.postEvent({name = "EVENT_UI_LOADINGVIEW_SHOW"});
+
 end
 
 function sceneLoading:onLeaveScene( ... )
