@@ -72,6 +72,8 @@
      <None Include="Assets\Slua\Resources\originalResource\circle\circle.txt" />
      <None Include="Assets\Resources\Lua\framework\layoutManager.txt" />
      <None Include="Assets\Slua\Resources\originalResource\custom.txt" />
+     <None Include="Assets\Resources\Lua\global_define.txt" />
+     <None Include="Assets\Resources\Lua\framework\uiTypeCast.txt" />
      <None Include="Assets\Resources\Lua\framework\utils.txt" />
      <None Include="Assets\Resources\Lua\framework\resourceManager.txt" />
      <None Include="Assets\Resources\Lua\framework\eventManager.txt" />

@@ -16,6 +16,7 @@ function utils.addChild(parent, child)
 
 end
 
+-- ui 
 function  utils.setAnchoredPosition(gameobject, x, y )
 	
 	local rectCom = gameobject:GetComponent(UnityEngine.RectTransform);
@@ -51,3 +52,28 @@ function  utils.setUIOffsetMax(gameobject, x, y )
 	end
 
 end
+
+-- 用名字做索引，获得child的map
+function  utils.getChildrenMap( gameobject, mapTable )
+	
+	if not gameobject then
+		return nil;
+	end
+
+	local childCount = gameobject.transform.childCount;
+
+	for i=0, childCount-1 do
+		local childTransform = gameobject.transform:GetChild(i);
+
+		if mapTable[childTransform.name] then
+			print("getChildrenMap error, a object has the name is already exist! name: "..childTransform.name);
+			return nil;
+		end
+
+		mapTable[childTransform.name] = childTransform.gameObject;
+
+		utils.getChildrenMap(childTransform.gameObject, mapTable);
+		
+	end
+end
+

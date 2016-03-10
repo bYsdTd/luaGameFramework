@@ -56,7 +56,7 @@ function  layoutManager.onShowLayout( event )
 	end
 
 	local layoutClass = include("ui."..uiConfig.script);
-	local layoutInstance = layoutClass.new(uiConfig, event.layoutIndex);
+	local layoutInstance = layoutClass.new(uiConfig, event);
 	layoutManager.layoutMap[uiConfig.name][event.layoutIndex] = layoutInstance;
 	
 end

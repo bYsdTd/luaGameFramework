@@ -1,9 +1,35 @@
 local loadingView = class("loadingView", layout);
 
-function loadingView:ctor(layoutConig, layoutIndex)
+-- event define
+global_uiEvent.LOADINGVIEW_UPDATE = "LOADINGVIEW_UPDATE";
 
-	loadingView.super.ctor(self, layoutConig, layoutIndex);
+function loadingView:ctor(layoutConig, event)
+
+	loadingView.super.ctor(self, layoutConig, event);
 	
+	self:registerEvent(global_uiEvent.LOADINGVIEW_UPDATE, self.onUpdate);
+
+end
+
+function  loadingView:onShow(event)
+	
+	self.lblTitle = uiTypeCast.toLable(self:getChild("lblGameName"));
+	self.btnEnter = uiTypeCast.toButton(self:getChild("btnEnter"));
+
+	self.lblTitle.text = "欢迎来到万智消消乐";
+	
+	self.btnEnter.onClick:AddListener(function ()
+		
+		print("on click hello world!");
+
+	end);
+
+end
+
+function loadingView:onUpdate(event)
+	
+	print("on loadingView update ");
+
 end
 
 return loadingView;

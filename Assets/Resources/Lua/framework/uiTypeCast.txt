@@ -1,0 +1,13 @@
+uiTypeCast = {};
+
+function uiTypeCast.toLable( gameobject )
+	
+	return gameobject:GetComponent(UnityEngine.UI.Text);
+
+end
+
+function uiTypeCast.toButton( gameobject )
+	
+	return gameobject:GetComponent(UnityEngine.UI.Button);
+	
+end

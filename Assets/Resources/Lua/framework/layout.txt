@@ -1,12 +1,14 @@
 layout = class("layout");
 
-function layout:ctor(layoutConig, layoutIndex)
+function layout:ctor(layoutConig, event)
 
-	self._layoutIndex = layoutIndex;
+	self._layoutIndex = event.layoutIndex;
 	self._layoutConfig = layoutConig;
 
 	self._layoutPrefabClone = nil;
-
+	
+	self._childrenMap = {};
+	self._childrenMapNeedUpdate = true;
 
 	resourceManager.load("UI/"..self._layoutConfig.prefab, function (object)
 		
@@ -17,6 +19,47 @@ function layout:ctor(layoutConig, layoutIndex)
 		-- reset position
 		utils.setUIOffsetMin(self._layoutPrefabClone, 0, 0);
 		utils.setUIOffsetMax(self._layoutPrefabClone, 0, 0);
+
+		self:onShow(event);
+
+		-- test date
+		eventManager.postEvent({name = "LOADINGVIEW_UPDATE", param = {"param1", "param2"}});
+
 	end);
 
+end
+
+function layout:registerEvent(eventName, handle)
+	
+	eventManager.addEvent(eventName, handle);
+
+end
+
+-- base class
+-- do nothing
+function layout:onShow(event)
+	
+end
+
+-- base class
+function layout:onHide(event)
+	
+end
+
+function layout:getChild(name)
+	
+	if not self._layoutPrefabClone then
+		return nil;
+	end
+
+	if self._childrenMapNeedUpdate then
+		
+		utils.getChildrenMap(self._layoutPrefabClone, self._childrenMap);
+
+		dump(self._childrenMap);
+		
+		self._childrenMapNeedUpdate = false;
+	end
+
+	return self._childrenMap[name];
 end
