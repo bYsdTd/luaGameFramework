@@ -29,6 +29,14 @@ function layout:ctor(layoutConig, event)
 
 end
 
+function layout:destroy()
+	
+	print("layout destroy");
+	UnityEngine.GameObject.Destroy(self._layoutPrefabClone);
+	self._layoutPrefabClone = nil;
+
+end
+
 function layout:registerEvent(eventName, handle)
 	
 	eventManager.addEvent(eventName, handle);

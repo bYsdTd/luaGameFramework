@@ -35,7 +35,7 @@ function sceneManager.onSwitchScene(event)
 
 	local config = gds.sceneConfig[event.sceneid];
 
-	UnityEngine.SceneManagement.SceneManager:LoadSceneAsync(config.name);
+	UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(config.name);
 
 	local sceneClass = include("scene."..config.script);
 

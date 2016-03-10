@@ -1,4 +1,4 @@
-sceneLoading = class("sceneLoading", scene)
+local sceneLoading = class("sceneLoading", scene)
 
 function sceneLoading:ctor(sceneid)
 	
@@ -16,3 +16,4 @@ function sceneLoading:tick( ... )
 	-- body
 end
 
+return sceneLoading;

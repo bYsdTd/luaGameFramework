@@ -1,4 +1,4 @@
-sceneBattle = class("sceneBattle", scene)
+local sceneBattle = class("sceneBattle", scene)
 
 function sceneBattle:ctor(sceneid)
 	
@@ -16,4 +16,4 @@ function sceneBattle:tick( ... )
 	-- body
 end
 
-
+return sceneBattle;
