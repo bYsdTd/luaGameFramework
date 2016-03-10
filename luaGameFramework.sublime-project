@@ -3,6 +3,9 @@
 	[
 		{
 			"path": "Assets/Resources/Lua"
+		},
+		{
+			"path": "Assets/Resources"
 		}
 	]
 }

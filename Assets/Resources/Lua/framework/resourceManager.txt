@@ -6,4 +6,30 @@ end
 
 function  resourceManager.load(name, successCallback, failedCallback)
     
+    print("resourceManager.load "..name);
+
+	local co = coroutine.create(function ( path )
+		
+		print("load begin");
+		local request = UnityEngine.Resources.LoadAsync(path);
+		dump(request.isDone);
+
+		while(not request.isDone) do
+			print("wait done "..tostring(request.isDone));
+			UnityEngine.Yield();
+		end
+
+		print("load done");
+
+		if request.asset and successCallback then
+			successCallback(request.asset);
+		elseif failedCallback then
+			failedCallback();
+		end
+
+	end);
+
+	coroutine.resume(co, name);
+	
+
 end

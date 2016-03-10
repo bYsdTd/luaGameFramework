@@ -1,11 +1,22 @@
 layout = class("layout");
 
-function layout:ctor(layoutType, layoutIndex)
+function layout:ctor(layoutConig, layoutIndex)
 
-	self._layoutType = layoutType;
 	self._layoutIndex = layoutIndex;
+	self._layoutConfig = layoutConig;
 
-	-- load prefab
-	
+	self._layoutPrefabClone = nil;
+
+
+	resourceManager.load("UI/"..self._layoutConfig.prefab, function (object)
+		
+		self._layoutPrefabClone = UnityEngine.GameObject.Instantiate(object);
+
+		utils.addChild(layoutManager.rootCavas, self._layoutPrefabClone );
+
+		-- reset position
+		utils.setUIOffsetMin(self._layoutPrefabClone, 0, 0);
+		utils.setUIOffsetMax(self._layoutPrefabClone, 0, 0);
+	end);
+
 end
-

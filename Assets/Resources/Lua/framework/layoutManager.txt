@@ -1,10 +1,18 @@
 layoutManager = {};
+-- 注册所有窗口的打开关闭事件
 layoutManager.eventMap = {};
+-- 根窗口
+layoutManager.rootCavas = nil;
+-- 所有实例化的窗口
+layoutManager.layoutMap = {};
 
 function layoutManager.init()
 
 	layoutManager.registerEvent();
 	
+	layoutManager.rootCavas = UnityEngine.GameObject.Find("uiManager/Canvas");
+
+
 end
 
 -- register event
@@ -33,6 +41,24 @@ function  layoutManager.onShowLayout( event )
 	local uiConfig = layoutManager.eventMap[event.name];
 	print("onShowLayout"..uiConfig.prefab);
 
+	-- layout的标示，用来创建同一个layout的多个实例
+	if event.layoutIndex == nil then
+		event.layoutIndex = 1;
+	end
+
+	if layoutManager.layoutMap[uiConfig.name] == nil then
+		layoutManager.layoutMap[uiConfig.name] = {};
+	end
+
+	if layoutManager.layoutMap[uiConfig.name][event.layoutIndex] then
+		print("layout already exist! name: "..uiConfig.name.." index: "..event.layoutIndex);
+		return;
+	end
+
+	local layoutClass = include("ui."..uiConfig.script);
+	local layoutInstance = layoutClass.new(uiConfig, event.layoutIndex);
+	layoutManager.layoutMap[uiConfig.name][event.layoutIndex] = layoutInstance;
+	
 end
 
 -- on hide event

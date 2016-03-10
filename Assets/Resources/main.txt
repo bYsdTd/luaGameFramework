@@ -7,7 +7,6 @@ include = function (name)
 end
 
 include("include")
-include("game")
 
 function main()
 
@@ -26,19 +25,19 @@ end
 
 function HandleTouchDown( x, y )
 
-	print("HandleTouchDown "..x.." "..y);
+	--print("HandleTouchDown "..x.." "..y);
 
 end
 
 
 function HandleTouchMove( x, y)
 	
-	print("HandleTouchMove "..x.." "..y);
+	--print("HandleTouchMove "..x.." "..y);
 
 end
 
 function HandleTouchUp( x, y )
 	
-	print("HandleTouchUp "..x.." "..y);
+	--print("HandleTouchUp "..x.." "..y);
 	
 end

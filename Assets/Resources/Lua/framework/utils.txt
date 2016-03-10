@@ -1,0 +1,53 @@
+utils = {};
+
+function utils.addChildAndReset(parent, child)
+
+	child.transform:SetParent(parent.transform);
+
+	child.transform.localPosition = UnityEngine.Vector3.zero;
+	child.transform.localRotation = UnityEngine.Quaternion.identity;
+	child.transform.localScale = UnityEngine.Vector3.one;
+
+end
+
+function utils.addChild(parent, child)
+
+	child.transform:SetParent(parent.transform);
+
+end
+
+function  utils.setAnchoredPosition(gameobject, x, y )
+	
+	local rectCom = gameobject:GetComponent(UnityEngine.RectTransform);
+
+	if rectCom then
+		
+		rectCom.anchoredPosition = UnityEngine.Vector2(x, y);
+
+	end
+
+end
+
+function  utils.setUIOffsetMin(gameobject, x, y )
+	
+	local rectCom = gameobject:GetComponent(UnityEngine.RectTransform);
+
+	if rectCom then
+		
+		rectCom.offsetMin = UnityEngine.Vector2(x, y);
+
+	end
+
+end
+
+function  utils.setUIOffsetMax(gameobject, x, y )
+	
+	local rectCom = gameobject:GetComponent(UnityEngine.RectTransform);
+
+	if rectCom then
+		
+		rectCom.offsetMax = UnityEngine.Vector2(x, y);
+
+	end
+
+end

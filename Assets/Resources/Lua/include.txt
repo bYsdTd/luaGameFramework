@@ -5,6 +5,7 @@ include("framework.debugs")
 include("framework.functions")
 include("framework.layoutManager")
 include("framework.layout")
+include("framework.utils")
 
 -- gds
 include("gds.gdsManager")

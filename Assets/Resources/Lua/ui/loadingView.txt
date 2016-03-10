@@ -1,0 +1,9 @@
+local loadingView = class("loadingView", layout);
+
+function loadingView:ctor(layoutConig, layoutIndex)
+
+	loadingView.super.ctor(self, layoutConig, layoutIndex);
+	
+end
+
+return loadingView;
