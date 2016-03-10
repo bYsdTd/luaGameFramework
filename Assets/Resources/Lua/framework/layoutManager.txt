@@ -1,9 +1,10 @@
 layoutManager = {};
+layoutManager.eventMap = {};
 
 function layoutManager.init()
 
 	layoutManager.registerEvent();
-
+	
 end
 
 -- register event
@@ -19,19 +20,23 @@ function layoutManager.registerEvent()
 
 		eventManager.addEvent(showEventName, layoutManager.onShowLayout);
 		eventManager.addEvent(hideEventName, layoutManager.onHideLayout);
+
+		layoutManager.eventMap[showEventName] = v;
+		layoutManager.eventMap[hideEventName] = v;
 	end
 
 end
 
 -- on show event
-function  layoutManager.onShowLayout( )
+function  layoutManager.onShowLayout( event )
 	
-	print("onShowLayout");
+	local uiConfig = layoutManager.eventMap[event.name];
+	print("onShowLayout"..uiConfig.prefab);
 
 end
 
 -- on hide event
-function layoutManager.onHideLayout( )
+function layoutManager.onHideLayout( event )
 
 	print("onHideLayout");
 

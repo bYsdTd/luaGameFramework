@@ -61,6 +61,7 @@
      <None Include="Assets\Resources\Lua\gds\uiConfig.txt" />
      <None Include="Assets\Slua\Resources\originalResource\valuetype.txt" />
      <None Include="Assets\Resources\Lua\framework\functions.txt" />
+     <None Include="Assets\Resources\Lua\main.txt" />
      <None Include="Assets\Resources\Lua\include.txt" />
      <None Include="Assets\Slua\Resources\originalResource\delegate.txt" />
      <None Include="Assets\Slua\Resources\originalResource\perf.txt" />
