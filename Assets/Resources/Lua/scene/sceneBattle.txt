@@ -8,6 +8,12 @@ function sceneBattle:ctor(sceneid)
 
 end
 
+function sceneBattle:getBattleLogic( )
+	
+	return self._battleLogic;
+	
+end
+
 function sceneBattle:onEnterScene( ... )
 	-- body
 

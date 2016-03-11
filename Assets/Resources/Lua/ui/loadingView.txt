@@ -12,7 +12,7 @@ function loadingView:ctor(layoutConig, event)
 end
 
 function  loadingView:onShow(event)
-	
+
 	self.lblTitle = uiTypeCast.toLable(self:getChild("lblGameName"));
 	self.btnEnter = uiTypeCast.toButton(self:getChild("btnEnter"));
 

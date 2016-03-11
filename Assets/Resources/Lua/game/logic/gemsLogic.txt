@@ -6,15 +6,51 @@ GEMS_LOGIC_GEMS_TYPE = 5;
 
 function gemsLogic:ctor()
 	
-	self._gemsData = gemsData.new(GEMS_LOGIC_GEMS_COLUMN, GEMS_LOGIC_GEMS_ROW, GEMS_LOGIC_GEMS_TYPE);
-
-	self._gemsData:generate();
+	self._gemsData = nil;
 
 	self._gemsObjects = {};
+
+	self:registerEvent();
+
+	self._gemsRoot = nil;
+
+end
+
+function gemsLogic:onHandleInitBattle(event)		
+
+	self._gemsData = gemsData.new(event.data.w, event.data.h, event.data.gemType);
+
+	self._gemsData:setData(event.data.data);
+
+	self:initGemObjects();
+
+end
+
+function gemsLogic:registerEvent()
+
+	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_INIT, self.onHandleInitBattle, self);
+
+end
+
+function gemsLogic:removeAllEvent()
+	
+	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_INIT, self.onHandleInitBattle);
+
+end
+
+
+function gemsLogic:getGemsRoot( ... )
+
 
 end
 
 function gemsLogic:initGemObjects( )
+
+	self._gemsRoot = UnityEngine.GameObject("gemsRoot");
+	
+	self._gemsRoot.transform:SetSiblingIndex(2);
+
+	utils.addChild(layoutManager.rootCanvas, self._gemsRoot );
 
 	local data = self._gemsData:getData();
 	local w = self._gemsData:getWidth();
@@ -26,7 +62,7 @@ function gemsLogic:initGemObjects( )
 		
 			local index = self._gemsData:getIndexByPos(column, row);
 
-			local gemInstance = gemObject.new(column, row, data[column][row]);
+			local gemInstance = gemObject.new(column, row, data[column][row], self._gemsRoot);
 
 			self._gemsObjects[index] = gemInstance;
 
@@ -36,13 +72,32 @@ function gemsLogic:initGemObjects( )
 
 end
 
-function gemsLogic:destroy( ... )
+function gemsLogic:destroy( )
 	
+	self:removeAllEvent();
+
 	if self._gemsData then
 		
 		self._gemsData:destroy();
 
 		self._gemsData = nil;
+
+	end
+
+	for k,v in pairs(self._gemsObjects) do
+		
+
+		v:destroy();
+
+	end
+
+	self._gemsObjects = {};
+
+	if 	self._gemsRoot then
+	
+		UnityEngine.GameObject.Destroy(self._gemsRoot);
+
+		self._gemsRoot = nil;
 
 	end
 

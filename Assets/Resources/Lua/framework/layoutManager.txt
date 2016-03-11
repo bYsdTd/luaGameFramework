@@ -2,7 +2,7 @@ layoutManager = {};
 -- 注册所有窗口的打开关闭事件
 layoutManager.eventMap = {};
 -- 根窗口
-layoutManager.rootCavas = nil;
+layoutManager.rootCanvas = nil;
 -- 所有实例化的窗口
 layoutManager.layoutMap = {};
 
@@ -10,8 +10,22 @@ function layoutManager.init()
 
 	layoutManager.registerEvent();
 	
-	layoutManager.rootCavas = UnityEngine.GameObject.Find("uiManager/Canvas");
+	layoutManager.rootCanvas = UnityEngine.GameObject.Find("uiManager/Canvas");
 
+
+end
+
+function layoutManager.getCanvasSize()
+	
+	if layoutManager.rootCanvas then
+	
+		local canvas = layoutManager.rootCanvas:GetComponent(UnityEngine.Canvas);
+
+		return UnityEngine.Vector2(canvas.pixelRect.width, canvas.pixelRect.height);
+	else
+
+		return UnityEngine.Vector2.zero;
+	end
 
 end
 

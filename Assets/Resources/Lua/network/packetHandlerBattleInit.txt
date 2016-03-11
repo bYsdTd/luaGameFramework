@@ -1,5 +1,6 @@
 -- handler
-function networkManager.onHandleBattleInit(data)
+function networkManager.onHandleBattleInit(packetData)
 	
-	
+	eventManager.postEvent({ name = EVENT_ID.EVENT_BATTLE_INIT, data = packetData });
+
 end

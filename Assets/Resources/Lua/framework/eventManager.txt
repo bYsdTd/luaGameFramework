@@ -25,7 +25,6 @@ end
 
 ---{name = "logoshow",""}
 function eventManager.postEvent(event)
-  
   assert(event.name ~= nil,
          "eventManager:dispatchEvent() - invalid eventKey"..(event.name))       
  

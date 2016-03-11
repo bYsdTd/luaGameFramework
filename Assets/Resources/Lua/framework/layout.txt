@@ -16,7 +16,9 @@ function layout:ctor(layoutConig, event)
 		
 		self._layoutPrefabClone = UnityEngine.GameObject.Instantiate(object);
 
-		utils.addChild(layoutManager.rootCavas, self._layoutPrefabClone );
+		utils.addChild(layoutManager.rootCanvas, self._layoutPrefabClone );
+
+		self._layoutPrefabClone.transform:SetAsFirstSibling();
 
 		-- reset position
 		utils.setUIOffsetMin(self._layoutPrefabClone, 0, 0);

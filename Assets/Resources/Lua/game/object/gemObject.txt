@@ -1,17 +1,57 @@
 gemObject = class("gemObject")
 
-function gemObject:ctor(column, row, gemType)
+local colorMap = 
+{
+	[1] = UnityEngine.Color(1, 0, 0, 1);	
+	[2] = UnityEngine.Color(0, 1, 0, 1);
+	[3] = UnityEngine.Color(0, 0, 1, 1);
+	[4] = UnityEngine.Color(1, 1, 0, 1);
+	[5] = UnityEngine.Color(0, 1, 1, 1);
+	[6] = UnityEngine.Color(1, 0, 1, 1);
+};
+
+function gemObject:ctor(column, row, gemType, rootObject)
 	
 	self._column = column;
 	self._row = row;
 	self._gemType = gemType;
 
+	self._gemsRoot = rootObject;
+
 	-- init from prefab
-	
-	
+	self._gameobj = UnityEngine.GameObject("gem");
+	self._imageCom = self._gameobj:AddComponent(UnityEngine.UI.Image);
+
+	self._rectCom = self._gameobj:GetComponent(UnityEngine.RectTransform);
+	self._imageCom.color = colorMap[self._gemType];
+
+	utils.addChild(self._gemsRoot, self._gameobj );
+
+	-- init postion
+	local canvasSize = layoutManager.getCanvasSize();
+	local gemSize = canvasSize.y / GEMS_LOGIC_GEMS_ROW;
+	local xoffset = (canvasSize.x - gemSize * GEMS_LOGIC_GEMS_COLUMN)/2;
+
+	self._rectCom.pivot = UnityEngine.Vector2(0, 1);
+	self._rectCom.anchoredPosition = UnityEngine.Vector2(xoffset + (column-1)*gemSize, canvasSize.y - (row - 1)*gemSize);
+	self._rectCom.sizeDelta = UnityEngine.Vector2(gemSize-5, gemSize-5);
+
 end
 
-function gemObject:detroy()
+function gemObject:destroy()
 
+	if self._gameobj then
+		
+		UnityEngine.GameObject.Destroy(self._gameobj);
+		
+		self._gameobj = nil;
+
+	end
+
+
+end
+
+function gemObject:playInitAnimate()
+	
 
 end

@@ -15,6 +15,9 @@ include("framework.sceneManager")
 include("framework.utils")
 include("framework.uiTypeCast")
 
+-- define
+include("event_define")
+
 -- scene
 include("scene.sceneLoading")
 include("scene.sceneBattle")

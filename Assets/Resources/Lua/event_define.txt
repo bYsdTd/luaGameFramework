@@ -1,0 +1,4 @@
+-- define global event
+
+EVENT_ID = {};
+EVENT_ID.EVENT_BATTLE_INIT = "EVENT_BATTLE_INIT";
