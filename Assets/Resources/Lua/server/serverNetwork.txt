@@ -1,18 +1,18 @@
 serverNetwork = {};
 serverNetwork.handler = {};
 
-include("serverHandlerSwapGems")
+include("server.serverHandlerSwapGems")
 
 function serverNetwork.init()
 	
 	-- register handler
-	serverNetwork.handler[packetID] = serverNetwork.onHandleSwapGems;
+	serverNetwork.handler[GLOBAL_PACKET_ID.BATTLE_SWAP_GEMS] = serverNetwork.onHandleSwapGems;
 end
 
 function  serverNetwork.send( packetID, data )
 	
 	networkManager.receive( packetID, data );
-	
+
 end
 
 function serverNetwork.receive( packetID, data )

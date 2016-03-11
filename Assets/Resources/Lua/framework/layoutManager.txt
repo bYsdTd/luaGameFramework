@@ -23,9 +23,6 @@ function layoutManager.registerEvent()
 		local showEventName = "EVENT_UI_"..string.upper(v.name).."_SHOW";
 		local hideEventName = "EVENT_UI_"..string.upper(v.name).."_HIDE";
 
-		print(showEventName);
-		print(hideEventName);
-
 		eventManager.addEvent(showEventName, layoutManager.onShowLayout);
 		eventManager.addEvent(hideEventName, layoutManager.onHideLayout);
 
@@ -39,7 +36,6 @@ end
 function  layoutManager.onShowLayout( event )
 	
 	local uiConfig = layoutManager.eventMap[event.name];
-	print("onShowLayout"..uiConfig.prefab);
 
 	-- layout的标示，用来创建同一个layout的多个实例
 	if event.layoutIndex == nil then
@@ -64,7 +60,6 @@ end
 -- on hide event
 function layoutManager.onHideLayout( event )
 
-	print("onHideLayout");
 
 	local config = layoutManager.eventMap[event.name];
 

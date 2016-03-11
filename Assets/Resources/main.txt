@@ -7,6 +7,7 @@ include = function (name)
 end
 
 include("include")
+include("game.gameMain")
 
 function main()
 
@@ -14,33 +15,4 @@ function main()
 
 	eventManager.postEvent({name = "EVENT_UI_LOADINGVIEW_SHOW", param = {"param1", "param2"}});
 
-end
-
-function init( ... )
-	
-	layoutManager.init();
-	
-	resourceManager.init();
-
-	sceneManager.init();
-
-end
-
-function HandleTouchDown( x, y )
-
-	--print("HandleTouchDown "..x.." "..y);
-
-end
-
-
-function HandleTouchMove( x, y)
-	
-	--print("HandleTouchMove "..x.." "..y);
-
-end
-
-function HandleTouchUp( x, y )
-	
-	--print("HandleTouchUp "..x.." "..y);
-	
 end

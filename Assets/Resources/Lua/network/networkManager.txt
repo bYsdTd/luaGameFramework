@@ -1,6 +1,7 @@
 networkManager = {};
 networkManager.handler = {};
-include("network.pakcetHandlerBattleInit")
+include("network.packetID_define")
+include("network.packetHandlerBattleInit")
 
 function networkManager.init()
 	

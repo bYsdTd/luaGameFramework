@@ -31,7 +31,6 @@ end
 
 function layout:destroy()
 	
-	print("layout destroy");
 	UnityEngine.GameObject.Destroy(self._layoutPrefabClone);
 	self._layoutPrefabClone = nil;
 
@@ -63,8 +62,6 @@ function layout:getChild(name)
 	if self._childrenMapNeedUpdate then
 		
 		utils.getChildrenMap(self._layoutPrefabClone, self._childrenMap);
-
-		dump(self._childrenMap);
 		
 		self._childrenMapNeedUpdate = false;
 	end

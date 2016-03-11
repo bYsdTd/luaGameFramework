@@ -1,0 +1,34 @@
+-- all global funcion here
+
+function init( ... )
+	
+	layoutManager.init();
+	
+	resourceManager.init();
+
+	sceneManager.init();
+
+	networkManager.init();
+
+	serverNetwork.init();
+
+end
+
+function HandleTouchDown( x, y )
+
+	--print("HandleTouchDown "..x.." "..y);
+
+end
+
+
+function HandleTouchMove( x, y)
+	
+	--print("HandleTouchMove "..x.." "..y);
+
+end
+
+function HandleTouchUp( x, y )
+	
+	--print("HandleTouchUp "..x.." "..y);
+	
+end

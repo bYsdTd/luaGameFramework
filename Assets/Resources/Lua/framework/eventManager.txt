@@ -29,8 +29,6 @@ function eventManager.postEvent(event)
   assert(event.name ~= nil,
          "eventManager:dispatchEvent() - invalid eventKey"..(event.name))       
  
- 	print("eventManager.dispatchEvent(event)  "..event.name);
- 
     local eventName = string.upper(event.name)
     if eventManager.debug_ then
         echoInfo("eventManager:dispatchEvent() - dispatching event %s", eventName)
