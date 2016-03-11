@@ -1,0 +1,20 @@
+battleLogic = class("battleLogic")
+
+function battleLogic:ctor()
+	
+	self._gemsLogic = gemsLogic.new();
+
+end
+
+function battleLogic:destroy( ... )
+	
+
+	if self._gemsLogic then
+	
+		self._gemsLogic:destroy();
+
+		self._gemsLogic = nil;
+
+	end
+
+end

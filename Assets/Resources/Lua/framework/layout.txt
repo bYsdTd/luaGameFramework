@@ -10,6 +10,8 @@ function layout:ctor(layoutConig, event)
 	self._childrenMap = {};
 	self._childrenMapNeedUpdate = true;
 
+	self._eventMap = {};
+
 	resourceManager.load("UI/"..self._layoutConfig.prefab, function (object)
 		
 		self._layoutPrefabClone = UnityEngine.GameObject.Instantiate(object);
@@ -22,14 +24,13 @@ function layout:ctor(layoutConig, event)
 
 		self:onShow(event);
 
-		-- test date
-		eventManager.postEvent({name = global_uiEvent.LOADINGVIEW_UPDATE, param = {"param1", "param2"}});
-
 	end);
 
 end
 
 function layout:destroy()
+	
+	self:removeAllEvent();
 	
 	UnityEngine.GameObject.Destroy(self._layoutPrefabClone);
 	self._layoutPrefabClone = nil;
@@ -39,6 +40,18 @@ end
 function layout:registerEvent(eventName, handle)
 	
 	eventManager.addEvent(eventName, handle);
+
+	table.insert(self._eventMap, {eventName = eventName, handle = handle});
+
+end
+
+function layout:removeAllEvent()
+
+	for k,v in pairs(self._eventMap) do
+		
+		eventManager.removeEvent(v.eventName, v.handle);
+
+	end
 
 end
 

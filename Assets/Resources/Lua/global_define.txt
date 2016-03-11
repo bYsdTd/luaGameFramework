@@ -1,1 +1,5 @@
+-- define global table and const
 global_uiEvent = {};
+
+
+-- const

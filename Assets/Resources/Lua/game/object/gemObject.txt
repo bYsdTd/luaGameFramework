@@ -1,0 +1,17 @@
+gemObject = class("gemObject")
+
+function gemObject:ctor(column, row, gemType)
+	
+	self._column = column;
+	self._row = row;
+	self._gemType = gemType;
+
+	-- init from prefab
+	
+	
+end
+
+function gemObject:detroy()
+
+
+end

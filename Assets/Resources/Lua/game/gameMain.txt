@@ -1,5 +1,4 @@
 -- all global funcion here
-
 function init( ... )
 	
 	layoutManager.init();
@@ -32,3 +31,4 @@ function HandleTouchUp( x, y )
 	--print("HandleTouchUp "..x.." "..y);
 	
 end
+

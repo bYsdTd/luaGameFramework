@@ -20,9 +20,9 @@ function  loadingView:onShow(event)
 	
 	self.btnEnter.onClick:AddListener(function ()
 		
-		eventManager.postEvent({name = sceneManager.EVENT_SCENE_SWITCH_SCENE, sceneid = sceneManager.SCENE_ID.BATTLE } );
 		eventManager.postEvent({name = "EVENT_UI_LOADINGVIEW_HIDE", layoutIndex = self._layoutIndex } );
 		eventManager.postEvent({name = "EVENT_UI_BATTLEVIEW_SHOW"} );
+		eventManager.postEvent({name = sceneManager.EVENT_SCENE_SWITCH_SCENE, sceneid = sceneManager.SCENE_ID.BATTLE } );
 
 	end);
 

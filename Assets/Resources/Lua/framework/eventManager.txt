@@ -59,7 +59,7 @@ function eventManager.postEvent(event)
    -- return eventManager 
 end
 
-function eventManager.removeEventListener(eventName, key)
+function eventManager.removeEvent(eventName, key)
     
     assert(eventName ~= nil,
         "eventManager:removeEventListener() - invalid eventKey"..eventName) 

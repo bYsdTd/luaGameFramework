@@ -4,14 +4,30 @@ function sceneBattle:ctor(sceneid)
 	
 	sceneBattle.super.ctor(self, sceneid);
 
+	self._battleLogic = battleLogic.new();
+
 end
 
 function sceneBattle:onEnterScene( ... )
 	-- body
+
+	serverMain.initBattle();
+
+	eventManager.postEvent({name = global_uiEvent.LOADINGVIEW_UPDATE});
+
 end
 
 function sceneBattle:onLeaveScene( ... )
 	-- body
+
+	if self._battleLogic then
+		
+		self._battleLogic:destroy();
+
+		self._battleLogic = nil;
+		
+	end
+
 end
 
 function sceneBattle:tick( ... )

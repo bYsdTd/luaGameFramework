@@ -15,6 +15,12 @@ function sceneManager.init()
 
 end
 
+function sceneManager.destroy()
+
+	eventManager.removeEvent(sceneManager.EVENT_SCENE_SWITCH_SCENE, sceneManager.onSwitchScene);
+
+end
+
 function sceneManager.onSwitchScene(event)
 	
 	if sceneManager.currentScene and event.sceneid == sceneManager.currentScene:sceneid() then
@@ -29,7 +35,6 @@ function sceneManager.onSwitchScene(event)
 		print("sceneManager.currentScene:sceneid()  "..sceneManager.currentScene:sceneid());
 
 		local config = gds.sceneConfig[sceneManager.currentScene:sceneid()];
-		UnityEngine.SceneManagement.SceneManager.UnloadScene(config.name);
 
 		sceneManager.currentScene = nil;
 

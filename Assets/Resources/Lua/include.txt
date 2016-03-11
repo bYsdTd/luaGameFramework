@@ -27,3 +27,13 @@ include("network.networkManager")
 
 -- server
 include("server.serverMain")
+
+-- game
+-- game data
+include("game.data.gemsData")
+-- game logic
+include("game.logic.battleLogic")
+include("game.logic.gemsLogic")
+
+-- game object
+include("game.object.gemObject")

@@ -15,6 +15,12 @@ function layoutManager.init()
 
 end
 
+function layoutManager.destroy()
+
+	layoutManager.removeAllEvent();
+
+end
+
 -- register event
 function layoutManager.registerEvent()
 	
@@ -25,6 +31,24 @@ function layoutManager.registerEvent()
 
 		eventManager.addEvent(showEventName, layoutManager.onShowLayout);
 		eventManager.addEvent(hideEventName, layoutManager.onHideLayout);
+
+		layoutManager.eventMap[showEventName] = v;
+		layoutManager.eventMap[hideEventName] = v;
+	end
+
+end
+
+-- remove event
+
+function layoutManager.removeAllEvent( )
+
+	for k, v in pairs(gds.uiConfig) do
+		
+		local showEventName = "EVENT_UI_"..string.upper(v.name).."_SHOW";
+		local hideEventName = "EVENT_UI_"..string.upper(v.name).."_HIDE";
+
+		eventManager.removeEvent(showEventName, layoutManager.onShowLayout);
+		eventManager.removeEvent(hideEventName, layoutManager.onHideLayout);
 
 		layoutManager.eventMap[showEventName] = v;
 		layoutManager.eventMap[hideEventName] = v;

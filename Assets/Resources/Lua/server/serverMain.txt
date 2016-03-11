@@ -1,2 +1,22 @@
 include("server.serverNetwork")
 include("server.serverHandlerSwapGems")
+
+serverMain = {};
+serverMain.gemsData = nil;
+
+function serverMain.initBattle()
+	
+	serverMain.gemsData = gemsData.new(GEMS_LOGIC_GEMS_COLUMN, GEMS_LOGIC_GEMS_ROW, GEMS_LOGIC_GEMS_TYPE);
+
+	serverMain.gemsData:generate();
+
+	-- send init data 
+	local data = {};
+	data.w = serverMain.gemsData:getWidth();
+	data.h = serverMain.gemsData:getHeight();
+	data.gemType = serverMain.gemsData:getBlockTypes();
+	data.data = serverMain.gemsData:getData();
+	
+	serverNetwork.send(GLOBAL_PACKET_ID.BATTLE_INIT, data);
+end
+

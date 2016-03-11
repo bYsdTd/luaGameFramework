@@ -1,0 +1,49 @@
+gemsLogic = class("gemsLogic")
+
+GEMS_LOGIC_GEMS_ROW = 7;
+GEMS_LOGIC_GEMS_COLUMN = 7;
+GEMS_LOGIC_GEMS_TYPE = 5;
+
+function gemsLogic:ctor()
+	
+	self._gemsData = gemsData.new(GEMS_LOGIC_GEMS_COLUMN, GEMS_LOGIC_GEMS_ROW, GEMS_LOGIC_GEMS_TYPE);
+
+	self._gemsData:generate();
+
+	self._gemsObjects = {};
+
+end
+
+function gemsLogic:initGemObjects( )
+
+	local data = self._gemsData:getData();
+	local w = self._gemsData:getWidth();
+	local h = self._gemsData:getHeight();
+
+	for column = 1, w do
+		
+		for row = 1, h do
+		
+			local index = self._gemsData:getIndexByPos(column, row);
+
+			local gemInstance = gemObject.new(column, row, data[column][row]);
+
+			self._gemsObjects[index] = gemInstance;
+
+		end
+
+	end
+
+end
+
+function gemsLogic:destroy( ... )
+	
+	if self._gemsData then
+		
+		self._gemsData:destroy();
+
+		self._gemsData = nil;
+
+	end
+
+end
