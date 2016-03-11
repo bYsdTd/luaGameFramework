@@ -1,0 +1,28 @@
+networkManager = {};
+networkManager.handler = {};
+include("network.pakcetHandlerBattleInit")
+
+function networkManager.init()
+	
+	-- register packet handler
+
+	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_INIT] = networkManager.onHandleBattleInit;
+
+end
+
+
+function  networkManager.send( packetID, data )
+	
+	serverNetwork.receive( packetID, data );
+
+end
+
+function networkManager.receive( packetID, data )
+	
+	if networkManager.handler[packetID] then
+	
+		networkManager.handler[packetID](data);
+			
+	end
+
+end

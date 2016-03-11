@@ -70,16 +70,21 @@
      <None Include="Assets\Slua\Resources\originalResource\varobj.txt" />
      <None Include="Assets\Resources\Lua\framework\layout.txt" />
      <None Include="Assets\Slua\Resources\originalResource\circle\circle.txt" />
+     <None Include="Assets\Resources\Lua\server\serverHandlerSwapGems.txt" />
      <None Include="Assets\Resources\Lua\scene\sceneLoading.txt" />
      <None Include="Assets\Resources\Lua\framework\layoutManager.txt" />
      <None Include="Assets\Slua\Resources\originalResource\custom.txt" />
+     <None Include="Assets\Resources\Lua\server\serverNetwork.txt" />
      <None Include="Assets\Resources\Lua\global_define.txt" />
+     <None Include="Assets\Resources\Lua\network\packetHandlerBattleInit.txt" />
      <None Include="Assets\Resources\Lua\framework\uiTypeCast.txt" />
      <None Include="Assets\Resources\Lua\ui\battleView.txt" />
      <None Include="Assets\Resources\Lua\framework\scene.txt" />
+     <None Include="Assets\Resources\Lua\network\networkManager.txt" />
      <None Include="Assets\Resources\Lua\framework\utils.txt" />
      <None Include="Assets\Resources\Lua\framework\resourceManager.txt" />
      <None Include="Assets\Resources\Lua\framework\eventManager.txt" />
+     <None Include="Assets\Resources\Lua\server\serverMain.txt" />
      <None Include="Assets\Resources\Lua\gds\uiConfig.txt" />
      <None Include="Assets\Slua\Resources\originalResource\valuetype.txt" />
      <None Include="Assets\Resources\Lua\ui\loadingView.txt" />
@@ -93,6 +98,8 @@
      <None Include="Assets\Resources\Lua\framework\debugs.txt" />
      <None Include="Assets\Resources\main.txt" />
      <None Include="Assets\Resources\Lua\gds\gdsManager.txt" />
+     <None Include="Assets\Resources\Lua\pakcetID_define.txt" />
+     <None Include="Assets\Resources\Lua\network\pakcetID_define.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

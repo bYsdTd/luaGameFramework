@@ -1,0 +1,5 @@
+-- handler
+function networkManager.onHandleBattleInit(data)
+	
+
+end

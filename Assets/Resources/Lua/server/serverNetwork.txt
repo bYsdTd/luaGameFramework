@@ -1,0 +1,26 @@
+serverNetwork = {};
+serverNetwork.handler = {};
+
+include("serverHandlerSwapGems")
+
+function serverNetwork.init()
+	
+	-- register handler
+	serverNetwork.handler[packetID] = serverNetwork.onHandleSwapGems;
+end
+
+function  serverNetwork.send( packetID, data )
+	
+	networkManager.receive( packetID, data );
+	
+end
+
+function serverNetwork.receive( packetID, data )
+	
+	if serverNetwork.handler[packetID] then
+	
+		serverNetwork.handler[packetID](data);
+			
+	end
+
+end
