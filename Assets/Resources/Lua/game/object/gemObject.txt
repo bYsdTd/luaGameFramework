@@ -51,6 +51,21 @@ function gemObject:destroy()
 
 end
 
+-- check if touch the gem, position is screen position
+function gemObject:isHit( position )
+	
+	if self._rectCom then
+
+		return UnityEngine.RectTransformUtility.RectangleContainsScreenPoint(self._rectCom, position);
+
+	else
+
+		return false;
+
+	end
+end
+
+
 function gemObject:playInitAnimate()
 	
 

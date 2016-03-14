@@ -19,8 +19,6 @@ function sceneBattle:onEnterScene( ... )
 
 	serverMain.initBattle();
 
-	eventManager.postEvent({name = global_uiEvent.LOADINGVIEW_UPDATE});
-
 end
 
 function sceneBattle:onLeaveScene( ... )
@@ -37,7 +35,39 @@ function sceneBattle:onLeaveScene( ... )
 end
 
 function sceneBattle:tick( ... )
-	-- body
+	
+
+end
+
+
+function sceneBattle:onTouchDown( position )
+	
+	if self._battleLogic then
+	
+		self._battleLogic:onTouchDown( position );
+	end
+
+end
+
+function sceneBattle:onTouchMove( position )
+	
+	if self._battleLogic then
+	
+
+		self._battleLogic:onTouchMove( position );
+
+	end
+
+end
+
+function sceneBattle:onTouchUp( position )
+	
+	if self._battleLogic then
+		
+		self._battleLogic:onTouchUp( position );
+		
+	end
+
 end
 
 return sceneBattle;

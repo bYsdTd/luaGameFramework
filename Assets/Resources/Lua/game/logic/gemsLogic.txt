@@ -72,6 +72,21 @@ function gemsLogic:initGemObjects( )
 
 end
 
+--  position is screen position
+function gemsLogic:getHitGem( position )
+
+	for k, v in pairs(self._gemsObjects) do
+		
+		if v:isHit(position) then
+		
+			return v;
+
+		end
+	end
+
+	return nil;
+end
+
 function gemsLogic:destroy( )
 	
 	self:removeAllEvent();

@@ -3,6 +3,13 @@ battleLogic = class("battleLogic")
 function battleLogic:ctor()
 	
 	self._gemsLogic = gemsLogic.new();
+	self._gemInputHandler = gemInputHandler.new(self._gemsLogic);
+
+	self:registerEvent();
+
+	self._attackHero = heroObject.new();
+
+	self._defenceHero = heroObject.new();
 
 end
 
@@ -17,4 +24,83 @@ function battleLogic:destroy( ... )
 
 	end
 
+	if self._attackHero then
+	
+		self._attackHero:destroy();
+
+		self._attackHero = nil;
+
+	end
+
+	if self._defenceHero then
+
+		self._defenceHero:destroy();
+
+		self._defenceHero = nil;
+
+	end
+
+	if self._gemInputHandler then
+	
+		self._gemInputHandler:destroy();
+
+		self._gemInputHandler = nil;
+
+	end
+
+	self:removeAllEvent();
+
 end
+
+function battleLogic:registerEvent()
+	
+	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_INIT, self.onHandleInitBattle, self);
+
+end
+
+function battleLogic:removeAllEvent()
+
+	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_INIT, self.onHandleInitBattle);
+
+end
+
+function battleLogic:onHandleInitBattle( )
+
+	-- test data
+	self._attackHero:setHP(100);
+	self._defenceHero:setHP(100);
+
+
+end
+
+function battleLogic:onTouchDown( position )
+	
+
+	if self._gemInputHandler then
+	
+		self._gemInputHandler:onTouchDown(position);
+
+	end
+
+end
+
+function battleLogic:onTouchMove( position )
+	
+
+	if self._gemInputHandler then
+		
+		self._gemInputHandler:onTouchMove(position);
+
+	end
+
+end
+
+function battleLogic:onTouchUp( position )
+	
+	if self._gemInputHandler then
+	
+		self._gemInputHandler:onTouchUp(position);
+		
+	end
+end
+

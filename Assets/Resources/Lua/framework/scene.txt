@@ -25,3 +25,14 @@ function scene:tick( ... )
 	-- body
 end
 
+function scene:onTouchDown(pos)
+	
+end
+
+function scene:onTouchUp(pos)
+	
+end
+
+function scene:onTouchMove(pos)
+	
+end

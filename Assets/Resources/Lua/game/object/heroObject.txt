@@ -1,0 +1,38 @@
+heroObject = class("heroObject")
+
+function heroObject:ctor()
+
+	self._hp = 0;
+
+	self._gems = {};
+
+end
+
+function heroObject:destroy()
+
+
+end
+
+function heroObject:setHP( hp )
+	
+	self._hp = hp;
+
+end
+
+function heroObject:getHP( )
+	
+	return self._hp;
+
+end
+
+function heroObject:setGems( gemType, gemValue )
+	
+	self._gems[gemType] = gemValue;
+
+end
+
+function heroObject:getGems( getType )
+	
+	return self._gems[gemType];
+
+end

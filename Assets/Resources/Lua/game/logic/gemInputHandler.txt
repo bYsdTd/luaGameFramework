@@ -1,0 +1,107 @@
+gemInputHandler = class("gemInputHandler")
+
+function gemInputHandler:ctor( gemsLogic )
+
+	self._touchDownPosition = nil;
+
+	self._touchGem = nil;
+
+	self._gemsLogic = gemsLogic;
+
+	-- move lock, only can move one,  one times
+	-- wait for animation complete
+	self._moveLock = false;
+
+end
+
+function gemInputHandler:onTouchDown( position )
+	
+	self._touchDownPosition = position;
+
+	-- find the gem, check if touch one gem
+	if self._gemsLogic then
+	
+		self._touchGem = self._gemsLogic:getHitGem(position);
+
+	end
+
+end
+
+function gemInputHandler:onTouchMove( position )
+
+	if self._touchDownPosition and self._touchGem and not self._moveLock then
+	
+		local delta = position - self._touchDownPosition;
+
+		if delta.sqrMagnitude > 50 then
+
+			local angel = UnityEngine.Vector2.Angle(UnityEngine.Vector2.up, delta);
+
+			self._moveLock = true;
+
+			if delta.x > 0 then
+			
+				-- right
+				if angel >=0 and angel < 45 then
+				
+				-- up
+					print("up");
+
+				elseif angel >= 45 and angel < 135 then
+				-- right
+					
+					print("right");
+					
+				else
+				-- down
+					print("down");
+
+				end
+
+			else
+			
+				-- left
+
+				if angel >=0 and angel < 45 then
+				
+				-- up
+					print("up");
+
+
+				elseif angel >= 45 and angel < 135 then
+				-- left
+					
+					print("left");
+
+				else
+				-- down
+					
+					print("down");
+
+				end
+
+			end
+
+		end
+
+	end
+
+end
+
+function gemInputHandler:onTouchUp( position )
+
+
+	if self._touchDownPosition then
+		
+		self._touchDownPosition = nil;
+
+	end
+
+	if self._touchGem then
+	
+		self._touchGem = nil;
+
+	end
+
+end
+

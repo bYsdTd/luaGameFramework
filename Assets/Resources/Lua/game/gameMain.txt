@@ -15,20 +15,33 @@ end
 
 function HandleTouchDown( x, y )
 
-	--print("HandleTouchDown "..x.." "..y);
+	if sceneManager.currentScene then
+
+		sceneManager.currentScene:onTouchDown(UnityEngine.Vector2(x, y));
+
+	end
 
 end
 
 
 function HandleTouchMove( x, y)
 	
-	--print("HandleTouchMove "..x.." "..y);
+	if sceneManager.currentScene then
+
+		sceneManager.currentScene:onTouchMove(UnityEngine.Vector2(x, y));
+
+	end
 
 end
 
 function HandleTouchUp( x, y )
 	
-	--print("HandleTouchUp "..x.." "..y);
 	
+	if sceneManager.currentScene then
+		
+		sceneManager.currentScene:onTouchUp(UnityEngine.Vector2(x, y));
+
+	end
+
 end
 

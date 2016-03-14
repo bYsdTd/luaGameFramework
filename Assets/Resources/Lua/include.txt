@@ -37,6 +37,8 @@ include("game.data.gemsData")
 -- game logic
 include("game.logic.battleLogic")
 include("game.logic.gemsLogic")
+include("game.logic.gemInputHandler")
 
 -- game object
 include("game.object.gemObject")
+include("game.object.heroObject")
