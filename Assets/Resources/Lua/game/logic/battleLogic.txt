@@ -74,7 +74,7 @@ function battleLogic:registerEvent()
 
 	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_PLAYER_SWAP_END, self.onHandleMoveGemEnd, self);
 
-	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_PLAYER_RECORD_SWAP, self.onHandleRecordSwap, self);
+	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, self.onHandleRecord, self);
 
 end
 
@@ -84,17 +84,15 @@ function battleLogic:removeAllEvent()
 	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_SWAP_GEM, self.onHandleMoveGem);
 
 	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_PLAYER_SWAP_END, self.onHandleMoveGemEnd);
-	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_PLAYER_RECORD_SWAP, self.onHandleRecordSwap);
+	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, self.onHandleRecord);
 
 end
 
-function battleLogic:onHandleRecordSwap(event)
+function battleLogic:onHandleRecord(event)
 	
-	if self._battlePlayer then
-		
-		local record = battleRecordGemSwap.new(event.data);
+	if self._battlePlayer and event.data then
 
-		self._battlePlayer:addBattleRecord(record);
+		self._battlePlayer:onHandelRecord(event.data);
 
 	end
 

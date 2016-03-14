@@ -1,4 +1,41 @@
-function serverNetwork.onHandleSwapGems()
+function serverNetwork.onHandleSwapGems(packetData)
 	
+	serverMain.gemsData:swap(packetData.column, packetData.row, packetData.targetColumn, packetData.targetRow);
+
+
+	local eraseList, moveList = serverMain.gemsData:checkThree();
+
+	-- send data
+	local sendData = {};
+
+	if eraseList then
+
+		while eraseList do
+		
+			serverMain.gemsData:eraseAndGen(eraseList);
+
+			-- here all data send to client, may be just send modified 
+			local cloneData = clone(serverMain.gemsData:getData());
+
+			local record = {};
+			record.recordType = enum.BATTLE_RECORD_TYPE.ERASE;
+			record.eraseList = eraseList;
+			record.moveList = moveList;
+			record.gemData = cloneData;
+
+			table.insert(sendData, record);
+
+			eraseList, moveList = serverMain.gemsData:checkThree();
+
+		end
+
+	else
+
+		serverMain.gemsData:swap(packetData.column, packetData.row, packetData.targetColumn, packetData.targetRow);
+
+	end
+
 	
+
+	serverNetwork.send(GLOBAL_PACKET_ID.BATTLE_RECORD, sendData);
 end

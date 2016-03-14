@@ -2,13 +2,15 @@ networkManager = {};
 networkManager.handler = {};
 include("network.packetID_define")
 include("network.packetHandlerBattleInit")
+include("network.packetHandlerBattleRecord")
 
 function networkManager.init()
 	
 	-- register packet handler
 
 	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_INIT] = networkManager.onHandleBattleInit;
-
+	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_RECORD] = networkManager.onHandleBattleRecord;
+	
 end
 
 

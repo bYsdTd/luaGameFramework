@@ -136,8 +136,9 @@ function gemsLogic:onSwapGems(event)
 
 		-- can not erase, just play
 
-		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD_SWAP,  data = {
+		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD,  data = {
 
+				recordType = enum.BATTLE_RECORD_TYPE.SWAP,
 				column = column,
 				row = row,
 				targetColumn = targetColumn,
@@ -145,8 +146,9 @@ function gemsLogic:onSwapGems(event)
 
 			}});
 
-		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD_SWAP,  data = {
+		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD,  data = {
 
+				recordType = enum.BATTLE_RECORD_TYPE.SWAP,
 				column = targetColumn,
 				row = targetRow,
 				targetColumn = column,
@@ -158,6 +160,31 @@ function gemsLogic:onSwapGems(event)
 
 				end
 			}});
+
+	
+	else
+
+		-- client swap first, data also need to swap
+		self._gemsData:swap(column, row, targetColumn, targetRow);
+
+		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD,  data = {
+
+				recordType = enum.BATTLE_RECORD_TYPE.SWAP,
+				column = column,
+				row = row,
+				targetColumn = targetColumn,
+				targetRow = targetRow,
+
+			}});
+
+		-- send to server and wait erase result
+		local data = {};
+		data.column = column;
+		data.row = row;
+		data.targetColumn = targetColumn;
+		data.targetRow = targetRow;
+
+		networkManager.send(GLOBAL_PACKET_ID.BATTLE_SWAP_GEMS, data);
 
 	end
 

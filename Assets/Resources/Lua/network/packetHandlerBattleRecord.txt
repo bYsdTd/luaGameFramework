@@ -1,0 +1,25 @@
+-- handler
+function networkManager.onHandleBattleRecord(packetData)
+	
+	--eventManager.postEvent({ name = EVENT_ID.EVENT_BATTLE_INIT, data = packetData });
+
+	print("on handle onHandleBattleRecord");
+
+	for i, record in ipairs(packetData) do
+		
+		local recordData = {};
+
+		recordData.recordType = record.recordType;
+
+		if record.recordType == enum.BATTLE_RECORD_TYPE.ERASE then
+			
+			recordData.eraseList = clone(record.eraseList);
+			recordData.moveList = clone(record.moveList);
+			recordData.gemData = clone(record.gemData);
+
+			eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
+
+		end
+
+	end
+end

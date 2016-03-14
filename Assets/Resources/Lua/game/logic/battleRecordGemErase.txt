@@ -19,6 +19,11 @@ end
 
 function battleRecordGemErase:onStart( ... )
 	-- body
+
+	print("battleRecordGemErase onStart");
+
+	dump(self._data);
+
 end
 
 function battleRecordGemErase:onEnd( ... )

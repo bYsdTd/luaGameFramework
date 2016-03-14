@@ -56,3 +56,25 @@ function battlePlayer:addBattleRecord(record)
 	table.insert(self._battleRecords, record);
 
 end
+
+function battlePlayer:onHandelRecord(recordData)
+	
+	local record = nil;
+
+	if recordData.recordType == enum.BATTLE_RECORD_TYPE.SWAP then
+		
+		record = battleRecordGemSwap.new(recordData);
+
+	elseif recordData.recordType == enum.BATTLE_RECORD_TYPE.ERASE then
+		
+		record = battleRecordGemErase.new(recordData);
+
+	end
+
+	if record then
+		
+		self:addBattleRecord(record);
+
+	end
+
+end
