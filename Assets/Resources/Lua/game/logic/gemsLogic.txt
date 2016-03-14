@@ -41,7 +41,22 @@ end
 
 function gemsLogic:getGemsRoot( ... )
 
+	return self._gemsRoot;
 
+end
+
+function gemsLogic:getGemsData( ... )
+		
+	return self._gemsData;
+
+end
+
+function gemsLogic:getGemObject(column, row)
+
+	local index = self:getGemsData():getIndexByPos(column, row);
+	local gemObject = self._gemsObjects[index];
+	
+	return gemObject;
 end
 
 function gemsLogic:initGemObjects( )
@@ -60,7 +75,7 @@ function gemsLogic:initGemObjects( )
 		
 		for row = 1, h do
 		
-			local index = self._gemsData:getIndexByPos(column, row);
+			local index = self:getGemsData():getIndexByPos(column, row);
 
 			local gemInstance = gemObject.new(column, row, data[column][row], self._gemsRoot);
 
@@ -72,6 +87,7 @@ function gemsLogic:initGemObjects( )
 
 end
 
+-- handle user input
 function gemsLogic:onSwapGems(event)
 
 	local moveGem = event.touchGem;
@@ -111,7 +127,39 @@ function gemsLogic:onSwapGems(event)
 
 	end
 
-	print(" swap "..column.." "..row.." to "..targetColumn.." "..targetRow);
+	--print(" swap "..column.." "..row.." to "..targetColumn.." "..targetRow);
+
+	local gemsDataClone = clone(self._gemsData);
+	gemsDataClone:swap(column, row, targetColumn, targetRow);
+
+	if not gemsDataClone:checkThree() then
+
+		-- can not erase, just play
+
+		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD_SWAP,  data = {
+
+				column = column,
+				row = row,
+				targetColumn = targetColumn,
+				targetRow = targetRow,
+
+			}});
+
+		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD_SWAP,  data = {
+
+				column = targetColumn,
+				row = targetRow,
+				targetColumn = column,
+				targetRow = row,
+
+				endCallback = function ( ... )
+					
+					eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_SWAP_END});
+
+				end
+			}});
+
+	end
 
 end
 

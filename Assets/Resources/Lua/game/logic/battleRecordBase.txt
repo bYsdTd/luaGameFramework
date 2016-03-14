@@ -2,9 +2,11 @@
 
 battleRecordBase = class("battleRecordBase")
 
-function battleRecordBase:ctor()
+function battleRecordBase:ctor(data)
 
 	self._isPlaying = false;
+
+	self._data = data;
 
 end
 
@@ -18,7 +20,7 @@ end
 
 function battleRecordBase:isEnd( ... )
 
-	return self._isPlaying;
+	return not self._isPlaying;
 
 end
 
@@ -27,6 +29,14 @@ function battleRecordBase:start( ... )
 	self._isPlaying = true;
 
 	self:onStart();
+
+end
+
+function battleRecordBase:endRecord( ... )
+	
+	self._isPlaying = false;
+
+	self:onEnd();
 
 end
 

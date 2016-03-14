@@ -39,6 +39,9 @@ include("game.logic.battleLogic")
 include("game.logic.gemsLogic")
 include("game.logic.gemInputHandler")
 include("game.logic.battlePlayer")
+include("game.logic.battleRecordBase")
+include("game.logic.battleRecordGemSwap")
+include("game.logic.battleRecordGemErase")
 
 -- game object
 include("game.object.gemObject")

@@ -33,8 +33,18 @@ function gemObject:ctor(column, row, gemType, rootObject)
 	local xoffset = (canvasSize.x - gemSize * GEMS_LOGIC_GEMS_COLUMN)/2;
 
 	self._rectCom.pivot = UnityEngine.Vector2(0, 1);
-	self._rectCom.anchoredPosition = UnityEngine.Vector2(xoffset + (column-1)*gemSize, canvasSize.y - (row - 1)*gemSize);
+	self._rectCom.anchoredPosition = gemObject.getPositionByColRow(self._column, self._row);
 	self._rectCom.sizeDelta = UnityEngine.Vector2(gemSize-5, gemSize-5);
+
+end
+
+function gemObject.getPositionByColRow(column, row)
+	
+	local canvasSize = layoutManager.getCanvasSize();
+	local gemSize = canvasSize.y / GEMS_LOGIC_GEMS_ROW;
+	local xoffset = (canvasSize.x - gemSize * GEMS_LOGIC_GEMS_COLUMN)/2;
+
+	return UnityEngine.Vector2(xoffset + (column-1)*gemSize, canvasSize.y - (row - 1)*gemSize);
 
 end
 
@@ -74,5 +84,55 @@ end
 function gemObject:getRow( ... )
 	
 	return self._row;
-	
+
 end
+
+function gemObject:setColumn( column )
+	
+	self._column = column;
+
+end
+
+function gemObject:setRow( row )
+	
+	self._row = row;
+
+end
+
+function gemObject:playMove(startPosition, endPosition, callback)
+	
+	local moveTime = 0.5;
+	local startTime = UnityEngine.Time.time;
+
+	LuaTimer.Add(0, 1, function(id)
+		
+		local elapsedTime = UnityEngine.Time.time - startTime;
+
+		if elapsedTime >= moveTime then
+			-- end
+			if self._rectCom then
+
+				self._rectCom.anchoredPosition = endPosition;
+
+			end
+			
+			LuaTimer.Delete(id);
+
+			if callback then
+				
+				callback();
+
+			end
+
+		else
+
+			local pos = startPosition + (endPosition - startPosition) * elapsedTime / moveTime;
+
+			self._rectCom.anchoredPosition = pos;
+
+		end
+
+	end);
+
+end
+

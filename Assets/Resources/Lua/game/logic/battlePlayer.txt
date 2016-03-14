@@ -23,8 +23,6 @@ function battlePlayer:tick()
 
 		if self._currentRecord:isEnd() then
 			
-			self._currentRecord:onEnd();
-			
 			self._currentRecord = nil;
 
 		else

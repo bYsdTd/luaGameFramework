@@ -13,6 +13,12 @@ function scene:sceneid()
 
 end
 
+function scene:userData( ... )
+
+	return nil;
+
+end
+
 function scene:onEnterScene( ... )
 	-- body
 end

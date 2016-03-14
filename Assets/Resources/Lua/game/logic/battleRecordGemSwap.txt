@@ -1,10 +1,10 @@
 -- 战斗播放器
 
-battleRecordGemSwap = class("battleRecordGemSwap")
+battleRecordGemSwap = class("battleRecordGemSwap", battleRecordBase)
 
-function battleRecordGemSwap:ctor()
+function battleRecordGemSwap:ctor(data)
 
-	battleRecordGemSwap.super.ctor(self);
+	battleRecordGemSwap.super.ctor(self, data);
 
 end
 
@@ -17,12 +17,54 @@ function battleRecordGemSwap:tick()
 	
 end
 
-function battleRecordGemSwap:onStart( ... )
+function battleRecordGemSwap:onStart()
 	
-	
+	-- column,
+	-- row,
+	-- targetColumn,
+	-- targetRow,
+
+	local data = self._data;
+
+	local sceneUserData = sceneManager.currentScene:userData();
+	local gemsLogic = sceneUserData.gemsLogic;
+	local gemsData = gemsLogic:getGemsData();
+
+	local gem = gemsLogic:getGemObject(data.column, data.row);
+	local targetGem = gemsLogic:getGemObject(data.targetColumn, data.targetRow);
+
+	local startPosition = gemObject.getPositionByColRow(data.column, data.row);
+	local endPosition = gemObject.getPositionByColRow(data.targetColumn, data.targetRow);
+
+	gem:playMove(startPosition, endPosition, function( ... )
+		
+		gem:setColumn(data.targetColumn);
+		gem:setRow(data.targetRow);
+
+		targetGem:setColumn(data.column);
+		targetGem:setRow(data.row);
+
+		-- also modify gameobject list
+		local index = gemsData:getIndexByPos(data.column, data.row);
+		local targetIndex = gemsData:getIndexByPos(data.targetColumn, data.targetRow);
+
+		gemsLogic._gemsObjects[index] = targetGem;
+		gemsLogic._gemsObjects[targetIndex] = gem;
+
+		self:endRecord();
+
+		if data.endCallback then
+
+			data.endCallback();
+			
+		end
+
+	end);
+
+	targetGem:playMove(endPosition, startPosition);
 end
 
-function battleRecordGemSwap:onEnd( ... )
+function battleRecordGemSwap:onEnd()
 	
 end
 

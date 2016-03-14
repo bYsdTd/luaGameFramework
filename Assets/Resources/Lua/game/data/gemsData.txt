@@ -64,7 +64,7 @@ function gemsData:getPosByIndex(k)
 	
 	local column = math.fmod(k-1, self._w) + 1; -- x 第几列
 	
-	local row = math.floor((k - j) / self._w) + 1; -- y 第几行
+	local row = math.floor((k - 1) / self._w) + 1; -- y 第几行
 	
 	return column, row;
 end

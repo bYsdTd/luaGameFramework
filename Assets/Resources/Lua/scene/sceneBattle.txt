@@ -8,6 +8,15 @@ function sceneBattle:ctor(sceneid)
 
 end
 
+function sceneBattle:userData()
+
+	local userData = {};
+	userData.gemsLogic = self._battleLogic._gemsLogic
+
+	return userData;
+	
+end
+
 function sceneBattle:getBattleLogic( )
 	
 	return self._battleLogic;
@@ -36,6 +45,11 @@ end
 
 function sceneBattle:tick( ... )
 	
+	if self._battleLogic then
+	
+		self._battleLogic:tick();
+		
+	end
 
 end
 
@@ -65,7 +79,7 @@ function sceneBattle:onTouchUp( position )
 	if self._battleLogic then
 		
 		self._battleLogic:onTouchUp( position );
-		
+
 	end
 
 end
