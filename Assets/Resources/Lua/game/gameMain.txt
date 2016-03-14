@@ -11,6 +11,18 @@ function init( ... )
 
 	serverNetwork.init();
 
+	LuaTimer.Add(0, 20, MainTick);
+
+end
+
+function MainTick()
+	-- body
+	if sceneManager.currentScene then
+
+		sceneManager.currentScene:tick();
+		
+	end
+
 end
 
 function HandleTouchDown( x, y )

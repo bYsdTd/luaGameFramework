@@ -1,0 +1,60 @@
+-- 战斗播放器
+
+battlePlayer = class("battlePlayer")
+
+function battlePlayer:ctor()
+
+	self._battleRecords = nil;
+
+	self._currentRecord = nil;
+
+end
+
+function battlePlayer:destroy( ... )
+	
+	self._battleRecords = nil;
+	self._currentRecord = nil;
+
+end
+
+function battlePlayer:tick()
+
+	if self._currentRecord then
+
+		if self._currentRecord:isEnd() then
+			
+			self._currentRecord:onEnd();
+			
+			self._currentRecord = nil;
+
+		else
+
+			self._currentRecord:tick();
+
+			return;
+
+		end
+
+	end
+
+	if self._currentRecord == nil then
+	
+		-- check if has a new record
+		if self._battleRecords and table.nums(self._battleRecords) > 0 then
+		
+			self._currentRecord = table.remove(self._battleRecords, 1);
+
+			self._currentRecord:start();
+
+		end
+
+	end
+end
+
+function battlePlayer:addBattleRecord(record)
+
+	self._battleRecords = self._battleRecords or {};
+
+	table.insert(self._battleRecords, record);
+
+end

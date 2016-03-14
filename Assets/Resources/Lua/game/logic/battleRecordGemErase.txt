@@ -1,0 +1,28 @@
+-- 战斗播放器
+
+battleRecordGemErase = class("battleRecordGemErase")
+
+function battleRecordGemErase:ctor()
+
+	battleRecordGemErase.super.ctor(self);
+
+end
+
+function battleRecordGemErase:destroy( ... )
+
+end
+
+function battleRecordGemErase:tick()
+
+
+end
+
+
+
+function battleRecordGemErase:onStart( ... )
+	-- body
+end
+
+function battleRecordGemErase:onEnd( ... )
+	
+end

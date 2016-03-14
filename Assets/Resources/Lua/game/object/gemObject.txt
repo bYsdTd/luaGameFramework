@@ -65,8 +65,14 @@ function gemObject:isHit( position )
 	end
 end
 
-
-function gemObject:playInitAnimate()
+function gemObject:getColumn( ... )
 	
+	return self._column;
 
+end
+
+function gemObject:getRow( ... )
+	
+	return self._row;
+	
 end

@@ -38,6 +38,7 @@ include("game.data.gemsData")
 include("game.logic.battleLogic")
 include("game.logic.gemsLogic")
 include("game.logic.gemInputHandler")
+include("game.logic.battlePlayer")
 
 -- game object
 include("game.object.gemObject")

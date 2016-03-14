@@ -3,3 +3,10 @@ global_uiEvent = {};
 
 
 -- const
+enum = {};
+enum.MOVE_GEM_DIRECTION = {};
+enum.MOVE_GEM_DIRECTION.NONE = 0;
+enum.MOVE_GEM_DIRECTION.UP = 1;
+enum.MOVE_GEM_DIRECTION.DOWN = 2;
+enum.MOVE_GEM_DIRECTION.LEFT = 3;
+enum.MOVE_GEM_DIRECTION.RIGHT = 4;

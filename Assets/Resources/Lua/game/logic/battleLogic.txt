@@ -2,19 +2,34 @@ battleLogic = class("battleLogic")
 
 function battleLogic:ctor()
 	
+	-- gems logic and input handle
 	self._gemsLogic = gemsLogic.new();
 	self._gemInputHandler = gemInputHandler.new(self._gemsLogic);
 
+	-- register event
 	self:registerEvent();
 
+	-- hero object
 	self._attackHero = heroObject.new();
 
 	self._defenceHero = heroObject.new();
+
+	-- battle player
+
+	self._battlePlayer = battlePlayer.new();
 
 end
 
 function battleLogic:destroy( ... )
 	
+	if self._battlePlayer then
+		
+		self._battlePlayer:destroy();
+
+		self._battlePlayer = nil;
+
+	end
+
 
 	if self._gemsLogic then
 	
@@ -55,12 +70,29 @@ end
 function battleLogic:registerEvent()
 	
 	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_INIT, self.onHandleInitBattle, self);
+	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_SWAP_GEM, self.onHandleMoveGem, self);
+
+	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_PLAYER_SWAP_END, self.onHandleMoveGemEnd, self);
 
 end
 
 function battleLogic:removeAllEvent()
 
 	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_INIT, self.onHandleInitBattle);
+	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_SWAP_GEM, self.onHandleMoveGem);
+
+	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_PLAYER_SWAP_END, self.onHandleMoveGemEnd);
+
+end
+
+
+function battleLogic:onHandleMoveGemEnd( ... )
+
+	if self._gemInputHandler then
+	
+		self._gemInputHandler:releaseMoveLock();
+			
+	end
 
 end
 
@@ -70,6 +102,12 @@ function battleLogic:onHandleInitBattle( )
 	self._attackHero:setHP(100);
 	self._defenceHero:setHP(100);
 
+
+end
+
+function battleLogic:onHandleMoveGem( event )
+	
+	self._gemsLogic:onSwapGems(event);
 
 end
 
@@ -100,7 +138,17 @@ function battleLogic:onTouchUp( position )
 	if self._gemInputHandler then
 	
 		self._gemInputHandler:onTouchUp(position);
-		
+
 	end
 end
 
+function battleLogic:tick( )
+
+	if self._battlePlayer then
+	
+		self._battlePlayer:tick();
+
+	end
+
+
+end

@@ -1,0 +1,28 @@
+-- 战斗播放器
+
+battleRecordGemSwap = class("battleRecordGemSwap")
+
+function battleRecordGemSwap:ctor()
+
+	battleRecordGemSwap.super.ctor(self);
+
+end
+
+function battleRecordGemSwap:destroy( ... )
+
+end
+
+function battleRecordGemSwap:tick()
+
+	
+end
+
+function battleRecordGemSwap:onStart( ... )
+	
+	
+end
+
+function battleRecordGemSwap:onEnd( ... )
+	
+end
+

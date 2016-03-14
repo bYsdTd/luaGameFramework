@@ -1,0 +1,39 @@
+-- 战斗播放器
+
+battleRecordBase = class("battleRecordBase")
+
+function battleRecordBase:ctor()
+
+	self._isPlaying = false;
+
+end
+
+function battleRecordBase:destroy( ... )
+
+end
+
+function battleRecordBase:tick()
+
+end
+
+function battleRecordBase:isEnd( ... )
+
+	return self._isPlaying;
+
+end
+
+function battleRecordBase:start( ... )
+	
+	self._isPlaying = true;
+
+	self:onStart();
+
+end
+
+function battleRecordBase:onStart( ... )
+	-- body
+end
+
+function battleRecordBase:onEnd( ... )
+	
+end

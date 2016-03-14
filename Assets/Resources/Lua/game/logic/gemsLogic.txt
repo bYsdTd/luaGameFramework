@@ -72,6 +72,49 @@ function gemsLogic:initGemObjects( )
 
 end
 
+function gemsLogic:onSwapGems(event)
+
+	local moveGem = event.touchGem;
+	local moveDir = event.dir;
+
+	local column = moveGem:getColumn();
+	local row = moveGem:getRow();
+
+	if (moveDir == enum.MOVE_GEM_DIRECTION.UP and row == 1 )
+		or (moveDir == enum.MOVE_GEM_DIRECTION.DOWN and row == self._gemsData:getHeight() ) 
+		or (moveDir == enum.MOVE_GEM_DIRECTION.LEFT and column == 1 ) 
+		or (moveDir == enum.MOVE_GEM_DIRECTION.RIGHT and column == self._gemsData:getWidth() ) then
+
+		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_SWAP_END});
+
+		return;
+	end
+
+	local targetColumn = column;
+	local targetRow = row;
+
+	if moveDir == enum.MOVE_GEM_DIRECTION.UP then
+		
+		targetRow = targetRow - 1;
+
+	elseif moveDir == enum.MOVE_GEM_DIRECTION.DOWN then
+		
+		targetRow = targetRow + 1;
+
+	elseif moveDir == enum.MOVE_GEM_DIRECTION.LEFT then
+		
+		targetColumn = targetColumn - 1;
+
+	elseif moveDir == enum.MOVE_GEM_DIRECTION.RIGHT then
+		
+		targetColumn = targetColumn + 1;
+
+	end
+
+	print(" swap "..column.." "..row.." to "..targetColumn.." "..targetRow);
+
+end
+
 --  position is screen position
 function gemsLogic:getHitGem( position )
 
