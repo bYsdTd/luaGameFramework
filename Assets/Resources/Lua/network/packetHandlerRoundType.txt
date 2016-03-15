@@ -1,0 +1,9 @@
+-- handler
+function networkManager.onHandleRoundType(packetData)
+	
+	sceneManager.currentScene:userData().battleLogic:setRoundType(packetData.roundType);
+	sceneManager.currentScene:userData().battleLogic:setErasedFlag(false);
+
+	eventManager.postEvent({ name = EVENT_ID.EVENT_BATTLE_ROUND_TYPE});
+
+end

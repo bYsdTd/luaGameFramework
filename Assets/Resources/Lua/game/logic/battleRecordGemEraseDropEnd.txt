@@ -1,0 +1,34 @@
+-- 战斗播放器
+
+battleRecordGemEraseDropEnd = class("battleRecordGemEraseDropEnd", battleRecordBase)
+
+function battleRecordGemEraseDropEnd:ctor(data)
+
+	battleRecordGemEraseDropEnd.super.ctor(self, data);
+
+end
+
+function battleRecordGemEraseDropEnd:destroy( ... )
+
+end
+
+function battleRecordGemEraseDropEnd:tick()
+
+
+end
+
+function battleRecordGemEraseDropEnd:onStart( ... )
+
+	eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_SWAP_END});
+
+	self:endRecord();
+
+end
+
+function battleRecordGemErase:onEnd( ... )
+	
+	sceneManager.currentScene:userData().battleLogic:setErasedFlag(true);
+
+	eventManager.postEvent({name = global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE });
+
+end

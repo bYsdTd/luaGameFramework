@@ -24,9 +24,17 @@ function layout:ctor(layoutConig, event)
 		utils.setUIOffsetMin(self._layoutPrefabClone, 0, 0);
 		utils.setUIOffsetMax(self._layoutPrefabClone, 0, 0);
 
+		self:onRegisterEvent();
+		
 		self:onShow(event);
 
 	end);
+
+end
+
+function layout:isLoaded()
+
+	return self._layoutPrefabClone ~= nil;
 
 end
 
@@ -39,9 +47,13 @@ function layout:destroy()
 
 end
 
+function layout:onRegisterEvent()
+	-- body
+end
+
 function layout:registerEvent(eventName, handle)
 	
-	eventManager.addEvent(eventName, handle);
+	eventManager.addEvent(eventName, handle, self);
 
 	table.insert(self._eventMap, {eventName = eventName, handle = handle});
 

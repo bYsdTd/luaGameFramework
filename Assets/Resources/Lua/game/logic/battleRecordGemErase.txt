@@ -20,8 +20,6 @@ end
 function battleRecordGemErase:onStart( ... )
 	-- body
 
-	print("battleRecordGemErase onStart");
-
 	local data = self._data;
 
 	local sceneUserData = sceneManager.currentScene:userData();
@@ -42,7 +40,7 @@ function battleRecordGemErase:onStart( ... )
 			if erasedCount == eraseCount then
 			
 				self:endRecord();
-				
+
 			end
 
 		end);

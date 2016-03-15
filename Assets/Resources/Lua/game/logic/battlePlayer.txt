@@ -73,6 +73,10 @@ function battlePlayer:onHandelRecord(recordData)
 		
 		record = battleRecordGemDrop.new(recordData);
 
+	elseif recordData.recordType == enum.BATTLE_RECORD_TYPE.ERASE_DROP_END then
+		
+		record = battleRecordGemEraseDropEnd.new(recordData);
+
 	end
 
 	if record then

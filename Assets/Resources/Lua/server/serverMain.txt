@@ -3,12 +3,92 @@ include("server.serverHandlerSwapGems")
 
 serverMain = {};
 serverMain.gemsData = nil;
+serverMain.roundType = enum.BATTLE_ROUND_TYPE.ATTACKER;
 
 function serverMain.initBattle()
 	
 	serverMain.gemsData = gemsData.new(GEMS_LOGIC_GEMS_COLUMN, GEMS_LOGIC_GEMS_ROW, GEMS_LOGIC_GEMS_TYPE);
 
 	serverMain.gemsData:generate();
+
+	local testGemData = {
+
+		[1] = {
+			[1] = 5,
+			[2] = 4,
+			[3] = 2,
+			[4] = 2,
+			[5] = 5,
+			[6] = 3,
+			[7] = 2,
+		},
+
+		[2] = {
+			[1] = 1,
+			[2] = 3,
+			[3] = 5,
+			[4] = 4,
+			[5] = 4,
+			[6] = 1,
+			[7] = 2,
+		},
+
+		[3] = {
+			[1] = 5,
+			[2] = 4,
+			[3] = 3,
+			[4] = 3,
+			[5] = 2,
+			[6] = 1,
+			[7] = 3,
+		},
+
+		[4] = {
+			[1] = 2,
+			[2] = 2,
+			[3] = 4,
+			[4] = 1,
+			[5] = 1,
+			[6] = 5,
+			[7] = 1,
+		},
+
+
+		[5] = {
+			[1] = 4,
+			[2] = 1,
+			[3] = 2,
+			[4] = 5,
+			[5] = 5,
+			[6] = 2,
+			[7] = 4,
+		},
+
+
+		[6] = {
+			[1] = 5,
+			[2] = 4,
+			[3] = 3,
+			[4] = 2,
+			[5] = 3,
+			[6] = 3,
+			[7] = 4,
+		},
+
+
+		[7] = {
+			[1] = 4,
+			[2] = 3,
+			[3] = 2,
+			[4] = 3,
+			[5] = 4,
+			[6] = 5,
+			[7] = 5,
+		},
+
+	};
+
+	serverMain.gemsData:setData(testGemData);
 
 	-- send init data 
 	local data = {};
@@ -18,5 +98,11 @@ function serverMain.initBattle()
 	data.data = serverMain.gemsData:getData();
 	
 	serverNetwork.send(GLOBAL_PACKET_ID.BATTLE_INIT, data);
+
+	local sendData = {};
+	sendData.roundType = serverMain.roundType;
+	
+	serverNetwork.send(GLOBAL_PACKET_ID.BATTLE_ROUND_TYPE, sendData);
+
 end
 

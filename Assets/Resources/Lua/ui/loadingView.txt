@@ -7,6 +7,10 @@ function loadingView:ctor(layoutConig, event)
 
 	loadingView.super.ctor(self, layoutConig, event);
 	
+end
+
+function loadingView:onRegisterEvent()
+	
 	self:registerEvent(global_uiEvent.LOADINGVIEW_UPDATE, self.onUpdate);
 
 end

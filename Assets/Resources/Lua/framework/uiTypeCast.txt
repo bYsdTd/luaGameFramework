@@ -11,3 +11,9 @@ function uiTypeCast.toButton( gameobject )
 	return gameobject:GetComponent(UnityEngine.UI.Button);
 	
 end
+
+function uiTypeCast.toImage( gameobject )
+	
+	return gameobject:GetComponent(UnityEngine.UI.Image);
+	
+end

@@ -3,6 +3,7 @@ networkManager.handler = {};
 include("network.packetID_define")
 include("network.packetHandlerBattleInit")
 include("network.packetHandlerBattleRecord")
+include("network.packetHandlerRoundType")
 
 function networkManager.init()
 	
@@ -10,6 +11,7 @@ function networkManager.init()
 
 	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_INIT] = networkManager.onHandleBattleInit;
 	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_RECORD] = networkManager.onHandleBattleRecord;
+	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_ROUND_TYPE] = networkManager.onHandleRoundType;
 	
 end
 

@@ -1,0 +1,18 @@
+function serverNetwork.onHandleEndRound(packetData)
+
+	-- should check who send to end round, check if the data is identical as server
+	if serverMain.roundType == enum.BATTLE_ROUND_TYPE.ATTACKER then
+		
+		serverMain.roundType = enum.BATTLE_ROUND_TYPE.DEFENDER;
+
+	elseif serverMain.roundType == enum.BATTLE_ROUND_TYPE.DEFENDER then
+	
+		serverMain.roundType = enum.BATTLE_ROUND_TYPE.ATTACKER;
+
+	end
+
+	local sendData = {};
+	sendData.roundType = serverMain.roundType;
+	
+	serverNetwork.send(GLOBAL_PACKET_ID.BATTLE_ROUND_TYPE, sendData);
+end

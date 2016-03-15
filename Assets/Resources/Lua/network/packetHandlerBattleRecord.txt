@@ -1,9 +1,5 @@
 -- handler
 function networkManager.onHandleBattleRecord(packetData)
-	
-	--eventManager.postEvent({ name = EVENT_ID.EVENT_BATTLE_INIT, data = packetData });
-
-	print("on handle onHandleBattleRecord");
 
 	for i, record in ipairs(packetData) do
 		
@@ -28,4 +24,11 @@ function networkManager.onHandleBattleRecord(packetData)
 		end
 
 	end
+
+	-- add erase and drop end data
+	local recordData = {};
+	recordData.recordType = enum.BATTLE_RECORD_TYPE.ERASE_DROP_END;
+
+	eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
+
 end

@@ -43,6 +43,7 @@ include("game.logic.battleRecordBase")
 include("game.logic.battleRecordGemSwap")
 include("game.logic.battleRecordGemErase")
 include("game.logic.battleRecordGemDrop")
+include("game.logic.battleRecordGemEraseDropEnd")
 
 -- game object
 include("game.object.gemObject")

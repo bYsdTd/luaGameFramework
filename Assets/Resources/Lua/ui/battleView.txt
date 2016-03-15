@@ -6,8 +6,14 @@ global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE = "EVENT_UI_BATTLEVIEW_UPDATE";
 function battleView:ctor(layoutConig, event)
 
 	battleView.super.ctor(self, layoutConig, event);
+
+end
+
+function battleView:onRegisterEvent()
 	
 	self:registerEvent(global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE, self.onUpdate);
+	self:registerEvent(EVENT_ID.EVENT_BATTLE_ROUND_TYPE, self.onUpdateRoundType);
+
 
 end
 
@@ -21,9 +27,58 @@ function  battleView:onShow(event)
 		eventManager.postEvent({name = "EVENT_UI_BATTLEVIEW_HIDE", layoutIndex = self._layoutIndex } );
 	end);
 
+	self._btnLeftEndRound = uiTypeCast.toButton(self:getChild("btnLeftEndRound"));
+	self._btnRightEndRound = uiTypeCast.toButton(self:getChild("btnRightEndRound"));
+
+	self._btnLeftEndRound.onClick:AddListener(function( ... )
+		
+		-- left button end round
+		networkManager.send( GLOBAL_PACKET_ID.BATTLE_END_ROUND, "left");
+
+	end);
+
+	self._btnRightEndRound.onClick:AddListener(function( ... )
+		
+		-- right button end round
+		networkManager.send( GLOBAL_PACKET_ID.BATTLE_END_ROUND, "right" );
+
+	end);
+
+	self._imgLeftRoundTips = uiTypeCast.toImage(self:getChild("imgLeftRoundTips"));
+	self._imgRightRoundTips = uiTypeCast.toImage(self:getChild("imgRightRoundTips"));
+
+	self:onUpdate();
+
 end
 
 function battleView:onUpdate(event)
+
+	self:onUpdateRoundType();
+
+end
+
+function battleView:onUpdateRoundType(event)
+
+	local sceneUserData = sceneManager.currentScene:userData();
+	local battleLogic = sceneUserData.battleLogic;
+
+	if battleLogic:getRoundType() == enum.BATTLE_ROUND_TYPE.ATTACKER then
+		
+		self._imgLeftRoundTips.color = UnityEngine.Color.green;
+		self._imgRightRoundTips.color = UnityEngine.Color.red;
+
+		self._btnLeftEndRound.interactable = battleLogic:getErasedFlag();
+		self._btnRightEndRound.interactable = false;
+
+	else
+	
+		self._imgLeftRoundTips.color = UnityEngine.Color.red;
+		self._imgRightRoundTips.color = UnityEngine.Color.green;
+
+		self._btnLeftEndRound.interactable = false;
+		self._btnRightEndRound.interactable = battleLogic:getErasedFlag();
+
+	end
 
 end
 

@@ -61,8 +61,6 @@ end
 
 function gemsLogic:updateAllGemObject(gemsData)
 
-	print("updateAllGemObject gemsData!");
-
 	self._gemsData:setData(gemsData);
 
 	local data = self._gemsData:getData();

@@ -20,8 +20,6 @@ end
 function battleRecordGemDrop:onStart( ... )
 	-- body
 
-	print("battleRecordGemErase onStart");
-
 	local data = self._data;
 
 	local sceneUserData = sceneManager.currentScene:userData();

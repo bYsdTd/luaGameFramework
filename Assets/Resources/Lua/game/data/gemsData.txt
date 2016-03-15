@@ -135,8 +135,7 @@ end
 
 -- 检查连线，3， 4 ，5个？
 function gemsData:checkThree()
-	
-	print("------------checkThree--------");
+
 	-- erasegemsData 的 local k = (i-1) * self._w + j;
 	
 	local eraseBlocks = {};

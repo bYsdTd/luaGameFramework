@@ -18,6 +18,37 @@ function battleLogic:ctor()
 
 	self._battlePlayer = battlePlayer.new();
 
+	--
+	self._roundType = enum.BATTLE_ROUND_TYPE.NONE;
+
+	-- erase flag, to check if can end round
+	self._erasedFlag = false;
+
+end
+
+function battleLogic:getErasedFlag()
+
+	-- can player end round
+	-- must do one time erase
+	return self._erasedFlag;
+end
+
+function battleLogic:setErasedFlag(flag)
+	
+	self._erasedFlag = flag;
+
+end
+
+function battleLogic:getRoundType()
+
+	return self._roundType;
+
+end
+
+function battleLogic:setRoundType(roundType)
+
+	self._roundType = roundType;
+
 end
 
 function battleLogic:destroy( ... )
@@ -88,6 +119,14 @@ function battleLogic:removeAllEvent()
 
 end
 
+function battleLogic:onHandleRoundType(event)
+	
+	self._roundType = event.roundType;
+
+	print("onHandleRoundType battleLogic "..self._roundType);
+
+end
+
 function battleLogic:onHandleRecord(event)
 	
 	if self._battlePlayer and event.data then
@@ -126,7 +165,7 @@ end
 function battleLogic:onTouchDown( position )
 	
 
-	if self._gemInputHandler then
+	if self._gemInputHandler and not self:getErasedFlag() then
 	
 		self._gemInputHandler:onTouchDown(position);
 
@@ -137,7 +176,7 @@ end
 function battleLogic:onTouchMove( position )
 	
 
-	if self._gemInputHandler then
+	if self._gemInputHandler and not self:getErasedFlag() then
 		
 		self._gemInputHandler:onTouchMove(position);
 
@@ -147,7 +186,7 @@ end
 
 function battleLogic:onTouchUp( position )
 	
-	if self._gemInputHandler then
+	if self._gemInputHandler and not self:getErasedFlag() then
 	
 		self._gemInputHandler:onTouchUp(position);
 

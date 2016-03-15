@@ -2,12 +2,13 @@ gemObject = class("gemObject")
 
 local colorMap = 
 {
-	[1] = UnityEngine.Color(1, 0, 0, 1);	
-	[2] = UnityEngine.Color(0, 1, 0, 1);
-	[3] = UnityEngine.Color(0, 0, 1, 1);
-	[4] = UnityEngine.Color(1, 1, 0, 1);
-	[5] = UnityEngine.Color(0, 1, 1, 1);
-	[6] = UnityEngine.Color(1, 0, 1, 1);
+	[1] = UnityEngine.Color.red;	
+	[2] = UnityEngine.Color.green;
+	[3] = UnityEngine.Color.blue;
+	[4] = UnityEngine.Color.yellow;
+	[5] = UnityEngine.Color.cyan;
+	[6] = UnityEngine.Color.magenta;
+	[7] = UnityEngine.Color.white;
 };
 
 function gemObject:ctor(column, row, gemType, rootObject)
@@ -122,10 +123,10 @@ end
 
 function gemObject:playErase( callback )
 
-	local eraseTime = 0.5;
+	local eraseTime = 1.5;
 	local startTime = UnityEngine.Time.time;
 
-	LuaTimer.Add(0, 1, function(id)
+	LuaTimer.Add(1, 1, function(id)
 		
 		local elapsedTime = UnityEngine.Time.time - startTime;
 
@@ -162,7 +163,9 @@ end
 
 function gemObject:playMove(startPosition, endPosition, callback)
 	
-	local moveTime = 0.5;
+	local moveDistance = endPosition - startPosition;
+
+	local moveTime =  moveDistance.magnitude / gemObject.getGemSize() * 0.3;
 	local startTime = UnityEngine.Time.time;
 
 	self._rectCom.anchoredPosition = startPosition;
