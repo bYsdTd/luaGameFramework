@@ -38,6 +38,14 @@ function gemObject:ctor(column, row, gemType, rootObject)
 
 end
 
+function gemObject.getGemSize()
+	
+	local canvasSize = layoutManager.getCanvasSize();
+	local gemSize = canvasSize.y / GEMS_LOGIC_GEMS_ROW;
+
+	return gemSize;
+end
+
 function gemObject.getPositionByColRow(column, row)
 	
 	local canvasSize = layoutManager.getCanvasSize();
@@ -99,10 +107,65 @@ function gemObject:setRow( row )
 
 end
 
+function gemObject:setType( gemType )
+
+	self._gemType = gemType;
+
+	if self._imageCom then
+	
+		self._imageCom.color = colorMap[self._gemType];
+
+	end
+
+end
+
+
+function gemObject:playErase( callback )
+
+	local eraseTime = 0.5;
+	local startTime = UnityEngine.Time.time;
+
+	LuaTimer.Add(0, 1, function(id)
+		
+		local elapsedTime = UnityEngine.Time.time - startTime;
+
+		if elapsedTime >= eraseTime then
+			-- end
+
+			if self._imageCom then
+				
+				local color = self._imageCom.color;
+
+				self._imageCom.color = UnityEngine.Color(color.r, color.g, color.b, 0);
+
+			end
+
+			LuaTimer.Delete(id);
+
+			if callback then
+				
+				callback();
+
+			end
+
+		else
+
+			local alpha = 1 - elapsedTime / eraseTime;
+
+			local color = self._imageCom.color;
+			self._imageCom.color = UnityEngine.Color(color.r, color.g, color.b, alpha);
+
+		end
+
+	end);
+end
+
 function gemObject:playMove(startPosition, endPosition, callback)
 	
 	local moveTime = 0.5;
 	local startTime = UnityEngine.Time.time;
+
+	self._rectCom.anchoredPosition = startPosition;
 
 	LuaTimer.Add(0, 1, function(id)
 		

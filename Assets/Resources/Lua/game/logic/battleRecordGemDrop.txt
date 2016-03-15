@@ -1,0 +1,68 @@
+-- 战斗播放器
+
+battleRecordGemDrop = class("battleRecordGemDrop", battleRecordBase)
+
+function battleRecordGemDrop:ctor(data)
+
+	battleRecordGemDrop.super.ctor(self, data);
+
+end
+
+function battleRecordGemDrop:destroy( ... )
+
+end
+
+function battleRecordGemDrop:tick()
+
+
+end
+
+function battleRecordGemDrop:onStart( ... )
+	-- body
+
+	print("battleRecordGemErase onStart");
+
+	local data = self._data;
+
+	local sceneUserData = sceneManager.currentScene:userData();
+	local gemsLogic = sceneUserData.gemsLogic;
+	local gemsData = gemsLogic:getGemsData();
+	
+	local dropCount = table.nums(data.moveList);
+	local dropedCount = 0;
+
+	-- after erased , play drop
+	gemsLogic:updateAllGemObject(data.gemData);
+
+	for k,v in pairs(data.moveList) do
+		
+		--print("move list column: "..v.x.." row: "..v.y.." move: "..v.move);
+
+		local gemObject = gemsLogic:getGemObject(v.x, v.y);
+		local endPosition = gemObject.getPositionByColRow(v.x, v.y);
+
+		local moveDistance = gemObject.getGemSize() * v.move;
+
+		local startPosition = UnityEngine.Vector2(endPosition.x, endPosition.y + moveDistance);
+
+		gemObject:playMove(startPosition, endPosition, function( ... )
+			
+			dropedCount = dropedCount + 1;
+
+			if dropedCount == dropCount then
+				
+				self:endRecord();
+
+			end
+
+		end);
+
+	end
+
+
+
+end
+
+function battleRecordGemDrop:onEnd( ... )
+	
+end

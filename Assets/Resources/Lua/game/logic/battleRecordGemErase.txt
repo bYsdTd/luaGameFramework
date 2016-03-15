@@ -22,7 +22,32 @@ function battleRecordGemErase:onStart( ... )
 
 	print("battleRecordGemErase onStart");
 
-	dump(self._data);
+	local data = self._data;
+
+	local sceneUserData = sceneManager.currentScene:userData();
+	local gemsLogic = sceneUserData.gemsLogic;
+	local gemsData = gemsLogic:getGemsData();
+
+	local eraseCount = table.nums(data.eraseList);
+	local erasedCount = 0;
+
+	for k, erasePosition in pairs(data.eraseList) do
+		
+		local gemObject = gemsLogic:getGemObject(erasePosition.x, erasePosition.y);
+			
+		gemObject:playErase(function( )
+			
+			erasedCount = erasedCount + 1;
+
+			if erasedCount == eraseCount then
+			
+				self:endRecord();
+				
+			end
+
+		end);
+
+	end
 
 end
 

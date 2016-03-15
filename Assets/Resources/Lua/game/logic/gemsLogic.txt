@@ -59,6 +59,32 @@ function gemsLogic:getGemObject(column, row)
 	return gemObject;
 end
 
+function gemsLogic:updateAllGemObject(gemsData)
+
+	print("updateAllGemObject gemsData!");
+
+	self._gemsData:setData(gemsData);
+
+	local data = self._gemsData:getData();
+	local w = self._gemsData:getWidth();
+	local h = self._gemsData:getHeight();
+
+	for column = 1, w do
+		
+		for row = 1, h do
+		
+			local index = self:getGemsData():getIndexByPos(column, row);
+
+			local gemInstance =	self._gemsObjects[index];
+
+			gemInstance:setType(data[column][row]);
+
+		end
+
+	end
+
+end
+
 function gemsLogic:initGemObjects( )
 
 	self._gemsRoot = UnityEngine.GameObject("gemsRoot");

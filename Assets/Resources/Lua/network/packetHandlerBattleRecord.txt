@@ -14,11 +14,17 @@ function networkManager.onHandleBattleRecord(packetData)
 		if record.recordType == enum.BATTLE_RECORD_TYPE.ERASE then
 			
 			recordData.eraseList = clone(record.eraseList);
+
+
+			eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
+
+		elseif record.recordType == enum.BATTLE_RECORD_TYPE.DROP then
+
 			recordData.moveList = clone(record.moveList);
 			recordData.gemData = clone(record.gemData);
 
 			eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
-
+			
 		end
 
 	end

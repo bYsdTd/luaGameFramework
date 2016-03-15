@@ -17,13 +17,17 @@ function serverNetwork.onHandleSwapGems(packetData)
 			-- here all data send to client, may be just send modified 
 			local cloneData = clone(serverMain.gemsData:getData());
 
-			local record = {};
-			record.recordType = enum.BATTLE_RECORD_TYPE.ERASE;
-			record.eraseList = eraseList;
-			record.moveList = moveList;
-			record.gemData = cloneData;
+			local recordErase = {};
+			recordErase.recordType = enum.BATTLE_RECORD_TYPE.ERASE;
+			recordErase.eraseList = eraseList;
+			table.insert(sendData, recordErase);
 
-			table.insert(sendData, record);
+			local recordDrop = {};
+			recordDrop.recordType = enum.BATTLE_RECORD_TYPE.DROP;
+			recordDrop.moveList = moveList;
+			recordDrop.gemData = cloneData;
+
+			table.insert(sendData, recordDrop);
 
 			eraseList, moveList = serverMain.gemsData:checkThree();
 
