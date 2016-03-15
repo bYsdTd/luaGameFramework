@@ -39,6 +39,12 @@ function gemObject:ctor(column, row, gemType, rootObject)
 
 end
 
+function gemObject.getColorMap()
+
+	return colorMap;
+	
+end
+
 function gemObject.getGemSize()
 	
 	local canvasSize = layoutManager.getCanvasSize();

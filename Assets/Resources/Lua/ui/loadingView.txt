@@ -33,8 +33,6 @@ function  loadingView:onShow(event)
 end
 
 function loadingView:onUpdate(event)
-	
-	print("on loadingView update ");
 
 end
 

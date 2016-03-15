@@ -47,6 +47,27 @@ function  battleView:onShow(event)
 	self._imgLeftRoundTips = uiTypeCast.toImage(self:getChild("imgLeftRoundTips"));
 	self._imgRightRoundTips = uiTypeCast.toImage(self:getChild("imgRightRoundTips"));
 
+	self._imgLeftGems = {};
+	self._lblLeftGemsCount = {};
+
+	self._imgRightGems = {};
+	self._lblRightGemsCount = {};
+
+	for i=1, GEMS_LOGIC_GEMS_TYPE do
+		
+		self._imgLeftGems[i] = uiTypeCast.toImage(self:getChild("imgLeftGem"..i));
+		self._imgLeftGems[i].color = gemObject.getColorMap()[i];
+
+		self._lblLeftGemsCount[i] = uiTypeCast.toLable(self:getChild("lblLeftGem"..i.."Count"));
+		self._lblLeftGemsCount[i].color = gemObject.getColorMap()[i];
+		
+		self._imgRightGems[i] = uiTypeCast.toImage(self:getChild("imgRightGem"..i));
+		self._imgRightGems[i].color = gemObject.getColorMap()[i];
+
+		self._lblRightGemsCount[i] = uiTypeCast.toLable(self:getChild("lblRightGem"..i.."Count"));
+		self._lblRightGemsCount[i].color = gemObject.getColorMap()[i];
+	end
+
 	self:onUpdate();
 
 end
@@ -54,6 +75,20 @@ end
 function battleView:onUpdate(event)
 
 	self:onUpdateRoundType();
+	self:onUpdateHeroInfo();
+
+end
+
+function battleView:onUpdateHeroInfo()
+
+	local sceneUserData = sceneManager.currentScene:userData();
+
+	for i=1, GEMS_LOGIC_GEMS_TYPE do
+		
+		self._lblLeftGemsCount[i].text = sceneUserData.attackHero:getGems(i);
+		self._lblRightGemsCount[i].text = sceneUserData.defenceHero:getGems(i);
+
+	end
 
 end
 

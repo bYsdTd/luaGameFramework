@@ -6,6 +6,11 @@ function heroObject:ctor()
 
 	self._gems = {};
 
+	for i=1, GEMS_LOGIC_GEMS_TYPE do
+		
+		self._gems[i] = 0;
+
+	end
 end
 
 function heroObject:destroy()
@@ -31,8 +36,18 @@ function heroObject:setGems( gemType, gemValue )
 
 end
 
-function heroObject:getGems( getType )
+function heroObject:getGems( gemType )
 	
 	return self._gems[gemType];
+
+end
+
+function heroObject:modifyGems( gemType, modifyValue)
+
+	self._gems[gemType] = self._gems[gemType] or 0;
+
+	local newValue = self._gems[gemType] + modifyValue;
+
+	self:setGems(gemType, newValue);
 
 end

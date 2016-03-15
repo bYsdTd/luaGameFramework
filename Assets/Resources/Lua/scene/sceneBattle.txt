@@ -13,7 +13,9 @@ function sceneBattle:userData()
 	local userData = {};
 	userData.gemsLogic = self._battleLogic._gemsLogic
 	userData.battleLogic = self._battleLogic;
-	
+	userData.attackHero = self._battleLogic._attackHero;
+	userData.defenceHero = self._battleLogic._defenceHero;
+
 	return userData;
 	
 end

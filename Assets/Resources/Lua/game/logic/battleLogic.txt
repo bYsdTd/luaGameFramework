@@ -123,8 +123,6 @@ function battleLogic:onHandleRoundType(event)
 	
 	self._roundType = event.roundType;
 
-	print("onHandleRoundType battleLogic "..self._roundType);
-
 end
 
 function battleLogic:onHandleRecord(event)

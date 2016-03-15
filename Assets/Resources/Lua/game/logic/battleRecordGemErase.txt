@@ -32,7 +32,21 @@ function battleRecordGemErase:onStart( ... )
 	for k, erasePosition in pairs(data.eraseList) do
 		
 		local gemObject = gemsLogic:getGemObject(erasePosition.x, erasePosition.y);
+		
+		-- modify hero gems count
+		local gemType = gemsData:getData()[erasePosition.x][erasePosition.y];
+		
+		if sceneUserData.battleLogic:getRoundType() == enum.BATTLE_ROUND_TYPE.ATTACKER then
 			
+			sceneUserData.attackHero:modifyGems(gemType, 1);
+
+		elseif sceneUserData.battleLogic:getRoundType() == enum.BATTLE_ROUND_TYPE.DEFENDER then
+			
+			sceneUserData.defenceHero:modifyGems(gemType, 1);
+
+		end
+
+
 		gemObject:playErase(function( )
 			
 			erasedCount = erasedCount + 1;
@@ -51,4 +65,7 @@ end
 
 function battleRecordGemErase:onEnd( ... )
 	
+	-- notify ui update
+	eventManager.postEvent({ name = global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE });
+
 end
