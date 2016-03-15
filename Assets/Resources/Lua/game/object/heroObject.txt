@@ -30,6 +30,12 @@ function heroObject:getHP( )
 
 end
 
+function heroObject:getMaxHP()
+	
+	return 100;
+
+end
+
 function heroObject:setGems( gemType, gemValue )
 	
 	self._gems[gemType] = gemValue;

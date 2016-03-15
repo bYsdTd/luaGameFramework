@@ -60,13 +60,17 @@ function  battleView:onShow(event)
 
 		self._lblLeftGemsCount[i] = uiTypeCast.toLable(self:getChild("lblLeftGem"..i.."Count"));
 		self._lblLeftGemsCount[i].color = gemObject.getColorMap()[i];
-		
+
 		self._imgRightGems[i] = uiTypeCast.toImage(self:getChild("imgRightGem"..i));
 		self._imgRightGems[i].color = gemObject.getColorMap()[i];
 
 		self._lblRightGemsCount[i] = uiTypeCast.toLable(self:getChild("lblRightGem"..i.."Count"));
 		self._lblRightGemsCount[i].color = gemObject.getColorMap()[i];
 	end
+
+	self._lblLeftHPNumber = uiTypeCast.toLable(self:getChild("lblLeftHPNumber"));
+	self._lblRightHPNumber = uiTypeCast.toLable(self:getChild("lblRightHPNumber"));
+
 
 	self:onUpdate();
 
@@ -90,6 +94,9 @@ function battleView:onUpdateHeroInfo()
 
 	end
 
+	self._lblLeftHPNumber.text = sceneUserData.attackHero:getHP() .. "/"..sceneUserData.attackHero:getMaxHP();
+	self._lblRightHPNumber.text = sceneUserData.defenceHero:getHP() .. "/"..sceneUserData.defenceHero:getMaxHP();
+	
 end
 
 function battleView:onUpdateRoundType(event)
