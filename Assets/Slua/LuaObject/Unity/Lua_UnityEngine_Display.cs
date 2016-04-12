@@ -71,6 +71,18 @@ public class Lua_UnityEngine_Display : LuaObject {
 		}
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+	static public int MultiDisplayLicense_s(IntPtr l) {
+		try {
+			var ret=UnityEngine.Display.MultiDisplayLicense();
+			pushValue(l,true);
+			pushValue(l,ret);
+			return 2;
+		}
+		catch(Exception e) {
+			return error(l,e);
+		}
+	}
+	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static public int RelativeMouseAt_s(IntPtr l) {
 		try {
 			UnityEngine.Vector3 a1;
@@ -196,6 +208,7 @@ public class Lua_UnityEngine_Display : LuaObject {
 		addMember(l,Activate);
 		addMember(l,SetParams);
 		addMember(l,SetRenderingResolution);
+		addMember(l,MultiDisplayLicense_s);
 		addMember(l,RelativeMouseAt_s);
 		addMember(l,"displays",get_displays,set_displays,false);
 		addMember(l,"renderingWidth",get_renderingWidth,null,true);

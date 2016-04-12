@@ -2,6 +2,7 @@ local battleView = class("battleView", layout);
 
 -- event define
 global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE = "EVENT_UI_BATTLEVIEW_UPDATE";
+global_uiEvent.EVENT_UI_BATTLEVIEW_ROUND_INFO = "EVENT_UI_BATTLEVIEW_ROUND_INFO";
 
 function battleView:ctor(layoutConig, event)
 
@@ -13,7 +14,8 @@ function battleView:onRegisterEvent()
 	
 	self:registerEvent(global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE, self.onUpdate);
 	self:registerEvent(EVENT_ID.EVENT_BATTLE_ROUND_TYPE, self.onUpdateRoundType);
-
+	self:registerEvent(EVENT_ID.EVENT_BATTLE_CAST_SKILL_SELECT_GEM, self.onCastSkillSelectGem);
+	self:registerEvent(global_uiEvent.EVENT_UI_BATTLEVIEW_ROUND_INFO, self.onUpdateRoundInfo);
 
 end
 
@@ -27,26 +29,40 @@ function  battleView:onShow(event)
 		eventManager.postEvent({name = "EVENT_UI_BATTLEVIEW_HIDE", layoutIndex = self._layoutIndex } );
 	end);
 
+	-- round info
+	self._lblRoundInfo = uiTypeCast.toLable(self:getChild("lblRoundInfo"));
+	self._lblRoundInfo.gameObject:SetActive(false);
+	
+	-- end round button
 	self._btnLeftEndRound = uiTypeCast.toButton(self:getChild("btnLeftEndRound"));
 	self._btnRightEndRound = uiTypeCast.toButton(self:getChild("btnRightEndRound"));
 
 	self._btnLeftEndRound.onClick:AddListener(function( ... )
 		
+		sceneManager.currentScene:userData().battleLogic:setErasedFlag(false);
 		-- left button end round
 		networkManager.send( GLOBAL_PACKET_ID.BATTLE_END_ROUND, "left");
+
+		self:onUpdate();
 
 	end);
 
 	self._btnRightEndRound.onClick:AddListener(function( ... )
 		
+		sceneManager.currentScene:userData().battleLogic:setErasedFlag(false);
+
 		-- right button end round
 		networkManager.send( GLOBAL_PACKET_ID.BATTLE_END_ROUND, "right" );
 
+		self:onUpdate();
+
 	end);
 
+	-- round tips
 	self._imgLeftRoundTips = uiTypeCast.toImage(self:getChild("imgLeftRoundTips"));
 	self._imgRightRoundTips = uiTypeCast.toImage(self:getChild("imgRightRoundTips"));
 
+	-- gems info
 	self._imgLeftGems = {};
 	self._lblLeftGemsCount = {};
 
@@ -68,11 +84,127 @@ function  battleView:onShow(event)
 		self._lblRightGemsCount[i].color = gemObject.getColorMap()[i];
 	end
 
+	-- hp info
 	self._lblLeftHPNumber = uiTypeCast.toLable(self:getChild("lblLeftHPNumber"));
 	self._lblRightHPNumber = uiTypeCast.toLable(self:getChild("lblRightHPNumber"));
 
+	-- skill info
+	self._btnLeftSkills = {};
+	self._lblLeftSkills = {};
+
+	self._btnRightSkills = {};
+	self._lblRightSkills = {};
+
+	for i=1, 4 do
+		
+		self._btnLeftSkills[i] = uiTypeCast.toButton(self:getChild("imgLeftSkillCard"..i));
+
+		self._btnLeftSkills[i].onClick:AddListener(function( ... )
+			
+			self:onCastSkill(i);
+
+		end);
+
+		self._lblLeftSkills[i] = uiTypeCast.toLable(self:getChild("lblLeftSkillCard"..i));
+
+		self._btnRightSkills[i] = uiTypeCast.toButton(self:getChild("imgRightSkillCard"..i));
+
+		self._btnRightSkills[i].onClick:AddListener(function( ... )
+			
+			self:onCastSkill(i);
+
+		end);
+
+		self._lblRightSkills[i] = uiTypeCast.toLable(self:getChild("lblRightSkillCard"..i))
+
+	end
+
+	-- cast skill select gem
+	self._leftSelectGemRoot = self:getChild("imgLeftCastSkillSelectGem");
+	self._leftSelectGemRoot:SetActive(false);
+
+	self._btnLeftConfirmSelectGem = uiTypeCast.toButton(self:getChild("btnLeftConfirmSelectGem"));
+	self._btnLeftCancelSelectGem = uiTypeCast.toButton(self:getChild("btnLeftCancelSelectGem"));
+
+	self._btnLeftConfirmSelectGem.onClick:AddListener(function( ... )
+		
+		self:onCastSkillConfirmSelectGem();
+
+	end);
+
+	self._btnLeftCancelSelectGem.onClick:AddListener(function( ... )
+		
+		self:onCastSkillCancelSelectGem();
+
+	end);
+
+	self._rightSelectGemRoot = self:getChild("imgRightCastSkillSelectGem");
+
+
+	self._rightSelectGemRoot:SetActive(false);
+
+	self._btnRightConfirmSelectGem = uiTypeCast.toButton(self:getChild("btnRightConfirmSelectGem"));
+	self._btnRightCancelSelectGem = uiTypeCast.toButton(self:getChild("btnRightCancelSelectGem"));
+
+	self._btnRightConfirmSelectGem.onClick:AddListener(function( ... )
+		
+		self:onCastSkillConfirmSelectGem();
+
+	end);
+
+	self._btnRightCancelSelectGem.onClick:AddListener(function( ... )
+		
+		self:onCastSkillCancelSelectGem();
+			
+	end);
 
 	self:onUpdate();
+
+end
+
+function battleView:onUpdateRoundInfo(event)
+	
+	if event.roundType == enum.BATTLE_ROUND_TYPE.ATTACKER then
+		
+		self._lblRoundInfo.text = "进攻方回合";
+
+	else
+		
+		self._lblRoundInfo.text = "防守方回合";
+
+	end
+
+	self._lblRoundInfo.gameObject:SetActive(event.show);
+
+end
+
+function battleView:onCastSkillConfirmSelectGem()
+
+	local battleLogic = sceneManager.currentScene:userData().battleLogic;
+
+	if battleLogic then
+	
+		battleLogic:onCastSelectGemSkill();
+
+	end
+
+end
+
+function battleView:onCastSkillCancelSelectGem()
+
+	eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_CAST_SKILL_SELECT_GEM, data = false});
+
+end
+
+function battleView:onCastSkill(index)
+	
+	
+	local battleLogic = sceneManager.currentScene:userData().battleLogic;
+
+	local hero = battleLogic:getCurrentHero();
+	local skillCard = hero:getCard(index);
+
+	battleLogic:onCastSkill(skillCard:getSkillID());
 
 end
 
@@ -81,6 +213,49 @@ function battleView:onUpdate(event)
 	self:onUpdateRoundType();
 	self:onUpdateHeroInfo();
 
+	self:onUpdateSkillInfo();
+
+end
+
+
+function battleView:onUpdateSkillInfo( ... )
+
+	local sceneUserData = sceneManager.currentScene:userData();
+
+	for i=1, 4 do
+		
+		local skillCardLeft = sceneUserData.attackHero:getCard(i);
+		local skillCardRight = sceneUserData.defenceHero:getCard(i);
+
+		if skillCardLeft then
+			
+			local skillConfig = skillCardLeft:getConfig();
+
+			self._lblLeftSkills[i].text = "skill:"..skillCardLeft:getSkillID().."("..skillConfig.desc..")".."cost:"..skillCardLeft:getCostString();
+
+			self._btnLeftSkills[i].gameObject:SetActive(true);
+
+		else
+
+			self._btnLeftSkills[i].gameObject:SetActive(false);
+
+		end
+
+		if skillCardRight then
+
+			local skillConfig = skillCardRight:getConfig();
+
+			self._lblRightSkills[i].text = "skill:"..skillCardRight:getSkillID().."("..skillConfig.desc..")".."cost:"..skillCardRight:getCostString();
+
+			self._btnRightSkills[i].gameObject:SetActive(true);
+
+		else
+
+			self._btnRightSkills[i].gameObject:SetActive(false);
+
+		end
+		
+	end
 end
 
 function battleView:onUpdateHeroInfo()
@@ -109,7 +284,7 @@ function battleView:onUpdateRoundType(event)
 		self._imgLeftRoundTips.color = UnityEngine.Color.green;
 		self._imgRightRoundTips.color = UnityEngine.Color.red;
 
-		self._btnLeftEndRound.interactable = battleLogic:getErasedFlag();
+		self._btnLeftEndRound.interactable = battleLogic:canEndRound();
 		self._btnRightEndRound.interactable = false;
 
 	else
@@ -118,9 +293,28 @@ function battleView:onUpdateRoundType(event)
 		self._imgRightRoundTips.color = UnityEngine.Color.green;
 
 		self._btnLeftEndRound.interactable = false;
-		self._btnRightEndRound.interactable = battleLogic:getErasedFlag();
+		self._btnRightEndRound.interactable = battleLogic:canEndRound();
 
 	end
+
+	for i=1, 4 do
+		
+		self._btnLeftSkills[i].interactable = sceneUserData.attackHero:canCastSkill(i) and battleLogic:getRoundType() == enum.BATTLE_ROUND_TYPE.ATTACKER;
+		self._btnRightSkills[i].interactable = sceneUserData.defenceHero:canCastSkill(i) and battleLogic:getRoundType() == enum.BATTLE_ROUND_TYPE.DEFENDER;
+		
+	end
+
+end
+
+
+function battleView:onCastSkillSelectGem( event )
+	
+	print("onCastSkillSelectGem");
+	local sceneUserData = sceneManager.currentScene:userData();
+	local battleLogic = sceneUserData.battleLogic;
+
+	self._leftSelectGemRoot:SetActive(event.data and battleLogic:getRoundType() == enum.BATTLE_ROUND_TYPE.ATTACKER);
+	self._rightSelectGemRoot:SetActive(event.data and battleLogic:getRoundType() == enum.BATTLE_ROUND_TYPE.DEFENDER);
 
 end
 

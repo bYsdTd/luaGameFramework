@@ -1,0 +1,44 @@
+-- 战斗播放器
+
+battleRecordEndRound = class("battleRecordEndRound", battleRecordBase)
+
+function battleRecordEndRound:ctor(data)
+
+	battleRecordEndRound.super.ctor(self, data);
+
+end
+
+function battleRecordEndRound:destroy( ... )
+
+end
+
+function battleRecordEndRound:tick()
+
+
+end
+
+function battleRecordEndRound:onStart( ... )
+
+	local data = self._data;
+
+	eventManager.postEvent({ name = global_uiEvent.EVENT_UI_BATTLEVIEW_ROUND_INFO, show = true, roundType = data.roundType});
+
+	LuaTimer.Add(1000, 1, function( id )
+		
+		LuaTimer.Delete(id);
+
+		sceneManager.currentScene:userData().battleLogic:setRoundType(data.roundType);
+
+		eventManager.postEvent({ name = EVENT_ID.EVENT_BATTLE_ROUND_TYPE});
+
+		eventManager.postEvent({ name = global_uiEvent.EVENT_UI_BATTLEVIEW_ROUND_INFO, show = false, roundType = data.roundType});	
+
+		self:endRecord();
+
+	end);
+
+end
+
+function battleRecordEndRound:onEnd( ... )
+
+end

@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Text;
 
 public class UIManager : MonoBehaviour {
 
@@ -27,7 +28,24 @@ public class UIManager : MonoBehaviour {
 
 		m_EventSystem.AddComponent<EventSystem>();
 		m_EventSystem.AddComponent<StandaloneInputModule>();
+		m_EventSystem.AddComponent<TouchInputModule>();
 
+		GameObject button = new GameObject("send button");
+		Button btnCom = button.AddComponent<Button>();
+		button.AddComponent<Image>();
+
+		button.transform.SetParent(m_Canvas.gameObject.transform);
+		button.transform.localPosition = Vector3.zero;
+
+		int count = 0;
+
+		btnCom.onClick.AddListener(delegate() {
+
+			count++;
+
+			GameManager.instance().networkManager.send(Encoding.UTF8.GetBytes("hello world" + count.ToString()));
+
+		});
 	}
 	
 	// Update is called once per frame

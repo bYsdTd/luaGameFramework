@@ -1,9 +1,15 @@
 -- handler
 function networkManager.onHandleRoundType(packetData)
 	
-	sceneManager.currentScene:userData().battleLogic:setRoundType(packetData.roundType);
-	sceneManager.currentScene:userData().battleLogic:setErasedFlag(false);
+	local recordData = {};
+	recordData.recordType = enum.BATTLE_RECORD_TYPE.END_ROUND;
+	recordData.roundType = packetData.roundType;
+	
+	eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
 
-	eventManager.postEvent({ name = EVENT_ID.EVENT_BATTLE_ROUND_TYPE});
+	-- sceneManager.currentScene:userData().battleLogic:setRoundType(packetData.roundType);
+	-- sceneManager.currentScene:userData().battleLogic:setErasedFlag(false);
+
+	-- eventManager.postEvent({ name = EVENT_ID.EVENT_BATTLE_ROUND_TYPE});
 
 end

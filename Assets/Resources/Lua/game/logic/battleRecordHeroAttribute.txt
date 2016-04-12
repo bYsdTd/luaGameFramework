@@ -1,0 +1,40 @@
+-- 战斗播放器
+
+battleRecordHeroAttribute = class("battleRecordHeroAttribute", battleRecordBase)
+
+function battleRecordHeroAttribute:ctor(data)
+
+	battleRecordHeroAttribute.super.ctor(self, data);
+
+end
+
+function battleRecordHeroAttribute:destroy( ... )
+
+end
+
+function battleRecordHeroAttribute:tick()
+
+
+end
+
+function battleRecordHeroAttribute:onStart( ... )
+
+
+	local heroAttribute = self._data.heroAttribute;
+
+	local battleLogic = sceneManager.currentScene:userData().battleLogic;
+
+	local target = battleLogic:getTarget(heroAttribute.targetType);
+
+	target:changeAttribute(heroAttribute.attrType, heroAttribute.attrValue);
+
+	self:endRecord();
+
+end
+
+function battleRecordHeroAttribute:onEnd( ... )
+	
+
+	eventManager.postEvent({name = global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE });
+
+end

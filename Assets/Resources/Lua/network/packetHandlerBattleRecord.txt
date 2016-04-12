@@ -3,26 +3,28 @@ function networkManager.onHandleBattleRecord(packetData)
 
 	for i, record in ipairs(packetData) do
 		
-		local recordData = {};
+		local recordData = clone(record);
 
-		recordData.recordType = record.recordType;
+		-- recordData.recordType = record.recordType;
 
-		if record.recordType == enum.BATTLE_RECORD_TYPE.ERASE then
+		-- if record.recordType == enum.BATTLE_RECORD_TYPE.ERASE then
 			
-			recordData.eraseList = clone(record.eraseList);
+		-- 	recordData.eraseList = clone(record.eraseList);
 
 
-			eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
+		-- 	eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
 
-		elseif record.recordType == enum.BATTLE_RECORD_TYPE.DROP then
+		-- elseif record.recordType == enum.BATTLE_RECORD_TYPE.DROP then
 
-			recordData.moveList = clone(record.moveList);
-			recordData.gemData = clone(record.gemData);
+		-- 	recordData.moveList = clone(record.moveList);
+		-- 	recordData.gemData = clone(record.gemData);
 
-			eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
+		-- 	eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
 			
-		end
+		-- end
 
+		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
+		
 	end
 
 	-- add erase and drop end data

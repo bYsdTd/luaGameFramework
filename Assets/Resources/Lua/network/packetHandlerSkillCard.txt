@@ -1,0 +1,26 @@
+-- handler
+function networkManager.onHandleSkillCard(packetData)
+
+	-- local battleLogic = sceneManager.currentScene:userData().battleLogic;
+	
+	-- local hero = battleLogic:getCurrentHero();
+	
+	-- for i,v in ipairs(packetData.skillCards) do
+		
+	-- 	if not hero:haveCard(v) then
+			
+	-- 		hero:addCard(v);
+
+	-- 	end
+	-- end
+
+	-- eventManager.postEvent( { name = global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE, } );
+
+	local recordData = {};
+	recordData.recordType = enum.BATTLE_RECORD_TYPE.FILL_SKILL_CARD;
+	recordData.skillCards = clone(packetData.skillCards);
+	
+	eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, data = recordData });
+
+
+end

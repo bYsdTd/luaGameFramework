@@ -30,6 +30,10 @@ include("network.networkManager")
 
 -- server
 include("server.serverMain")
+include("server.serverSkillSystem")
+include("server.serverHero")
+include("server.serverSkillFunction")
+include("server.serverSkillAPI")
 
 -- game
 -- game data
@@ -38,13 +42,24 @@ include("game.data.gemsData")
 include("game.logic.battleLogic")
 include("game.logic.gemsLogic")
 include("game.logic.gemInputHandler")
+include("game.logic.skillLogic")
+include("game.logic.skillInputHandler")
+
 include("game.logic.battlePlayer")
 include("game.logic.battleRecordBase")
 include("game.logic.battleRecordGemSwap")
 include("game.logic.battleRecordGemErase")
 include("game.logic.battleRecordGemDrop")
 include("game.logic.battleRecordGemEraseDropEnd")
+include("game.logic.battleRecordHeroAttribute")
+include("game.logic.battleRecordGemChange")
+include("game.logic.battleRecordEndRound")
+include("game.logic.battleRecordFillSkillCard")
 
 -- game object
 include("game.object.gemObject")
 include("game.object.heroObject")
+
+-- game skill
+include("game.skill.skillCard")
+include("game.skill.skillSystem")

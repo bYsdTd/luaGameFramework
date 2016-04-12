@@ -1,0 +1,437 @@
+serverSkillFunction = {};
+
+serverSkillFunction.globalArgs = nil;
+
+function serverSkillFunction.setArgs(data)
+	
+	serverSkillFunction.globalArgs = data;
+
+end
+
+function serverSkillFunction.getArgs()
+	
+	return serverSkillFunction.globalArgs;
+
+end
+
+function serverSkillFunction.eraseCallBack(data)
+	-- data.gemType = ?
+	-- data.changeValue = ?
+
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, data.gemType, data.changeValue);
+end
+
+-- skill1 - skill10. Red and blue damage deck
+-- 造成4点伤害,for every 6 red mana you have deal 1 extra damage
+function serverSkillFunction.skill_1()
+	dmg = 4;
+	redMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM1);
+	dmg = dmg + math.floor(redMana/6);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -dmg);
+end
+
+-- if opponent hp is greater than 50% deal 5 damage, else then deal 3 damage
+function serverSkillFunction.skill_2()
+	opponentHP = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP);
+	local dmg = 0;
+	if opponentHP >= PLAYERMAXHP / 2 then
+		dmg = -5;
+	else 
+		dmg = -3;
+	end
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, dmg);
+end
+
+-- 造成3点伤害，增加自身3点红魔法
+function serverSkillFunction.skill_3()
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -3);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM1, 3);
+end
+
+-- 清空自身除红、蓝魔法以外的所有魔法值，并将魔法量转换为红魔法
+function serverSkillFunction.skill_4()
+	yellowMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM2);
+	greenMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM4);
+	purpleMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM5);
+	
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM2, -yellowMana);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM4, -greenMana);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM5, -purpleMana);
+	
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM1, (yellowMana + greenMana + purpleMana));
+end
+
+-- 造成6点伤害，select a gem, the opponent increase 3 mana of selected kind
+function serverSkillFunction.skill_5(data)
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -6);
+	
+	local column = data.column;
+	local row = data.row;
+	local gemData = serverSkillAPI.getGemData();
+
+	manaType = gemData[column][row];
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, manaType, 3);
+end
+
+-- 造成3点伤害，若自身蓝魔法高于10点，额外造成2点伤害
+function serverSkillFunction.skill_6()
+	dmg = 3;
+	blueMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM3);
+	if blueMana >= 10 then
+		dmg = dmg + 2;
+	end
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -dmg);
+end
+
+-- 清空所有蓝魔法，造成等量伤害
+function serverSkillFunction.skill_7()
+	blueMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM3);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM3, -blueMana);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -blueMana);
+end
+
+-- 消除盘面所有蓝宝石，获得消除效果
+function serverSkillFunction.skill_8()
+	local eraseList = {};
+	local gemData = serverSkillAPI.getGemData();
+	for row = 1, GEMS_LOGIC_GEMS_ROW do
+		for column = 1, GEMS_LOGIC_GEMS_COLUMN do
+			if gemData[column][row] == enum.HERO_ATTRIBUTE.GEM3 then
+				table.insert(eraseList, {x=column, y=row});
+			end
+		end
+	end
+	serverSkillAPI.eraseAndDropByEraseList(eraseList, true);
+	serverSkillAPI.eraseAndDrop();
+end
+
+-- Decrease your hp 4, but increase red mana 8
+function serverSkillFunction.skill_9()
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.HP, -4);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM1, 8);
+end
+
+-- select a gem, decrease the oponent selected gem mana 6, if the mana drop to 0, deal 4 dmg
+function serverSkillFunction.skill_10(data)
+	local column = data.column;
+	local row = data.row;
+	local gemData = serverSkillAPI.getGemData();
+	manaType = gemData[column][row];
+
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, manaType, -6);
+	opSelectMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.OTHER, manaType);
+	if opSelectMana == 0 then
+		serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -4);
+	end
+end
+
+-- 指定任意one gem and change all this kind of gem to purple gem
+function serverSkillFunction.skill_11(data)
+	local column = data.column;
+	local row = data.row;
+	local gemData = serverSkillAPI.getGemData();
+	tmpColorType = gemData[column][row];
+	serverSkillAPI.changeGemsColor(tmpColorType, enum.HERO_ATTRIBUTE.GEM5);
+end
+
+-- select a gem, decrease opponent 5 mana, increase self 4 mana
+function serverSkillFunction.skill_12(data)
+	local column = data.column;
+	local row = data.row;
+	local gemData = serverSkillAPI.getGemData();
+	tmpColorType = gemData[column][row];
+
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, tmpColorType, -5);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, tmpColorType, 4);
+end
+
+-- 消除所有紫宝石and get all effect
+function serverSkillFunction.skill_13()
+	local eraseList = {};
+	local gemData = serverSkillAPI.getGemData();
+	for row = 1, GEMS_LOGIC_GEMS_ROW do
+		for column = 1, GEMS_LOGIC_GEMS_COLUMN do
+			if gemData[column][row] == enum.HERO_ATTRIBUTE.GEM5 then
+				table.insert(eraseList, {x=column, y=row});
+			end
+		end
+	end
+	serverSkillAPI.eraseAndDropByEraseList(eraseList, true);
+	serverSkillAPI.eraseAndDrop();
+end
+
+-- 指定一个任意宝石，deal gem count to opponent
+function serverSkillFunction.skill_14(data)
+	local column = data.column;
+	local row = data.row;
+	local gemData = serverSkillAPI.getGemData();
+	tmpColorType = gemData[column][row];
+	
+	local dmg = 0;
+    for row = 1, GEMS_LOGIC_GEMS_ROW do
+        for column = 1, GEMS_LOGIC_GEMS_COLUMN do
+            if gemData[column][row] == tmpColorType then
+                dmg = dmg + 1;
+            end
+        end
+    end
+	
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -dmg);
+	
+end
+
+-- select a gem, increase purple mana gem count points
+function serverSkillFunction.skill_15(data)
+	local column = data.column;
+	local row = data.row;
+	local gemData = serverSkillAPI.getGemData();
+	tmpColorType = gemData[column][row];
+	
+	local gemCount = 0;
+    for row = 1, GEMS_LOGIC_GEMS_ROW do
+        for column = 1, GEMS_LOGIC_GEMS_COLUMN do
+            if gemData[column][row] == tmpColorType then
+                gemCount = gemCount + 1;
+            end
+        end
+    end
+    
+    serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM5, gemCount);
+    
+end
+
+-- 造成5点伤害，heal you 5 damage
+function serverSkillFunction.skill_16()
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -3);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.HP, 3);
+end
+
+-- select a gem, exchange opponent gem mana with your purple gem mana
+function serverSkillFunction.skill_17(data)
+	local column = data.column;
+	local row = data.row;
+	local gemData = serverSkillAPI.getGemData();
+	tmpColorType = gemData[column][row];
+
+	opponentMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.OTHER, tmpColorType);
+	myRedMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM1);
+	
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, tmpColorType, -opponentMana);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, tmpColorType, myRedMana);
+	
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM1, -myRedMana);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM1, opponentMana);
+end
+
+-- 选择一个宝石，将该宝石周围8个宝石消除，获得所有消除效果
+function serverSkillFunction.skill_18(data)
+	local column = data.column;
+	local row = data.row;
+	local eraseList = {};
+	for x = column - 1, column + 1 do
+		for y = row - 1, row + 1 do
+			if x > 0 and x <= GEMS_LOGIC_GEMS_COLUMN and
+				y > 0 and y <= GEMS_LOGIC_GEMS_ROW then				
+					table.insert(eraseList, {x=x, y=y});
+			end
+		end
+	end
+	serverSkillAPI.eraseAndDropByEraseList(eraseList, true);
+	serverSkillAPI.eraseAndDrop();
+end
+
+-- 减少对手所有魔法值各3点
+function serverSkillFunction.skill_19()
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.GEM1, -3);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.GEM2, -3);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.GEM3, -3);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.GEM4, -3);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.GEM5, -3);
+end
+
+-- 造成盘面紫宝石数量一半的伤害，若自身紫魔法大于10点，额外造成3点
+function serverSkillFunction.skill_20()
+	local dmg = 0;
+    local gemData = serverSkillAPI.getGemData();
+    local gem1Count = 0;
+    for row = 1, GEMS_LOGIC_GEMS_ROW do
+        for column = 1, GEMS_LOGIC_GEMS_COLUMN do
+            if gemData[column][row] == enum.HERO_ATTRIBUTE.GEM5 then
+                gem1Count = gem1Count + 1;
+            end
+        end
+    end
+    dmg = math.floor(gem1Count/2);
+    
+    purpleMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM5);
+    if purpleMana > 10 then
+    	dmg = dmg + 3;
+    end
+    serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -dmg);
+end
+
+-- 消除所有绿色宝石，获得消除效果，回复消除量1/2的生命值
+function serverSkillFunction.skill_21()
+	local eraseList = {};
+	local gemData = serverSkillAPI.getGemData();
+	for row = 1, GEMS_LOGIC_GEMS_ROW do
+		for column = 1, GEMS_LOGIC_GEMS_COLUMN do
+			if gemData[column][row] == enum.HERO_ATTRIBUTE.GEM4 then
+				table.insert(eraseList, {x=column, y=row});
+			end
+		end
+	end
+	
+	greenGemsCount = #eraseList;
+	
+	serverSkillAPI.eraseAndDropByEraseList(eraseList, true);
+	serverSkillAPI.eraseAndDrop();
+	
+	healCount = math.floor(greenGemsCount/2);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.HP, healCount);
+	
+end
+
+-- 回复3点生命值，若黄魔法大于15点，回复4生命
+function serverSkillFunction.skill_22()
+	healCount = 3;
+	yellowMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM2);
+	if yellowMana > 15 then
+		healCount = 4;
+	end
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.HP, healCount);
+end
+
+-- 将所有紫宝石转换为黄宝石
+function serverSkillFunction.skill_23()
+	serverSkillAPI.changeGemsColor(enum.HERO_ATTRIBUTE.GEM5, enum.HERO_ATTRIBUTE.GEM2);
+end
+
+-- 造成2点伤害，每有2点绿魔法，额外造成1点伤害，清空所有绿魔法
+function serverSkillFunction.skill_24()
+	dmg = 2;
+	greenMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM4);
+	dmg = dmg + math.floor(greenMana/2);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -dmg);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM4, -greenMana);
+end
+
+-- 增加绿魔法3点，黄魔法3点
+function serverSkillFunction.skill_25()
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM2, 3);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM4, 3);
+end
+
+-- 造成4点伤害，若自身黄，绿魔法均大于10，造成双倍伤害
+function serverSkillFunction.skill_26()
+	dmg = 4;
+	yellowMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM2);
+	greenMana = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.GEM4);
+	if yellowMana > 10 and greenMana > 10 then
+		dmg = 8;
+	end
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -dmg);
+end
+
+-- 回复生命4点，随机交换两个宝石位置
+function serverSkillFunction.skill_27()
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.HP, 4);
+	serverSkillAPI.randomSwitch();
+end
+
+-- 回复3点生命，对手增加4点蓝魔法
+function serverSkillFunction.skill_28()
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.HP, 3);
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.GEM3, 4);
+end
+
+-- 造成2点伤害，自身满血时，额外造成1点伤害
+function serverSkillFunction.skill_29()
+	dmg = 2;
+	selfHP = serverSkillAPI.getHeroAttribute(enum.TARGET_TYPE.SELF, enum.HERO_ATTRIBUTE.HP);
+	if selfHP == PLAYERMAXHP  then
+		dmg = 3;
+	end
+	serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.OTHER, enum.HERO_ATTRIBUTE.HP, -dmg);
+end
+
+-- 消除最中间一列的所有宝石，获得消除效果
+function serverSkillFunction.skill_30()
+	local eraseList = {};
+	local gemData = serverSkillAPI.getGemData();
+	for row = 1, GEMS_LOGIC_GEMS_ROW do
+		for column = 1, GEMS_LOGIC_GEMS_COLUMN do
+			if row == 4 then
+				table.insert(eraseList, {x=column, y=row});
+			end
+		end
+	end
+	serverSkillAPI.eraseAndDropByEraseList(eraseList, true);
+	serverSkillAPI.eraseAndDrop();
+end
+
+
+function serverSkillFunction.skill_00()
+end
+
+function serverSkillFunction.skill_31(data)
+	
+	local column = data.column;
+	local row = data.row;
+
+	local eraseList = {};
+
+	for x = column - 1, column + 1 do
+	
+		for y = row - 1, row + 1 do
+
+			if x > 0 and x <= GEMS_LOGIC_GEMS_COLUMN and
+				y > 0 and y <= GEMS_LOGIC_GEMS_ROW then
+									
+					table.insert(eraseList, {x=x, y=y});
+
+			end
+
+		end
+	end
+
+	serverSkillAPI.eraseAndDropByEraseList(eraseList, true);
+
+	serverSkillAPI.eraseAndDrop();
+end
+
+-- 
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end
+function serverSkillFunction.skill_00()
+end

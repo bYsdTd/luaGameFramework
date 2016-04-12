@@ -18,38 +18,6 @@ public class Lua_UnityEngine_ParticleSystem_Particle : LuaObject {
 		}
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int GetCurrentSize(IntPtr l) {
-		try {
-			UnityEngine.ParticleSystem.Particle self;
-			checkValueType(l,1,out self);
-			UnityEngine.ParticleSystem a1;
-			checkType(l,2,out a1);
-			var ret=self.GetCurrentSize(a1);
-			pushValue(l,true);
-			pushValue(l,ret);
-			return 2;
-		}
-		catch(Exception e) {
-			return error(l,e);
-		}
-	}
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int GetCurrentColor(IntPtr l) {
-		try {
-			UnityEngine.ParticleSystem.Particle self;
-			checkValueType(l,1,out self);
-			UnityEngine.ParticleSystem a1;
-			checkType(l,2,out a1);
-			var ret=self.GetCurrentColor(a1);
-			pushValue(l,true);
-			pushValue(l,ret);
-			return 2;
-		}
-		catch(Exception e) {
-			return error(l,e);
-		}
-	}
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static public int get_position(IntPtr l) {
 		try {
 			UnityEngine.ParticleSystem.Particle self;
@@ -166,12 +134,12 @@ public class Lua_UnityEngine_ParticleSystem_Particle : LuaObject {
 		}
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int get_startSize(IntPtr l) {
+	static public int get_size(IntPtr l) {
 		try {
 			UnityEngine.ParticleSystem.Particle self;
 			checkValueType(l,1,out self);
 			pushValue(l,true);
-			pushValue(l,self.startSize);
+			pushValue(l,self.size);
 			return 2;
 		}
 		catch(Exception e) {
@@ -179,13 +147,13 @@ public class Lua_UnityEngine_ParticleSystem_Particle : LuaObject {
 		}
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int set_startSize(IntPtr l) {
+	static public int set_size(IntPtr l) {
 		try {
 			UnityEngine.ParticleSystem.Particle self;
 			checkValueType(l,1,out self);
 			float v;
 			checkType(l,2,out v);
-			self.startSize=v;
+			self.size=v;
 			setBack(l,self);
 			pushValue(l,true);
 			return 1;
@@ -253,35 +221,6 @@ public class Lua_UnityEngine_ParticleSystem_Particle : LuaObject {
 		}
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int get_rotation3D(IntPtr l) {
-		try {
-			UnityEngine.ParticleSystem.Particle self;
-			checkValueType(l,1,out self);
-			pushValue(l,true);
-			pushValue(l,self.rotation3D);
-			return 2;
-		}
-		catch(Exception e) {
-			return error(l,e);
-		}
-	}
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int set_rotation3D(IntPtr l) {
-		try {
-			UnityEngine.ParticleSystem.Particle self;
-			checkValueType(l,1,out self);
-			UnityEngine.Vector3 v;
-			checkType(l,2,out v);
-			self.rotation3D=v;
-			setBack(l,self);
-			pushValue(l,true);
-			return 1;
-		}
-		catch(Exception e) {
-			return error(l,e);
-		}
-	}
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static public int get_angularVelocity(IntPtr l) {
 		try {
 			UnityEngine.ParticleSystem.Particle self;
@@ -311,12 +250,12 @@ public class Lua_UnityEngine_ParticleSystem_Particle : LuaObject {
 		}
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int get_angularVelocity3D(IntPtr l) {
+	static public int get_color(IntPtr l) {
 		try {
 			UnityEngine.ParticleSystem.Particle self;
 			checkValueType(l,1,out self);
 			pushValue(l,true);
-			pushValue(l,self.angularVelocity3D);
+			pushValue(l,self.color);
 			return 2;
 		}
 		catch(Exception e) {
@@ -324,42 +263,13 @@ public class Lua_UnityEngine_ParticleSystem_Particle : LuaObject {
 		}
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int set_angularVelocity3D(IntPtr l) {
-		try {
-			UnityEngine.ParticleSystem.Particle self;
-			checkValueType(l,1,out self);
-			UnityEngine.Vector3 v;
-			checkType(l,2,out v);
-			self.angularVelocity3D=v;
-			setBack(l,self);
-			pushValue(l,true);
-			return 1;
-		}
-		catch(Exception e) {
-			return error(l,e);
-		}
-	}
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int get_startColor(IntPtr l) {
-		try {
-			UnityEngine.ParticleSystem.Particle self;
-			checkValueType(l,1,out self);
-			pushValue(l,true);
-			pushValue(l,self.startColor);
-			return 2;
-		}
-		catch(Exception e) {
-			return error(l,e);
-		}
-	}
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int set_startColor(IntPtr l) {
+	static public int set_color(IntPtr l) {
 		try {
 			UnityEngine.ParticleSystem.Particle self;
 			checkValueType(l,1,out self);
 			UnityEngine.Color32 v;
 			checkValueType(l,2,out v);
-			self.startColor=v;
+			self.color=v;
 			setBack(l,self);
 			pushValue(l,true);
 			return 1;
@@ -399,19 +309,15 @@ public class Lua_UnityEngine_ParticleSystem_Particle : LuaObject {
 	}
 	static public void reg(IntPtr l) {
 		getTypeTable(l,"UnityEngine.ParticleSystem.Particle");
-		addMember(l,GetCurrentSize);
-		addMember(l,GetCurrentColor);
 		addMember(l,"position",get_position,set_position,true);
 		addMember(l,"velocity",get_velocity,set_velocity,true);
 		addMember(l,"lifetime",get_lifetime,set_lifetime,true);
 		addMember(l,"startLifetime",get_startLifetime,set_startLifetime,true);
-		addMember(l,"startSize",get_startSize,set_startSize,true);
+		addMember(l,"size",get_size,set_size,true);
 		addMember(l,"axisOfRotation",get_axisOfRotation,set_axisOfRotation,true);
 		addMember(l,"rotation",get_rotation,set_rotation,true);
-		addMember(l,"rotation3D",get_rotation3D,set_rotation3D,true);
 		addMember(l,"angularVelocity",get_angularVelocity,set_angularVelocity,true);
-		addMember(l,"angularVelocity3D",get_angularVelocity3D,set_angularVelocity3D,true);
-		addMember(l,"startColor",get_startColor,set_startColor,true);
+		addMember(l,"color",get_color,set_color,true);
 		addMember(l,"randomSeed",get_randomSeed,set_randomSeed,true);
 		createTypeMetatable(l,constructor, typeof(UnityEngine.ParticleSystem.Particle),typeof(System.ValueType));
 	}

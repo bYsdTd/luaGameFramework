@@ -1,0 +1,51 @@
+-- 战斗播放器
+
+battleRecordFillSkillCard = class("battleRecordFillSkillCard", battleRecordBase)
+
+function battleRecordFillSkillCard:ctor(data)
+
+	battleRecordFillSkillCard.super.ctor(self, data);
+
+end
+
+function battleRecordFillSkillCard:destroy( ... )
+
+end
+
+function battleRecordFillSkillCard:tick()
+
+
+end
+
+function battleRecordFillSkillCard:onStart( ... )
+
+	local data = self._data;
+
+	local battleLogic = sceneManager.currentScene:userData().battleLogic;
+	
+	-- when have real server, should not have this 
+	-- the server should only send to the need client
+
+	dump(data);
+
+	local hero = battleLogic:getCurrentHero();
+	
+	for i,v in ipairs(data.skillCards) do
+		
+		if not hero:haveCard(v) then
+			
+			hero:addCard(v);
+
+		end
+	end
+
+	eventManager.postEvent( { name = global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE, } );
+
+	self:endRecord();
+
+end
+
+function battleRecordFillSkillCard:onEnd( ... )
+	
+
+end

@@ -8,12 +8,29 @@ function battlePlayer:ctor()
 
 	self._currentRecord = nil;
 
+	self:registerRecordType();
+	
 end
 
 function battlePlayer:destroy( ... )
 	
 	self._battleRecords = nil;
 	self._currentRecord = nil;
+
+end
+
+function battlePlayer:registerRecordType()
+	
+	self._recordType = {};
+
+	self._recordType[enum.BATTLE_RECORD_TYPE.SWAP] = battleRecordGemSwap;
+	self._recordType[enum.BATTLE_RECORD_TYPE.ERASE] = battleRecordGemErase;
+	self._recordType[enum.BATTLE_RECORD_TYPE.DROP] = battleRecordGemDrop;
+	self._recordType[enum.BATTLE_RECORD_TYPE.ERASE_DROP_END] = battleRecordGemEraseDropEnd;
+	self._recordType[enum.BATTLE_RECORD_TYPE.HERO_ATTRIBUTE] = battleRecordHeroAttribute;
+	self._recordType[enum.BATTLE_RECORD_TYPE.CHANGE_GEM] = battleRecordGemChange;
+	self._recordType[enum.BATTLE_RECORD_TYPE.END_ROUND] = battleRecordEndRound;
+	self._recordType[enum.BATTLE_RECORD_TYPE.FILL_SKILL_CARD] = battleRecordFillSkillCard;
 
 end
 
@@ -59,25 +76,7 @@ end
 
 function battlePlayer:onHandelRecord(recordData)
 	
-	local record = nil;
-
-	if recordData.recordType == enum.BATTLE_RECORD_TYPE.SWAP then
-		
-		record = battleRecordGemSwap.new(recordData);
-
-	elseif recordData.recordType == enum.BATTLE_RECORD_TYPE.ERASE then
-		
-		record = battleRecordGemErase.new(recordData);
-	
-	elseif recordData.recordType == enum.BATTLE_RECORD_TYPE.DROP then
-		
-		record = battleRecordGemDrop.new(recordData);
-
-	elseif recordData.recordType == enum.BATTLE_RECORD_TYPE.ERASE_DROP_END then
-		
-		record = battleRecordGemEraseDropEnd.new(recordData);
-
-	end
+	local record = self._recordType[recordData.recordType].new(recordData);
 
 	if record then
 		

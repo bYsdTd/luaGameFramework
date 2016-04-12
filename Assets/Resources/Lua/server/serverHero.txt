@@ -1,0 +1,146 @@
+serverHero = class("serverHero");
+
+PLAYERMAXHP = 30;
+PLAYERMAXMP = 20;
+
+function serverHero:ctor( ... )
+	
+	self._skillSystem = nil;
+
+	self._HP = PLAYERMAXHP;
+
+	self._MaxHP = PLAYERMAXHP;
+
+	self._gems = {};
+	
+	for i=1, GEMS_LOGIC_GEMS_TYPE do
+		
+		self._gems[i] = 0;
+
+	end
+
+end
+
+function serverHero:destroy( ... )
+	
+
+end
+
+function serverHero:setSkillSystem(skillSystem)
+	
+	self._skillSystem = skillSystem;
+
+end
+
+function serverHero:getSkillSystem()
+	
+	return self._skillSystem;
+
+end
+
+function serverHero:setHP( hp )
+		
+	self._HP = hp;
+
+end
+
+function serverHero:getHP()
+	
+	return self._HP;
+
+end
+
+function serverHero:getMaxHP( ... )
+	
+	return self._MaxHP;
+
+end
+
+function serverHero:getCard( ... )
+	
+	return self._skillSystem:getCard();
+
+end
+
+function serverHero:castSkill( castSkillData )
+	
+	if self._skillSystem then
+	
+		self._skillSystem:castSkill(castSkillData);
+
+	end
+
+end
+
+function serverHero:fillCard()
+	
+	if self._skillSystem then
+	
+		return self._skillSystem:fillCard();
+
+	end
+
+	return false;
+
+end
+
+function serverHero:getAttribute( attrType )
+	
+	if attrType == enum.HERO_ATTRIBUTE.HP then
+		
+		return self:getHP();
+
+	elseif attrType == enum.HERO_ATTRIBUTE.GEM1 
+		or attrType == enum.HERO_ATTRIBUTE.GEM2 
+		or attrType == enum.HERO_ATTRIBUTE.GEM3
+		or attrType == enum.HERO_ATTRIBUTE.GEM4 
+		or attrType == enum.HERO_ATTRIBUTE.GEM5 then
+	
+		return self._gems[attrType];
+
+	end
+
+end
+
+
+function serverHero:changeAttribute(attrType, attrValue)
+	
+	local oldValue = self:getAttribute(attrType);
+	local newValue = oldValue + attrValue;
+
+	if newValue < 0 then
+		
+		newValue = 0;
+		
+	end
+	
+	if attrType == enum.HERO_ATTRIBUTE.HP then
+		if newValue > PLAYERMAXHP then
+			newValue = PLAYERMAXHP;
+		end
+	elseif attrType == enum.HERO_ATTRIBUTE.GEM1 
+		or attrType == enum.HERO_ATTRIBUTE.GEM2 
+		or attrType == enum.HERO_ATTRIBUTE.GEM3
+		or attrType == enum.HERO_ATTRIBUTE.GEM4 
+		or attrType == enum.HERO_ATTRIBUTE.GEM5 then
+		if newValue > PLAYERMAXMP then
+			newValue = PLAYERMAXMP;
+		end
+	end
+
+
+	if attrType == enum.HERO_ATTRIBUTE.HP then
+		
+		self:setHP(newValue);
+
+	elseif attrType == enum.HERO_ATTRIBUTE.GEM1 
+		or attrType == enum.HERO_ATTRIBUTE.GEM2 
+		or attrType == enum.HERO_ATTRIBUTE.GEM3
+		or attrType == enum.HERO_ATTRIBUTE.GEM4 
+		or attrType == enum.HERO_ATTRIBUTE.GEM5 then
+	
+		self._gems[attrType] = newValue;
+
+	end
+
+end

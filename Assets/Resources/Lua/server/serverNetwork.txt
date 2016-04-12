@@ -3,12 +3,14 @@ serverNetwork.handler = {};
 
 include("server.serverHandlerSwapGems")
 include("server.serverHandlerEndRound")
+include("server.serverHandlerCastSkill")
 
 function serverNetwork.init()
 	
 	-- register handler
 	serverNetwork.handler[GLOBAL_PACKET_ID.BATTLE_SWAP_GEMS] = serverNetwork.onHandleSwapGems;
 	serverNetwork.handler[GLOBAL_PACKET_ID.BATTLE_END_ROUND] = serverNetwork.onHandleEndRound;
+	serverNetwork.handler[GLOBAL_PACKET_ID.BATTLE_CAST_SKILL] = serverNetwork.onHandleCastSkill;
 	
 end
 

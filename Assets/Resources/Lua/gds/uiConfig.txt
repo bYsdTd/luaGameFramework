@@ -10,5 +10,5 @@ gds.uiConfig ={
 		['name'] = 'battleView',
 		['prefab'] = 'battleView',
 		['script'] = 'battleView',
-	},
+	}
 }

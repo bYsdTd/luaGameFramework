@@ -18,8 +18,6 @@ function layout:ctor(layoutConig, event)
 
 		utils.addChild(layoutManager.rootCanvas, self._layoutPrefabClone );
 
-		self._layoutPrefabClone.transform:SetAsFirstSibling();
-
 		-- reset position
 		utils.setUIOffsetMin(self._layoutPrefabClone, 0, 0);
 		utils.setUIOffsetMax(self._layoutPrefabClone, 0, 0);

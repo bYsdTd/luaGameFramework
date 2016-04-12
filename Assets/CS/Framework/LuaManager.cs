@@ -20,7 +20,7 @@ public class LuaManager : MonoBehaviour {
 	{
 		Debug.Log("compolete  start main");
 
-		l.start("main");
+		//l.start("main");
 	}
 
 	void tick(int p)

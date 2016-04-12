@@ -27,8 +27,6 @@ end
 
 function battleRecordGemErase:onEnd( ... )
 	
-	sceneManager.currentScene:userData().battleLogic:setErasedFlag(true);
-
 	eventManager.postEvent({name = global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE });
 
 end

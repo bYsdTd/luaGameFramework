@@ -1,0 +1,54 @@
+-- 战斗播放器
+
+battleRecordGemChange = class("battleRecordGemChange", battleRecordBase)
+
+function battleRecordGemChange:ctor(data)
+
+	battleRecordGemChange.super.ctor(self, data);
+
+end
+
+function battleRecordGemChange:destroy( ... )
+
+end
+
+function battleRecordGemChange:tick()
+
+
+end
+
+function battleRecordGemChange:onStart( ... )
+
+	local data = self._data;
+	
+	local sceneUserData = sceneManager.currentScene:userData();
+	local gemsLogic = sceneUserData.gemsLogic;
+	local gemsData = gemsLogic:getGemsData();
+
+	local changeCount = table.nums(data.gemChangeList);
+	local changedCount = 0;
+
+	for k,v in pairs(data.gemChangeList) do
+		
+		local gemObject = gemsLogic:getGemObject(v.column, v.row);
+
+		gemsData:setDataByPosition(v.column, v.row, v.gemType);
+
+		gemObject:playChangeGemType( v.gemType, function( )
+			
+			changedCount = changedCount + 1;
+
+			if changedCount == changeCount then
+			
+				self:endRecord();
+
+			end
+
+		end);
+
+	end
+end
+
+function battleRecordGemChange:onEnd( ... )
+
+end

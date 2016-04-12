@@ -20,6 +20,8 @@ public class GameManager
 	public UIManager 	uiManager = null;
 	public LuaManager 	luaManager = null;
 
+	public NetworkManager networkManager = null;
+
 	public void InitAllManager()
 	{
 		if(_isInit)
@@ -28,6 +30,7 @@ public class GameManager
 		}
 
 		GameObject gameObj = new GameObject("gameManager");
+		gameObj.AddComponent<UpdateManager>();
 		GameObject.DontDestroyOnLoad(gameObj);
 
 		// input
@@ -51,6 +54,9 @@ public class GameManager
 		GameObject.DontDestroyOnLoad(luaObj);
 		luaObj.transform.SetParent(gameObj.transform);
 
+		// network
+		networkManager = new NetworkManager();
+		networkManager.Init();
 
 		_isInit = true;
 	}

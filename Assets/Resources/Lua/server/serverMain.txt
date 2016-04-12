@@ -5,90 +5,108 @@ serverMain = {};
 serverMain.gemsData = nil;
 serverMain.roundType = enum.BATTLE_ROUND_TYPE.ATTACKER;
 
+serverMain.attacker = nil;
+serverMain.defender = nil;
+
+serverMain.recordCache = nil;
+
 function serverMain.initBattle()
 	
+	-- init gem data
 	serverMain.gemsData = gemsData.new(GEMS_LOGIC_GEMS_COLUMN, GEMS_LOGIC_GEMS_ROW, GEMS_LOGIC_GEMS_TYPE);
 
 	serverMain.gemsData:generate();
 
-	local testGemData = {
+	-- local testGemData = {
 
-		[1] = {
-			[1] = 5,
-			[2] = 4,
-			[3] = 2,
-			[4] = 2,
-			[5] = 5,
-			[6] = 3,
-			[7] = 2,
-		},
+	-- 	[1] = {
+	-- 		[1] = 5,
+	-- 		[2] = 4,
+	-- 		[3] = 2,
+	-- 		[4] = 2,
+	-- 		[5] = 5,
+	-- 		[6] = 3,
+	-- 		[7] = 2,
+	-- 	},
 
-		[2] = {
-			[1] = 1,
-			[2] = 3,
-			[3] = 5,
-			[4] = 4,
-			[5] = 4,
-			[6] = 1,
-			[7] = 2,
-		},
+	-- 	[2] = {
+	-- 		[1] = 1,
+	-- 		[2] = 3,
+	-- 		[3] = 5,
+	-- 		[4] = 4,
+	-- 		[5] = 4,
+	-- 		[6] = 1,
+	-- 		[7] = 2,
+	-- 	},
 
-		[3] = {
-			[1] = 5,
-			[2] = 4,
-			[3] = 3,
-			[4] = 3,
-			[5] = 2,
-			[6] = 1,
-			[7] = 3,
-		},
+	-- 	[3] = {
+	-- 		[1] = 5,
+	-- 		[2] = 4,
+	-- 		[3] = 3,
+	-- 		[4] = 3,
+	-- 		[5] = 2,
+	-- 		[6] = 1,
+	-- 		[7] = 3,
+	-- 	},
 
-		[4] = {
-			[1] = 2,
-			[2] = 2,
-			[3] = 4,
-			[4] = 1,
-			[5] = 1,
-			[6] = 5,
-			[7] = 1,
-		},
-
-
-		[5] = {
-			[1] = 4,
-			[2] = 1,
-			[3] = 2,
-			[4] = 5,
-			[5] = 5,
-			[6] = 2,
-			[7] = 4,
-		},
+	-- 	[4] = {
+	-- 		[1] = 2,
+	-- 		[2] = 2,
+	-- 		[3] = 4,
+	-- 		[4] = 1,
+	-- 		[5] = 1,
+	-- 		[6] = 5,
+	-- 		[7] = 1,
+	-- 	},
 
 
-		[6] = {
-			[1] = 5,
-			[2] = 4,
-			[3] = 3,
-			[4] = 2,
-			[5] = 3,
-			[6] = 3,
-			[7] = 4,
-		},
+	-- 	[5] = {
+	-- 		[1] = 4,
+	-- 		[2] = 1,
+	-- 		[3] = 2,
+	-- 		[4] = 5,
+	-- 		[5] = 5,
+	-- 		[6] = 2,
+	-- 		[7] = 4,
+	-- 	},
 
 
-		[7] = {
-			[1] = 4,
-			[2] = 3,
-			[3] = 2,
-			[4] = 3,
-			[5] = 4,
-			[6] = 5,
-			[7] = 5,
-		},
+	-- 	[6] = {
+	-- 		[1] = 5,
+	-- 		[2] = 4,
+	-- 		[3] = 3,
+	-- 		[4] = 2,
+	-- 		[5] = 3,
+	-- 		[6] = 3,
+	-- 		[7] = 4,
+	-- 	},
 
-	};
 
-	serverMain.gemsData:setData(testGemData);
+	-- 	[7] = {
+	-- 		[1] = 4,
+	-- 		[2] = 3,
+	-- 		[3] = 2,
+	-- 		[4] = 3,
+	-- 		[5] = 4,
+	-- 		[6] = 5,
+	-- 		[7] = 5,
+	-- 	},
+
+	-- };
+
+	-- serverMain.gemsData:setData(testGemData);
+
+	-- init skill data
+	local testDeck1 = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	local testDeck2 = { 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+
+	local skillSystem1 = serverSkillSystem.new(testDeck1);
+	local skillSystem2 = serverSkillSystem.new(testDeck2);
+
+	serverMain.attacker = serverHero.new();
+	serverMain.attacker:setSkillSystem(skillSystem1);
+	serverMain.defender = serverHero.new();
+	serverMain.defender:setSkillSystem(skillSystem2);
 
 	-- send init data 
 	local data = {};
@@ -96,7 +114,18 @@ function serverMain.initBattle()
 	data.h = serverMain.gemsData:getHeight();
 	data.gemType = serverMain.gemsData:getBlockTypes();
 	data.data = serverMain.gemsData:getData();
-	
+
+	data.attacker = {};
+	data.attacker.hp = serverMain.attacker:getHP();
+	data.attacker.maxHP = serverMain.attacker:getMaxHP();
+	data.attacker.skillCards = clone(serverMain.attacker:getCard());
+
+
+	data.defender = {};
+	data.defender.hp = serverMain.defender:getHP();
+	data.defender.maxHP = serverMain.defender:getMaxHP();
+	data.defender.skillCards = clone(serverMain.defender:getCard());
+
 	serverNetwork.send(GLOBAL_PACKET_ID.BATTLE_INIT, data);
 
 	local sendData = {};
@@ -106,3 +135,67 @@ function serverMain.initBattle()
 
 end
 
+function serverMain.getCurrentHero()
+	
+	if serverMain.roundType == enum.BATTLE_ROUND_TYPE.ATTACKER then
+		
+		return serverMain.attacker;
+
+	else
+
+		return serverMain.defender;
+		
+	end
+
+end
+
+
+function serverMain.getTarget(targetType)
+
+	if serverMain.roundType == enum.BATTLE_ROUND_TYPE.ATTACKER then
+	
+		if targetType == enum.TARGET_TYPE.SELF then
+		
+			return serverMain.attacker;
+
+		elseif targetType == enum.TARGET_TYPE.OTHER then
+
+			return serverMain.defender;
+
+		end
+	else
+		
+		if targetType == enum.TARGET_TYPE.SELF then
+		
+			return serverMain.defender;
+
+		elseif targetType == enum.TARGET_TYPE.OTHER then
+
+			return serverMain.attacker;
+
+		end
+
+	end
+
+	return nil;
+end
+
+function serverMain.addRecordCache(record)
+
+	serverMain.recordCache = serverMain.recordCache or {};
+
+	table.insert( serverMain.recordCache, record );
+
+end
+
+function serverMain.sendRecordCache()
+	
+	if serverMain.recordCache then
+		
+		serverNetwork.send(GLOBAL_PACKET_ID.BATTLE_RECORD, serverMain.recordCache);
+
+		serverMain.recordCache = nil;
+
+	end
+
+end

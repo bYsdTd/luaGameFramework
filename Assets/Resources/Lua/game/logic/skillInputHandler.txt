@@ -1,0 +1,75 @@
+skillInputHandler = class("skillInputHandler")
+
+function skillInputHandler:ctor( gemsLogic )
+
+	self._waitForSelectGem = false;
+
+	self._touchGem = nil;
+
+	self._gemsLogic = gemsLogic;
+
+end
+
+function skillInputHandler:destroy( ... )
+
+end
+
+function skillInputHandler:onTouchDown( position )
+
+	if self._gemsLogic and self:isWaitForSelectGem() then
+
+		 local touchGem = self._gemsLogic:getHitGem(position);
+		 if not touchGem then
+		 
+		 	return;
+
+		 end
+
+		 -- old
+		 if self._touchGem then
+		 	
+			self._touchGem:onSelectChange(false);
+
+		 end
+
+		 self._touchGem = touchGem;
+
+		 self._touchGem:onSelectChange(true);
+
+	end
+
+end
+
+function skillInputHandler:onTouchMove( position )
+
+end
+
+function skillInputHandler:onTouchUp( position )
+end
+
+function skillInputHandler:setWaitForSelectGem(flag)
+	
+	self._waitForSelectGem = flag;
+
+	if self._touchGem and flag == false then
+
+		self._touchGem:onSelectChange(false);
+
+		self._touchGem = nil;
+
+	end
+
+end
+
+function skillInputHandler:isWaitForSelectGem( )
+
+	return self._waitForSelectGem;
+
+end
+
+
+function skillInputHandler:getTouchGem( )
+	
+	return self._touchGem;
+
+end

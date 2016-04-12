@@ -153,10 +153,13 @@ function gemsLogic:onSwapGems(event)
 
 	--print(" swap "..column.." "..row.." to "..targetColumn.." "..targetRow);
 
+
 	local gemsDataClone = clone(self._gemsData);
 	gemsDataClone:swap(column, row, targetColumn, targetRow);
 
-	if not gemsDataClone:checkThree() then
+	local eraseList = gemsDataClone:checkEraseList();
+
+	if #eraseList == 0 then
 
 		-- can not erase, just play
 
@@ -184,7 +187,6 @@ function gemsLogic:onSwapGems(event)
 
 				end
 			}});
-
 	
 	else
 
@@ -210,6 +212,8 @@ function gemsLogic:onSwapGems(event)
 
 		networkManager.send(GLOBAL_PACKET_ID.BATTLE_SWAP_GEMS, data);
 
+		-- can end erase
+		sceneManager.currentScene:userData().battleLogic:setErasedFlag(true);
 	end
 
 end

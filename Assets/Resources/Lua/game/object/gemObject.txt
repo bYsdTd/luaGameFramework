@@ -2,12 +2,13 @@ gemObject = class("gemObject")
 
 local colorMap = 
 {
+	[0] = UnityEngine.Color(0, 0, 0, 0);
 	[1] = UnityEngine.Color.red;	
-	[2] = UnityEngine.Color.green;
+	[2] = UnityEngine.Color.yellow;
 	[3] = UnityEngine.Color.blue;
-	[4] = UnityEngine.Color.yellow;
-	[5] = UnityEngine.Color.cyan;
-	[6] = UnityEngine.Color.magenta;
+	[4] = UnityEngine.Color.green;
+	[5] = UnityEngine.Color.magenta;
+	[6] = UnityEngine.Color.cyan;
 	[7] = UnityEngine.Color.white;
 };
 
@@ -25,8 +26,15 @@ function gemObject:ctor(column, row, gemType, rootObject)
 
 	self._rectCom = self._gameobj:GetComponent(UnityEngine.RectTransform);
 	self._imageCom.color = colorMap[self._gemType];
-
 	utils.addChild(self._gemsRoot, self._gameobj );
+
+	-- select frame
+	self._selectFrameGameObj = UnityEngine.GameObject("select");
+	self._imgSelectFrame = self._selectFrameGameObj:AddComponent(UnityEngine.UI.Image);
+	self._imgSelectFrame.color = UnityEngine.Color.white;
+	self._rectComSelectFrame = self._selectFrameGameObj:GetComponent(UnityEngine.RectTransform);
+	utils.addChild(self._gameobj, self._selectFrameGameObj );
+	
 
 	-- init postion
 	local canvasSize = layoutManager.getCanvasSize();
@@ -36,6 +44,12 @@ function gemObject:ctor(column, row, gemType, rootObject)
 	self._rectCom.pivot = UnityEngine.Vector2(0, 1);
 	self._rectCom.anchoredPosition = gemObject.getPositionByColRow(self._column, self._row);
 	self._rectCom.sizeDelta = UnityEngine.Vector2(gemSize-5, gemSize-5);
+
+	self._rectComSelectFrame.pivot = UnityEngine.Vector2(0, 1);
+	self._rectComSelectFrame.anchoredPosition = UnityEngine.Vector2(0, 0);
+	self._rectComSelectFrame.sizeDelta = UnityEngine.Vector2(gemSize/4, gemSize/4);
+
+	self._selectFrameGameObj:SetActive(false);
 
 end
 
@@ -126,13 +140,76 @@ function gemObject:setType( gemType )
 
 end
 
+function gemObject:getType(  )
+	
+	return self._gemType;
+	
+end
+
+function gemObject:onSelectChange( flag )
+	
+	self._selectFrameGameObj:SetActive(flag);
+
+end
+
+function gemObject:playChangeGemType( gemType, callback )
+	
+	self:playErase(function()
+		
+		self:setType(gemType);
+
+		local eraseTime = 0.5;
+		local startTime = UnityEngine.Time.time;
+
+		local color = self._imageCom.color;
+		self._imageCom.color = UnityEngine.Color(color.r, color.g, color.b, 0);
+
+		LuaTimer.Add(0, 1, function(id)
+			
+			local elapsedTime = UnityEngine.Time.time - startTime;
+
+			if elapsedTime >= eraseTime then
+				-- end
+
+				if self._imageCom then
+					
+					local color = self._imageCom.color;
+
+					self._imageCom.color = UnityEngine.Color(color.r, color.g, color.b, 1);
+
+				end
+
+				LuaTimer.Delete(id);
+
+				if callback then
+					
+					callback();
+
+				end
+
+			else
+
+				local alpha = elapsedTime / eraseTime;
+
+				local color = self._imageCom.color;
+				self._imageCom.color = UnityEngine.Color(color.r, color.g, color.b, alpha);
+
+			end
+
+		end);
+
+
+	end);
+
+
+end
 
 function gemObject:playErase( callback )
 
-	local eraseTime = 1.5;
+	local eraseTime = 0.5;
 	local startTime = UnityEngine.Time.time;
 
-	LuaTimer.Add(1, 1, function(id)
+	LuaTimer.Add(0, 1, function(id)
 		
 		local elapsedTime = UnityEngine.Time.time - startTime;
 
@@ -171,7 +248,7 @@ function gemObject:playMove(startPosition, endPosition, callback)
 	
 	local moveDistance = endPosition - startPosition;
 
-	local moveTime =  moveDistance.magnitude / gemObject.getGemSize() * 0.3;
+	local moveTime =  moveDistance.magnitude / gemObject.getGemSize() * 0.2;
 	local startTime = UnityEngine.Time.time;
 
 	self._rectCom.anchoredPosition = startPosition;

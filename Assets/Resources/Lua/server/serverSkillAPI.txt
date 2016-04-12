@@ -1,0 +1,318 @@
+serverSkillAPI = {};
+
+-- record generate
+function serverSkillAPI.changeHeroAttribute(targetType, attrType, attrValue)
+	
+	if attrValue == 0 then
+		
+		return;
+
+	end
+
+	local recordAttr = {};
+
+	local target = serverMain.getTarget(targetType);
+
+	target:changeAttribute(attrType, attrValue);
+
+	recordAttr.recordType = enum.BATTLE_RECORD_TYPE.HERO_ATTRIBUTE;
+	recordAttr.heroAttribute = {};
+	recordAttr.heroAttribute.targetType = targetType;
+	recordAttr.heroAttribute.attrType = attrType;
+	recordAttr.heroAttribute.attrValue = attrValue;
+
+	serverMain.addRecordCache(recordAttr);
+
+end
+
+-- gemChangeList = {}
+-- item = {
+-- 		column = ?,
+-- 		row = ?,
+-- 		gemType = ?,
+-- }
+-- 
+function serverSkillAPI.changeGem( gemChangeList )
+	-- body
+
+	if #gemChangeList == 0 then
+		
+		return;
+
+	end
+
+	local recordChangeGem = {};
+	recordChangeGem.recordType = enum.BATTLE_RECORD_TYPE.CHANGE_GEM;
+	recordChangeGem.gemChangeList = clone(gemChangeList);
+
+	serverMain.addRecordCache(recordChangeGem);
+end
+
+function serverSkillAPI.eraseAndDropByEraseList(eraseList, isTriggerCallBack)
+
+
+	-- local oldCloneData = clone(serverMain.gemsData:getData());
+
+	-- -- erase record
+	-- local recordErase = {};
+	-- recordErase.recordType = enum.BATTLE_RECORD_TYPE.ERASE;
+	-- recordErase.eraseList = clone(eraseList);
+	-- serverMain.addRecordCache(recordErase);
+
+	-- if isAddHeroGem then
+	-- 	-- modify hero gems count
+	-- 	local changeValueList = {};
+
+	-- 	for k,v in pairs(eraseList) do
+	-- 		local gemType = oldCloneData[v.x][v.y];
+
+	-- 		changeValueList[gemType] = changeValueList[gemType] or 0;
+
+	-- 		changeValueList[gemType] = changeValueList[gemType] + 1;
+	-- 	end
+
+	-- 	for k,v in pairs(changeValueList) do
+		
+	-- 		serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, k, v);
+
+	-- 	end
+	-- end
+
+	-- local moveList = serverMain.gemsData:eraseByEraseList(eraseList);
+
+	-- -- here all data send to client, may be just send modified 
+	-- local cloneData = clone(serverMain.gemsData:getData());
+
+	-- -- drop record
+	-- local recordDrop = {};
+	-- recordDrop.recordType = enum.BATTLE_RECORD_TYPE.DROP;
+	-- recordDrop.moveList = moveList;
+	-- recordDrop.gemData = cloneData;
+
+	-- serverMain.addRecordCache(recordDrop);
+
+	serverSkillAPI.eraseOnly(eraseList, isTriggerCallBack);
+
+	serverSkillAPI.dropOnly();
+
+	serverSkillAPI.generateAndDrop();
+
+end
+
+function serverSkillAPI.eraseOnly(eraseList, isTriggerCallBack)
+
+
+	local oldCloneData = clone(serverMain.gemsData:getData());
+
+	-- erase record
+	local recordErase = {};
+	recordErase.recordType = enum.BATTLE_RECORD_TYPE.ERASE;
+	recordErase.eraseList = clone(eraseList);
+	serverMain.addRecordCache(recordErase);
+
+	if isTriggerCallBack then
+		-- modify hero gems count
+		local changeValueList = {};
+
+		for k,v in pairs(eraseList) do
+			local gemType = oldCloneData[v.x][v.y];
+
+			changeValueList[gemType] = changeValueList[gemType] or 0;
+
+			changeValueList[gemType] = changeValueList[gemType] + 1;
+		end
+
+		for k,v in pairs(changeValueList) do
+		
+			--serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, k, v);
+			serverSkillFunction.eraseCallBack({gemType = k, changeValue = v});
+			
+		end
+	end
+
+	serverMain.gemsData:eraseOnly(eraseList);
+
+end
+
+function serverSkillAPI.dropOnly()
+	
+	local moveList = serverMain.gemsData:dropOnly();
+
+	-- here all data send to client, may be just send modified 
+	local cloneData = clone(serverMain.gemsData:getData());
+
+	-- drop record
+	local recordDrop = {};
+	recordDrop.recordType = enum.BATTLE_RECORD_TYPE.DROP;
+	recordDrop.moveList = moveList;
+	recordDrop.gemData = cloneData;
+
+	serverMain.addRecordCache(recordDrop);
+
+end
+
+--
+function serverSkillAPI.generateAndDrop()
+	
+	local moveList = serverMain.gemsData:generateAndDrop();
+	-- here all data send to client, may be just send modified 
+	local cloneData = clone(serverMain.gemsData:getData());
+
+	-- drop record
+	local recordDrop = {};
+	recordDrop.recordType = enum.BATTLE_RECORD_TYPE.DROP;
+	recordDrop.moveList = moveList;
+	recordDrop.gemData = cloneData;
+
+	serverMain.addRecordCache(recordDrop);	
+end
+
+function serverSkillAPI.eraseAndDrop()
+
+	local eraseList = serverMain.gemsData:checkEraseList();
+
+	while #eraseList > 0 do
+		
+		serverSkillAPI.eraseAndDropByEraseList(eraseList, true);
+
+
+		eraseList = serverMain.gemsData:checkEraseList();
+
+	end
+
+end
+--------------- record API end
+
+----- data API---------------
+function serverSkillAPI.getGemData()
+	
+	return serverMain.gemsData:getData();
+
+end
+
+function serverSkillAPI.getGemDataInstance()
+	
+	return serverMain.gemsData;
+
+end
+
+function serverSkillAPI.getHeroAttribute( targetType,  attrType )
+	
+	local target = serverMain.getTarget(targetType);
+
+	return target:getAttribute(attrType);
+	
+end
+
+function serverSkillAPI.createRandomGems( colorType, count)
+	local gemData = serverSkillAPI.getGemData();
+	local tmpChangeGemList = {};
+	local changeGemList = {};
+
+	for row = 1, GEMS_LOGIC_GEMS_ROW do
+		for column = 1, GEMS_LOGIC_GEMS_COLUMN do
+			if gemData[column][row] ~= colorType then
+				local item = {};
+				item.column = column;
+				item.row = row;
+				table.insert(tmpChangeGemList, item);
+			end
+		end
+	end
+	
+	math.randomseed(os.time());
+	print("time "..os.time());
+	gemsCount = #tmpChangeGemList;
+	print("how many non blue gems "..gemsCount);
+	
+	-- pick smaller one from count and gemsCount
+	
+	if count > gemsCount then 
+		count = gemsCount;
+	end
+	
+	for i = 1, count do
+		randIdx = math.random(gemsCount);
+		print("randIdx "..randIdx);
+		column = tmpChangeGemList[randIdx].column;
+		row = tmpChangeGemList[randIdx].row;
+		print("column and row "..column..row);
+		gemData[column][row] = colorType;
+		local item = {};
+		item.column = column;
+		item.row = row;
+		item.gemType = colorType;
+		table.insert(changeGemList, item);
+	end
+	
+	-- change gem
+	serverSkillAPI.changeGem(changeGemList);
+
+	-- erase and drop
+	serverSkillAPI.eraseAndDrop();	
+end
+
+function serverSkillAPI.randomSwitch()
+	local gemData = serverSkillAPI.getGemData();
+	local changeGemList = {};
+
+	math.randomseed(os.time());
+	firstRandIdx = math.random(GEMS_LOGIC_GEMS_COLUMN * GEMS_LOGIC_GEMS_ROW);
+	secondRandIdx = math.random(GEMS_LOGIC_GEMS_COLUMN * GEMS_LOGIC_GEMS_ROW);
+	print("firstRandIdx "..firstRandIdx);
+	print("secondRandIdx "..secondRandIdx);
+	local firstRandCol, firstRandRow = serverSkillAPI.getGemDataInstance():getPosByIndex(firstRandIdx);
+	local secondRandCol, secondRandRow = serverSkillAPI.getGemDataInstance():getPosByIndex(secondRandIdx);
+	
+	tempGemType = gemData[firstRandCol][firstRandRow];
+	gemData[firstRandCol][firstRandRow] = gemData[secondRandCol][secondRandRow];
+	local item1 = {};
+	item1.column = firstRandCol;
+	item1.row = firstRandRow;
+	item1.gemType = gemData[secondRandCol][secondRandRow];
+	table.insert(changeGemList, item1);
+	
+	local item2 = {};
+	gemData[secondRandCol][secondRandRow] = tempGemType;
+	item2.column = secondRandCol;
+	item2.row = secondRandRow;
+	item2.gemType = tempGemType;
+	table.insert(changeGemList, item2);
+
+	-- change gem
+	serverSkillAPI.changeGem(changeGemList);
+
+	-- erase and drop
+	serverSkillAPI.eraseAndDrop();	
+end
+
+function serverSkillAPI.changeGemsColor( srcColorType, desColorType)
+	local gemData = serverSkillAPI.getGemData();
+
+	local changeGemList = {};
+
+	for row = 1, GEMS_LOGIC_GEMS_ROW do
+	
+		for column = 1, GEMS_LOGIC_GEMS_COLUMN do
+			
+			if gemData[column][row] == srcColorType then
+
+				gemData[column][row] = desColorType;
+
+				local item = {};
+				item.column = column;
+				item.row = row;
+				item.gemType = desColorType;
+
+				table.insert(changeGemList, item);
+
+			end
+		end
+	end
+
+	-- change gem
+	serverSkillAPI.changeGem(changeGemList);
+
+	-- erase and drop
+	serverSkillAPI.eraseAndDrop();
+end

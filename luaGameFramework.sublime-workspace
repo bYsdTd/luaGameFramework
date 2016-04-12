@@ -4,6 +4,214 @@
 		"selected_items":
 		[
 			[
+				"get",
+				"gemType"
+			],
+			[
+				"modi",
+				"modifyValue"
+			],
+			[
+				"for",
+				"for	for i=1,10"
+			],
+			[
+				"ba",
+				"battleView"
+			],
+			[
+				"fn",
+				"function	function"
+			],
+			[
+				"lo",
+				"loadingView"
+			],
+			[
+				"onhanr",
+				"onHandleRoundType"
+			],
+			[
+				"onupda",
+				"onUpdateRoundType"
+			],
+			[
+				"sta",
+				"startPosition"
+			],
+			[
+				"drop",
+				"dropedCount"
+			],
+			[
+				"erse",
+				"eraseCount"
+			],
+			[
+				"ercou",
+				"erasedCount"
+			],
+			[
+				"er",
+				"erasedCount"
+			],
+			[
+				"recor",
+				"recordType"
+			],
+			[
+				"reco",
+				"recordDrop"
+			],
+			[
+				"rec",
+				"recordType"
+			],
+			[
+				"mov",
+				"moveDistance"
+			],
+			[
+				"col",
+				"color"
+			],
+			[
+				"star",
+				"startTime"
+			],
+			[
+				"bat",
+				"battleRecordGemErase"
+			],
+			[
+				"re",
+				"recordData"
+			],
+			[
+				"tar",
+				"targetRow"
+			],
+			[
+				"targe",
+				"targetRow"
+			],
+			[
+				"_gem",
+				"_gemsData"
+			],
+			[
+				"ind",
+				"indexTarget"
+			],
+			[
+				"tare",
+				"targetGem"
+			],
+			[
+				"sc",
+				"sceneUserData"
+			],
+			[
+				"start",
+				"startPosition"
+			],
+			[
+				"targ",
+				"targetColumn"
+			],
+			[
+				"geto",
+				"getPositionByColRow"
+			],
+			[
+				"colum",
+				"column"
+			],
+			[
+				"move",
+				"moveDir"
+			],
+			[
+				"even",
+				"eventManager"
+			],
+			[
+				"_ge",
+				"_gemsData"
+			],
+			[
+				"batlo",
+				"battleLogic"
+			],
+			[
+				"_gems",
+				"_gemsObjects"
+			],
+			[
+				"onTouch",
+				"onTouchUp"
+			],
+			[
+				"ontou",
+				"onTouchDown"
+			],
+			[
+				"gemin",
+				"_gemInputHandler"
+			],
+			[
+				"onTouc",
+				"onTouchDown"
+			],
+			[
+				"fun",
+				"function	function"
+			],
+			[
+				"f",
+				"function	function"
+			],
+			[
+				"layouma",
+				"layoutManager"
+			],
+			[
+				"server",
+				"serverMain"
+			],
+			[
+				"serv",
+				"serverMain"
+			],
+			[
+				"pake",
+				"packetID"
+			],
+			[
+				"scne",
+				"sceneid"
+			],
+			[
+				"_layo",
+				"_layoutPrefabClone"
+			],
+			[
+				"layou",
+				"layout"
+			],
+			[
+				"_layou",
+				"_layoutPrefabClone"
+			],
+			[
+				"layouin",
+				"layoutIndex"
+			],
+			[
+				"layoi",
+				"layoutInstance"
+			],
+			[
 				"r",
 				"require"
 			],
@@ -12,16 +220,8 @@
 				"init"
 			],
 			[
-				"for",
-				"forp	for k,v in pairs()"
-			],
-			[
 				"regi",
 				"registerEvent"
-			],
-			[
-				"fun",
-				"function	function"
 			],
 			[
 				"worl",
@@ -40,34 +240,100 @@
 	"buffers":
 	[
 		{
-			"file": "Assets/Resources/Lua/main.txt",
+			"file": "Assets/Resources/Lua/game/logic/battleRecordGemErase.txt",
 			"settings":
 			{
-				"buffer_size": 575,
+				"buffer_size": 1426,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Resources/Lua/include.txt",
+			"file": "Assets/Resources/Lua/game/object/gemObject.txt",
 			"settings":
 			{
-				"buffer_size": 239,
+				"buffer_size": 3931,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Resources/Lua/gds/gdsManager.txt",
+			"file": "Assets/Resources/Lua/framework/layout.txt",
 			"settings":
 			{
-				"buffer_size": 34,
-				"line_ending": "Windows"
+				"buffer_size": 1727,
+				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "Assets/Resources/Lua/framework/layoutManager.txt",
+			"file": "Assets/Resources/Lua/ui/loadingView.txt",
 			"settings":
 			{
-				"buffer_size": 873,
+				"buffer_size": 970,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Resources/Lua/ui/battleView.txt",
+			"settings":
+			{
+				"buffer_size": 3765,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Resources/Lua/game/logic/battleLogic.txt",
+			"settings":
+			{
+				"buffer_size": 3399,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Resources/Lua/network/packetHandlerRoundType.txt",
+			"settings":
+			{
+				"buffer_size": 299,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "Searching 42 files for \"EVENT_BATTLE_ROUND_TYPE\" (case sensitive)\n\n/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/event_define.txt:\n    5  EVENT_ID.EVENT_BATTLE_INIT = \"EVENT_BATTLE_INIT\";\n    6  EVENT_ID.EVENT_BATTLE_SWAP_GEM = \"EVENT_BATTLE_SWAP_GEM\";\n    7: EVENT_ID.EVENT_BATTLE_ROUND_TYPE = \"EVENT_BATTLE_ROUND_TYPE\";\n    8  \n    9  -- battle player\n\n/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/network/packetHandlerRoundType.txt:\n    4  	sceneManager.currentScene:userData().battleLogic:setRoundType(packetData.roundType);\n    5  \n    6: 	eventManager.postEvent({ name = EVENT_ID.EVENT_BATTLE_ROUND_TYPE});\n    7  \n    8  end\n\n/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/ui/battleView.txt:\n   13  	\n   14  	self:registerEvent(global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE, self.onUpdate);\n   15: 	self:registerEvent(EVENT_ID.EVENT_BATTLE_ROUND_TYPE, self.onUpdateRoundType);\n   16  \n   17  \n\n4 matches across 3 files\n",
+			"settings":
+			{
+				"buffer_size": 976,
+				"line_ending": "Unix",
+				"name": "Find Results",
+				"scratch": true
+			}
+		},
+		{
+			"file": "Assets/Resources/Lua/game/logic/battleRecordGemEraseDropEnd.txt",
+			"settings":
+			{
+				"buffer_size": 665,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Resources/Lua/game/logic/gemInputHandler.txt",
+			"settings":
+			{
+				"buffer_size": 2018,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Resources/Lua/scene/sceneBattle.txt",
+			"settings":
+			{
+				"buffer_size": 1292,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "Assets/Resources/Lua/game/object/heroObject.txt",
+			"settings":
+			{
+				"buffer_size": 729,
 				"line_ending": "Unix"
 			}
 		}
@@ -108,6 +374,56 @@
 	},
 	"file_history":
 	[
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/logic/battleRecordGemEraseDropEnd.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/global_define.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/logic/battlePlayer.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/network/packetHandlerBattleRecord.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/logic/gemsLogic.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/include.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/object/gemObject.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/server/serverMain.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/ui/battleView.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/framework/uiTypeCast.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/logic/battleLogic.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/network/packetID_define.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/server/serverNetwork.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/server/serverHandlerEndRound.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/network/packetHandlerRoundType.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/event_define.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/network/networkManager.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/framework/layout.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/scene/sceneBattle.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/logic/battleRecordGemSwap.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/logic/battleRecordGemDrop.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/server/serverHandlerSwapGems.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/data/gemsData.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/network/packetHandlerBattleInit.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/logic/battleRecordBase.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/logic/battleRecordGemErase.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Slua/Resources/originalResource/main.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/gameMain.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/logic/gemInputHandler.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/framework/scene.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/object/heroObject.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/framework/layoutManager.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/ui/loadingView.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/framework/eventManager.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/framework/sceneManager.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game/blocks.lua",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/gds/gdsManager.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/pakcetID_define.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/main.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/framework/resourceManager.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/network/ba.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/framework/networkManager.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/scene/sceneLoading.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/gds/uiConfig.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Slua/Resources/originalResource/circle/circle.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/framework/utils.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/gds/sceneConfig.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/ui/uiEvent.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/main.txt",
+		"/Users/zhangyi/code/unity/luaGameFramework/Assets/Resources/Lua/game.txt",
 		"/Users/zhangyi/code/unity/slua/Assets/Slua/Resources/init.txt",
 		"/Users/zhangyi/code/unity/slua/Assets/Slua/Resources/include.txt",
 		"/Users/zhangyi/code/unity/slua/Assets/Slua/Resources/eventManager.txt",
@@ -152,9 +468,16 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 93.0,
 		"where_history":
 		[
+			"<open folders>",
+			"<open folders>,/Users/zhangyi/code/unity/luaGameFramework/Assets/Slua/Resources/originalResource",
+			"<open folders>",
+			"<open folders>,/Users/zhangyi/code/unity/luaGameFramework/Assets/Slua/Resources/originalResource",
+			"<open folders>",
+			"/Users/zhangyi/code/unity/luaGameFramework/Assets/Slua/Resources/originalResource,<open folders>",
+			"/Users/zhangyi/code/unity/luaGameFramework/Assets/Slua/Resources/originalResource",
 			"",
 			"<open folders>,/Users/zhangyi/code/fbzziap/res/client/Media/Lua",
 			"<open folders>",
@@ -163,9 +486,80 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"EVENT_BATTLE_ROUND_TYPE",
+			"_roundType",
+			"uiTypeCast",
+			"EVENT_BATTLE_PLAYER_SWAP_END",
+			"EVENT_BATTLE_PLAYER_RECORD",
+			"_imageCom",
+			"	local data = self._data;\n\n	local sceneUserData = sceneManager.currentScene:userData();\n	local gemsLogic = sceneUserData.gemsLogic;\n	local gemsData = gemsLogic:getGemsData();",
+			"EVENT_BATTLE_PLAYER_RECORD",
+			"onHandleRecord",
+			"EVENT_BATTLE_PLAYER_RECORD",
+			"EVENT_BATTLE_PLAYER_RECORD_SWAP",
+			"blockTyps",
+			"data",
+			"checkThree",
+			"serverMain.initBattle()",
+			"serverMain.gemsData",
+			"j",
+			"moveHandledList",
+			"moveList",
+			"getPosByIndex",
+			"getPositionByColRow",
+			"getPosByIndex",
+			"getIndexByPos",
+			"_gemsData",
+			"getIndexByPos",
+			"_gemsObjects",
+			"getPosByIndex",
+			"getIndexByPos",
+			"getPosByIndex",
+			"getIndexByPos",
+			"Timer",
+			"return",
+			"clone",
+			"onSwapGems",
+			"self.super.ctor",
+			"Timer",
+			"self._gemsRoot",
+			"rootCavas",
+			"utils",
+			"layoutManager.rootCavas",
+			"networkManager.onHandleBattleInit",
+			"removeEvent",
+			"eventManager.addEvent",
+			"removeEvent",
+			"LOADINGVIEW_UPDAT",
+			"SceneManagement",
+			"unload",
+			"moveList",
+			"swap",
+			"getIndexByPos",
+			"column",
+			"self.data",
+			"blockTypes",
+			"self.blockTypes",
+			"self.h",
+			"self.w",
+			"blocks",
+			"print",
+			"LOADINGVIEW_UPDATE",
+			"onClick",
+			"layoutIndex",
+			"BoxCollider",
+			"GetComponent",
+			"Yield",
+			"HelloWorld",
+			"function HelloWorld",
+			"HelloWorld",
+			"Yield",
+			"Yeild",
+			"Resources",
+			"UnityEngine.Resources",
 			"eventMap",
 			"dump",
 			"table.nums",
@@ -230,9 +624,16 @@
 		"regex": false,
 		"replace_history":
 		[
+			"getPosByIndex",
+			"self._data",
+			"self._h",
+			"self._w",
+			"gemsData",
+			"gem",
+			"gemsData",
 			""
 		],
-		"reverse": true,
+		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
 		"whole_word": false,
@@ -241,23 +642,79 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 4,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "Assets/Resources/Lua/main.txt",
+					"file": "Assets/Resources/Lua/game/logic/battleRecordGemErase.txt",
 					"settings":
 					{
-						"buffer_size": 575,
+						"buffer_size": 1426,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								80,
-								80
+								1417,
+								1417
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "Assets/Resources/Lua/game/object/gemObject.txt",
+					"settings":
+					{
+						"buffer_size": 3931,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1167,
+								1190
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "Assets/Resources/Lua/framework/layout.txt",
+					"settings":
+					{
+						"buffer_size": 1727,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								682,
+								697
 							]
 						],
 						"settings":
@@ -273,73 +730,268 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "Assets/Resources/Lua/include.txt",
-					"settings":
-					{
-						"buffer_size": 239,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								13,
-								20
-							]
-						],
-						"settings":
-						{
-							"origin_encoding": "ASCII",
-							"syntax": "Packages/Lua/Lua.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "Assets/Resources/Lua/gds/gdsManager.txt",
-					"settings":
-					{
-						"buffer_size": 34,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								34,
-								34
-							]
-						],
-						"settings":
-						{
-							"origin_encoding": "ASCII",
-							"syntax": "Packages/Lua/Lua.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
 					"buffer": 3,
-					"file": "Assets/Resources/Lua/framework/layoutManager.txt",
+					"file": "Assets/Resources/Lua/ui/loadingView.txt",
 					"settings":
 					{
-						"buffer_size": 873,
+						"buffer_size": 970,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								868,
-								868
+								944,
+								944
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "Assets/Resources/Lua/ui/battleView.txt",
+					"settings":
+					{
+						"buffer_size": 3765,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3026,
+								3026
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 568.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "Assets/Resources/Lua/game/logic/battleLogic.txt",
+					"settings":
+					{
+						"buffer_size": 3399,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2284,
+								2284
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1304.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "Assets/Resources/Lua/network/packetHandlerRoundType.txt",
+					"settings":
+					{
+						"buffer_size": 299,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								216,
+								154
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"settings":
+					{
+						"buffer_size": 976,
+						"regions":
+						{
+							"match":
+							{
+								"flags": 112,
+								"regions":
+								[
+									[
+										287,
+										310
+									],
+									[
+										314,
+										337
+									],
+									[
+										623,
+										646
+									],
+									[
+										884,
+										907
+									]
+								],
+								"scope": ""
+							}
+						},
+						"selection":
+						[
+							[
+								897,
+								897
+							]
+						],
+						"settings":
+						{
+							"detect_indentation": false,
+							"output_tag": 1,
+							"result_base_dir": "",
+							"result_file_regex": "^([A-Za-z\\\\/<].*):$",
+							"result_line_regex": "^ +([0-9]+):",
+							"scroll_past_end": true,
+							"syntax": "Packages/Default/Find Results.hidden-tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 48.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "Assets/Resources/Lua/game/logic/battleRecordGemEraseDropEnd.txt",
+					"settings":
+					{
+						"buffer_size": 665,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								656,
+								656
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Lua/Lua.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "Assets/Resources/Lua/game/logic/gemInputHandler.txt",
+					"settings":
+					{
+						"buffer_size": 2018,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								388,
+								388
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "ASCII",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "Assets/Resources/Lua/scene/sceneBattle.txt",
+					"settings":
+					{
+						"buffer_size": 1292,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								419,
+								419
+							]
+						],
+						"settings":
+						{
+							"origin_encoding": "UTF-8",
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "Assets/Resources/Lua/game/object/heroObject.txt",
+					"settings":
+					{
+						"buffer_size": 729,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								359,
+								359
 							]
 						],
 						"settings":
@@ -390,7 +1042,7 @@
 	"menu_visible": true,
 	"replace":
 	{
-		"height": 0.0
+		"height": 64.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -398,6 +1050,18 @@
 		"height": 0.0,
 		"selected_items":
 		[
+			[
+				"battlelo",
+				"game/logic/battleLogic.txt"
+			],
+			[
+				"gemlo",
+				"game/logic/gemsLogic.txt"
+			],
+			[
+				"layou",
+				"Resources/Lua/framework/layout.txt"
+			],
 			[
 				"",
 				"server/throne/app/GDS.go"
@@ -513,6 +1177,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 246.0,
+	"side_bar_width": 335.0,
 	"status_bar_visible": true
 }

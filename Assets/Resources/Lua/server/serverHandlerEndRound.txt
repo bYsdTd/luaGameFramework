@@ -1,5 +1,18 @@
 function serverNetwork.onHandleEndRound(packetData)
 
+	-- first check if should fill card
+	local hero = serverMain.getCurrentHero();
+	
+	if hero:fillCard() then
+		
+		local skillCardSendData = {};
+
+		skillCardSendData = clone(hero:getCard());
+
+		serverNetwork.send(GLOBAL_PACKET_ID.BATTLE_SKILL_CARD, {skillCards = skillCardSendData});
+
+	end
+
 	-- should check who send to end round, check if the data is identical as server
 	if serverMain.roundType == enum.BATTLE_ROUND_TYPE.ATTACKER then
 		

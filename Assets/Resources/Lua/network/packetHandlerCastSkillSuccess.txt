@@ -1,0 +1,12 @@
+-- handler
+function networkManager.onHandleCastSkillSuccess(packetData)
+	
+	local battleLogic = sceneManager.currentScene:userData().battleLogic;
+	
+	local hero = battleLogic:getCurrentHero();
+
+	hero:deleteCard(packetData.skillID);
+
+	eventManager.postEvent( { name = global_uiEvent.EVENT_UI_BATTLEVIEW_UPDATE, } );
+
+end

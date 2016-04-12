@@ -6,6 +6,10 @@ function battleLogic:ctor()
 	self._gemsLogic = gemsLogic.new();
 	self._gemInputHandler = gemInputHandler.new(self._gemsLogic);
 
+	-- skill logic and input handle
+	self._skillLogic = skillLogic.new();
+	self._skillInputHandler = skillInputHandler.new(self._gemsLogic);
+
 	-- register event
 	self:registerEvent();
 
@@ -24,6 +28,59 @@ function battleLogic:ctor()
 	-- erase flag, to check if can end round
 	self._erasedFlag = false;
 
+end
+
+function battleLogic:getTarget(targetType)
+
+	if self:getRoundType() == enum.BATTLE_ROUND_TYPE.ATTACKER then
+
+		if targetType == enum.TARGET_TYPE.SELF then
+		
+			return self._attackHero;
+
+		elseif targetType == enum.TARGET_TYPE.OTHER then
+
+			return self._defenceHero;
+
+		end
+	else
+		
+		if targetType == enum.TARGET_TYPE.SELF then
+		
+			return self._defenceHero;
+
+		elseif targetType == enum.TARGET_TYPE.OTHER then
+
+			return self._attackHero;
+
+		end
+
+	end
+
+	return nil;	
+
+end
+
+
+function battleLogic:getCurrentHero()
+
+	if self:getRoundType() == enum.BATTLE_ROUND_TYPE.ATTACKER then
+		
+		return self._attackHero;
+
+	elseif self:getRoundType() == enum.BATTLE_ROUND_TYPE.DEFENDER then
+		
+		return self._defenceHero;
+	
+	end
+
+end
+
+function battleLogic:canEndRound()
+	
+	-- self round and erased 
+	return self:getErasedFlag();
+	
 end
 
 function battleLogic:getErasedFlag()
@@ -94,6 +151,20 @@ function battleLogic:destroy( ... )
 
 	end
 
+	if self._skillLogic then
+
+		self._skillLogic:destroy();		
+		self._skillLogic = nil;
+
+	end
+
+	if self._skillInputHandler then
+		
+		self._skillInputHandler:destroy();
+		self._skillInputHandler = nil;
+
+	end
+
 	self:removeAllEvent();
 
 end
@@ -106,6 +177,7 @@ function battleLogic:registerEvent()
 	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_PLAYER_SWAP_END, self.onHandleMoveGemEnd, self);
 
 	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, self.onHandleRecord, self);
+	eventManager.addEvent(EVENT_ID.EVENT_BATTLE_CAST_SKILL_SELECT_GEM, self.onHandelCastSkillSelectGem, self);
 
 end
 
@@ -116,14 +188,15 @@ function battleLogic:removeAllEvent()
 
 	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_PLAYER_SWAP_END, self.onHandleMoveGemEnd);
 	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_PLAYER_RECORD, self.onHandleRecord);
+	eventManager.removeEvent(EVENT_ID.EVENT_BATTLE_CAST_SKILL_SELECT_GEM, self.onHandelCastSkillSelectGem);
 
 end
 
-function battleLogic:onHandleRoundType(event)
+-- function battleLogic:onHandleRoundType(event)
 	
-	self._roundType = event.roundType;
+-- 	self._roundType = event.roundType;
 
-end
+-- end
 
 function battleLogic:onHandleRecord(event)
 	
@@ -145,12 +218,32 @@ function battleLogic:onHandleMoveGemEnd( ... )
 
 end
 
-function battleLogic:onHandleInitBattle( )
+function battleLogic:onHandleInitBattle(event)
 
-	-- test data
-	self._attackHero:setHP(100);
-	self._defenceHero:setHP(100);
+	self._attackHero:setHP(event.data.attacker.hp);
+	self._attackHero:setMaxHP(event.data.attacker.maxHP);
 
+	for i,v in ipairs(event.data.attacker.skillCards) do
+		
+		self._attackHero:addCard(v);
+
+	end
+
+	self._defenceHero:setHP(event.data.defender.hp);
+	self._defenceHero:setMaxHP(event.data.defender.maxHP);
+
+	for i,v in ipairs(event.data.defender.skillCards) do
+		
+		self._defenceHero:addCard(v);
+
+	end
+
+	if self._skillLogic then
+
+		self._skillLogic:onHandleInitBattle(event);
+
+
+	end
 
 end
 
@@ -169,6 +262,12 @@ function battleLogic:onTouchDown( position )
 
 	end
 
+	if self._skillInputHandler then
+	
+		self._skillInputHandler:onTouchDown(position);
+
+	end
+
 end
 
 function battleLogic:onTouchMove( position )
@@ -180,6 +279,12 @@ function battleLogic:onTouchMove( position )
 
 	end
 
+	if self._skillInputHandler then
+	
+		self._skillInputHandler:onTouchMove(position);
+		
+	end
+
 end
 
 function battleLogic:onTouchUp( position )
@@ -189,6 +294,13 @@ function battleLogic:onTouchUp( position )
 		self._gemInputHandler:onTouchUp(position);
 
 	end
+
+	if self._skillInputHandler then
+	
+		self._skillInputHandler:onTouchUp(position);
+		
+	end
+
 end
 
 function battleLogic:tick( )
@@ -199,5 +311,38 @@ function battleLogic:tick( )
 
 	end
 
+
+end
+
+function battleLogic:onHandelCastSkillSelectGem(event)
+	
+	if self._skillInputHandler then
+	
+		self._skillInputHandler:setWaitForSelectGem(event.data);
+	
+	end
+end
+
+function battleLogic:onCastSkill( skillID )
+	
+	if self._skillLogic then
+
+		self._skillLogic:onSelectSkill(skillID);
+
+	end
+
+end
+
+function battleLogic:onCastSelectGemSkill( )
+	
+	if self._skillLogic and self._skillInputHandler then
+		
+		local touchGem = self._skillInputHandler:getTouchGem();
+
+		if touchGem then
+			self._skillLogic:onCastSelectGemSkill(touchGem:getColumn(), touchGem:getRow());
+		end
+
+	end
 
 end

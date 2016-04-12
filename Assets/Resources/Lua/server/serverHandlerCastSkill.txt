@@ -1,0 +1,21 @@
+function serverNetwork.onHandleCastSkill(packetData)
+
+	local skillID = packetData.skillID;
+
+	local hero = serverMain.getCurrentHero();
+
+	hero:castSkill(packetData);
+
+	-- cost
+	local skillConfig = gds.skillConfig[skillID];
+	for i,v in ipairs(skillConfig.cost) do
+		
+		serverSkillAPI.changeHeroAttribute(enum.TARGET_TYPE.SELF, i, -v);
+
+	end
+
+	serverNetwork.send( GLOBAL_PACKET_ID.BATTLE_CAST_SKILL_SUCCESS, { skillID = skillID } );
+
+	-- final send record
+	serverMain.sendRecordCache();
+end

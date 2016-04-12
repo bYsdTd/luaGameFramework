@@ -1,0 +1,10 @@
+skillSystem = class("skillSystem")
+
+function skillSystem:ctor()
+	
+end
+
+function  skillSystem:destroy( ... )
+	
+
+end

@@ -2,3 +2,4 @@ gds = {};
 
 include("gds.uiConfig")
 include("gds.sceneConfig")
+include("gds.skillConfig")

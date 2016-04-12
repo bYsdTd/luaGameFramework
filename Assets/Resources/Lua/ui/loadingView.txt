@@ -17,6 +17,8 @@ end
 
 function  loadingView:onShow(event)
 
+	print("loadingView onShow");
+
 	self.lblTitle = uiTypeCast.toLable(self:getChild("lblGameName"));
 	self.btnEnter = uiTypeCast.toButton(self:getChild("btnEnter"));
 
@@ -24,12 +26,16 @@ function  loadingView:onShow(event)
 	
 	self.btnEnter.onClick:AddListener(function ()
 		
+		print(" enter game ")
+
 		eventManager.postEvent({name = "EVENT_UI_LOADINGVIEW_HIDE", layoutIndex = self._layoutIndex } );
 		eventManager.postEvent({name = "EVENT_UI_BATTLEVIEW_SHOW"} );
 		eventManager.postEvent({name = sceneManager.EVENT_SCENE_SWITCH_SCENE, sceneid = sceneManager.SCENE_ID.BATTLE } );
 
 	end);
 
+	dump(self.btnEnter);
+	
 end
 
 function loadingView:onUpdate(event)

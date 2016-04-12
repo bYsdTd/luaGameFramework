@@ -1,0 +1,53 @@
+skillLogic = class("skillLogic")
+
+function skillLogic:ctor()
+
+	self._selectSkillID = nil;
+
+end
+
+function skillLogic:destroy( )
+
+end
+
+function skillLogic:onHandleInitBattle(event)
+
+end
+
+function skillLogic:onSelectSkill(skillID)
+	
+	self._selectSkillID = skillID;
+
+	local skillConfig = gds.skillConfig[skillID];
+
+	if skillConfig.castType == enum.SKILL_CAST_TYPE.SELECT_NONE then
+		
+		local sendData = {};
+		sendData.skillID = skillID;
+
+		networkManager.send( GLOBAL_PACKET_ID.BATTLE_CAST_SKILL, sendData );
+
+		self._selectSkillID = nil;
+
+	elseif skillConfig.castType == enum.SKILL_CAST_TYPE.SELECT_ONE_GEM then 
+		
+		print("postEvent cast skill event gem")
+		eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_CAST_SKILL_SELECT_GEM, data = true});
+	
+	end
+
+end
+
+function skillLogic:onCastSelectGemSkill(column, row)
+	
+	local sendData = {};
+	sendData.skillID = self._selectSkillID;
+	sendData.column = column;
+	sendData.row = row;
+
+	networkManager.send( GLOBAL_PACKET_ID.BATTLE_CAST_SKILL, sendData );
+	eventManager.postEvent({name = EVENT_ID.EVENT_BATTLE_CAST_SKILL_SELECT_GEM, data = false});
+
+	self._selectSkillID = nil;
+
+end

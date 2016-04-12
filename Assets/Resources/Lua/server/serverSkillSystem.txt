@@ -1,0 +1,111 @@
+serverSkillSystem = class("serverSkillSystem");
+
+function serverSkillSystem:ctor(deck)
+	
+	-- init deck 
+	--local testDeck = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+	self._deck = deck;
+
+	self:shuffle();
+
+	self._skillCard = {};
+
+	self._cardHeap = {};
+
+	for i=1, 4 do
+		
+		self._skillCard[i] = self._deck[i];
+
+	end
+
+	for i=5,10 do
+		
+		table.insert(self._cardHeap, self._deck[i]);
+	end
+
+end
+
+-- return shuffled card index 
+function serverSkillSystem:shuffle()
+	
+	math.randomseed(os.time());
+
+	local result = {};
+
+	for i=1, 10 do
+		
+		local index = math.random(1, 10-i+1);
+
+		table.insert(result, self._deck[index]);
+
+		table.remove(self._deck, index);
+
+	end
+
+	self._deck = result;
+
+end
+
+function serverSkillSystem:getCard( )
+	
+	return self._skillCard;
+	
+end
+
+function serverSkillSystem:castSkill(castSkillData)
+
+	local skillID = castSkillData.skillID;
+
+	serverSkillFunction.setArgs(castSkillData);
+
+	local func = loadstring("local args = serverSkillFunction.getArgs(); return serverSkillFunction.skill_"..tostring(skillID).."(args);");
+	func();
+
+	-- delete card
+	local deleteIndex = -1;
+
+	for i,v in ipairs(self._skillCard) do
+		
+
+		if v == skillID then
+			
+			deleteIndex = i;
+			break;
+
+		end
+
+	end
+
+	if deleteIndex > 0 then
+
+		local removedCard = table.remove(self._skillCard, deleteIndex);
+
+		table.insert(self._cardHeap, removedCard);
+
+	end
+
+end
+
+
+function serverSkillSystem:fillCard()
+	
+	local nowCount = #self._skillCard;
+
+	if nowCount == 4 then
+		
+		return false;
+
+	end
+
+
+	for i=1, 4-nowCount do
+		
+		table.insert(self._skillCard, self._cardHeap[1]);
+
+		table.remove(self._cardHeap, 1);
+
+	end
+
+	return true;
+end

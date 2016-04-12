@@ -1,0 +1,42 @@
+skillCard = class("skillCard")
+
+function skillCard:ctor(skillID)
+	
+	self._skillID = skillID;
+
+end
+
+function skillCard:destroy( ... )
+	
+
+end
+
+function skillCard:getConfig()
+	
+	return gds.skillConfig[self:getSkillID()];
+
+end
+
+function skillCard:getSkillID()
+	
+	return self._skillID;
+	
+end
+
+function skillCard:getCostString()
+	
+	local costString = "";
+
+	local config = self:getConfig();
+	
+	for i,v in ipairs(config.cost) do
+		
+		if v > 0 then
+			
+			costString = costString.."<color=\"#"..UnityEngine.ColorUtility.ToHtmlStringRGB(gemObject.getColorMap()[i]).."\">"..v.."</color>,";
+		end
+
+	end
+
+	return costString;
+end

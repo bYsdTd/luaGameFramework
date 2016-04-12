@@ -4,17 +4,19 @@ include("network.packetID_define")
 include("network.packetHandlerBattleInit")
 include("network.packetHandlerBattleRecord")
 include("network.packetHandlerRoundType")
+include("network.packetHandlerCastSkillSuccess")
+include("network.packetHandlerSkillCard")
 
 function networkManager.init()
 	
 	-- register packet handler
-
 	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_INIT] = networkManager.onHandleBattleInit;
 	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_RECORD] = networkManager.onHandleBattleRecord;
 	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_ROUND_TYPE] = networkManager.onHandleRoundType;
-	
-end
+	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_CAST_SKILL_SUCCESS] = networkManager.onHandleCastSkillSuccess;
+	networkManager.handler[GLOBAL_PACKET_ID.BATTLE_SKILL_CARD] = networkManager.onHandleSkillCard;
 
+end
 
 function  networkManager.send( packetID, data )
 	

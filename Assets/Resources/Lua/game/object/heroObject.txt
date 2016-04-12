@@ -3,6 +3,7 @@ heroObject = class("heroObject")
 function heroObject:ctor()
 
 	self._hp = 0;
+	self._maxHP = 0;
 
 	self._gems = {};
 
@@ -11,6 +12,9 @@ function heroObject:ctor()
 		self._gems[i] = 0;
 
 	end
+
+	self._skillCards = {};
+
 end
 
 function heroObject:destroy()
@@ -32,7 +36,13 @@ end
 
 function heroObject:getMaxHP()
 	
-	return 100;
+	return self._maxHP;
+
+end
+
+function heroObject:setMaxHP( maxHP)
+	
+	self._maxHP = maxHP;
 
 end
 
@@ -48,12 +58,136 @@ function heroObject:getGems( gemType )
 
 end
 
-function heroObject:modifyGems( gemType, modifyValue)
+function heroObject:getAttribute( attrType )
+	
+	if attrType == enum.HERO_ATTRIBUTE.HP then
+		
+		return self:getHP();
 
-	self._gems[gemType] = self._gems[gemType] or 0;
+	elseif attrType == enum.HERO_ATTRIBUTE.GEM1 
+		or attrType == enum.HERO_ATTRIBUTE.GEM2 
+		or attrType == enum.HERO_ATTRIBUTE.GEM3
+		or attrType == enum.HERO_ATTRIBUTE.GEM4 
+		or attrType == enum.HERO_ATTRIBUTE.GEM5 then
+	
+		return self:getGems(attrType);
 
-	local newValue = self._gems[gemType] + modifyValue;
+	end
 
-	self:setGems(gemType, newValue);
+end
+
+function heroObject:changeAttribute( attrType, attrValue )
+	
+	local oldValue = self:getAttribute(attrType);
+	local newValue = oldValue + attrValue;
+
+	if newValue < 0 then
+		
+		newValue = 0;
+
+	end
+
+	if attrType == enum.HERO_ATTRIBUTE.HP then
+		if newValue > PLAYERMAXHP then
+			newValue = PLAYERMAXHP;
+		end
+	elseif attrType == enum.HERO_ATTRIBUTE.GEM1 
+		or attrType == enum.HERO_ATTRIBUTE.GEM2 
+		or attrType == enum.HERO_ATTRIBUTE.GEM3
+		or attrType == enum.HERO_ATTRIBUTE.GEM4 
+		or attrType == enum.HERO_ATTRIBUTE.GEM5 then
+		if newValue > PLAYERMAXMP then
+			newValue = PLAYERMAXMP;
+		end
+	end
+
+	if attrType == enum.HERO_ATTRIBUTE.HP then
+		
+		self:setHP(newValue);
+
+	elseif attrType == enum.HERO_ATTRIBUTE.GEM1 
+		or attrType == enum.HERO_ATTRIBUTE.GEM2 
+		or attrType == enum.HERO_ATTRIBUTE.GEM3
+		or attrType == enum.HERO_ATTRIBUTE.GEM4 
+		or attrType == enum.HERO_ATTRIBUTE.GEM5 then
+	
+		self:setGems(attrType, newValue);
+	end
+
+end
+
+function heroObject:getCard( index )
+
+	return self._skillCards[index];
+end
+
+function heroObject:addCard(skillID)
+	
+	local card = skillCard.new(skillID);
+
+	table.insert(self._skillCards, card);
+
+end
+
+function heroObject:haveCard( skillID )
+
+	for i,v in ipairs(self._skillCards) do
+
+		if v:getSkillID() == skillID then
+			
+			return true;
+
+		end
+
+	end
+
+	return false;
+
+end
+
+function heroObject:canCastSkill(cardIndex)
+
+	local card = self:getCard(cardIndex);
+
+	if not card then
+		return false;
+	end
+
+	local config = card:getConfig();
+
+	for i, v in ipairs(config.cost) do
+		
+		if self:getGems(i) < v then
+		
+			return false;
+
+		end
+
+	end
+
+	return true;
+end
+
+function heroObject:deleteCard(skillID)
+	
+	local deleteIndex = -1;
+
+	for i,v in ipairs(self._skillCards) do
+		
+
+		if v:getSkillID() == skillID then
+			
+			deleteIndex = i;
+			break;
+
+		end
+
+	end
+
+	if deleteIndex > 0 then
+
+		table.remove(self._skillCards, deleteIndex);
+
+	end
 
 end

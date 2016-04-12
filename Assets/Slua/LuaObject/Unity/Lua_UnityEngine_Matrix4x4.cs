@@ -182,20 +182,6 @@ public class Lua_UnityEngine_Matrix4x4 : LuaObject {
 		}
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int Determinant_s(IntPtr l) {
-		try {
-			UnityEngine.Matrix4x4 a1;
-			checkValueType(l,1,out a1);
-			var ret=UnityEngine.Matrix4x4.Determinant(a1);
-			pushValue(l,true);
-			pushValue(l,ret);
-			return 2;
-		}
-		catch(Exception e) {
-			return error(l,e);
-		}
-	}
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static public int Scale_s(IntPtr l) {
 		try {
 			UnityEngine.Vector3 a1;
@@ -839,19 +825,6 @@ public class Lua_UnityEngine_Matrix4x4 : LuaObject {
 		}
 	}
 	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
-	static public int get_determinant(IntPtr l) {
-		try {
-			UnityEngine.Matrix4x4 self;
-			checkValueType(l,1,out self);
-			pushValue(l,true);
-			pushValue(l,self.determinant);
-			return 2;
-		}
-		catch(Exception e) {
-			return error(l,e);
-		}
-	}
-	[MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
 	static public int get_zero(IntPtr l) {
 		try {
 			pushValue(l,true);
@@ -918,7 +891,6 @@ public class Lua_UnityEngine_Matrix4x4 : LuaObject {
 		addMember(l,SetTRS);
 		addMember(l,Inverse_s);
 		addMember(l,Transpose_s);
-		addMember(l,Determinant_s);
 		addMember(l,Scale_s);
 		addMember(l,TRS_s);
 		addMember(l,Ortho_s);
@@ -947,7 +919,6 @@ public class Lua_UnityEngine_Matrix4x4 : LuaObject {
 		addMember(l,"inverse",get_inverse,null,true);
 		addMember(l,"transpose",get_transpose,null,true);
 		addMember(l,"isIdentity",get_isIdentity,null,true);
-		addMember(l,"determinant",get_determinant,null,true);
 		addMember(l,"zero",get_zero,null,false);
 		addMember(l,"identity",get_identity,null,false);
 		createTypeMetatable(l,constructor, typeof(UnityEngine.Matrix4x4),typeof(System.ValueType));
