@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour {
 
 			count++;
 
+			GameManager.instance().networkManager.connect();
 			GameManager.instance().networkManager.send(Encoding.UTF8.GetBytes("hello world" + count.ToString()));
 
 		});

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Net.Sockets;
 using System.Threading;
 using System.Text;
+using SLua;
 
 public class ClientSocket 
 {
@@ -89,14 +90,23 @@ public class ClientSocket
 	public void MainThreadFunc()
 	{
 		// called every frame
-		if(receiveBuffer.offset > 0)
+		short packetsize = 0;
+		short packetid = 0;
+
+		if(receiveBuffer.isReadyToHandle(ref packetsize, ref packetid))
 		{
-			byte[] buffer = new byte[receiveBuffer.offset];
+			byte[] bufferHeader = new byte[SocketBuffer.PACKET_HEADER_SIZE];
+			receiveBuffer.read(ref bufferHeader, SocketBuffer.PACKET_HEADER_SIZE);
 
-			receiveBuffer.read(ref buffer, (int)receiveBuffer.offset);
+			byte[] bufferPacket = new byte[packetsize];
+			receiveBuffer.read(ref bufferPacket, packetsize);
 
-
-			Debug.Log("mainthread receive buffer " + Encoding.UTF8.GetString(buffer));
+			LuaFunction func = GameManager.instance().luaManager.l.luaState.getFunction("HandleNetworkData");
+			
+			if(func != null)
+			{
+				func.call(packetid, new ByteArray(bufferPacket));
+			}
 		}
 	}
 

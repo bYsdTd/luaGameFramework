@@ -342,6 +342,12 @@ return index
 			{
 				pushValue(L, (LuaCSFunction)o);
 			};
+
+			typePushMap[typeof(ByteArray)] = (IntPtr L, object o) =>
+			{
+				ByteArray pb = (ByteArray)o;
+				LuaDLL.lua_pushlstring(L, pb.data , pb.data.Length);
+			};
 		}
 
 		static int getOpFunction(IntPtr l, string f, string tip)

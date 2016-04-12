@@ -1,25 +1,79 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_Color.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/CS/Framework/LuaManager.cs">
     <Files>
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_Application.cs" Line="1" Column="1" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_SceneManagement_SceneManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/CS/Launch.cs" Line="1" Column="1" />
-      <File FileName="Assets/CS/Framework/GameManager.cs" Line="1" Column="1" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_Canvas.cs" Line="1" Column="1" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_UI_Image.cs" Line="495" Column="1" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_UI_Graphic.cs" Line="1" Column="1" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_Color.cs" Line="607" Column="20" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_RectTransform.cs" Line="1" Column="1" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_Transform.cs" Line="1" Column="1" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_RectTransformUtility.cs" Line="1" Column="1" />
-      <File FileName="Assets/Plugins/Slua_Managed/Timer.cs" Line="1" Column="1" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_Time.cs" Line="1" Column="1" />
-      <File FileName="Assets/Slua/LuaObject/Unity/Lua_UnityEngine_Vector2.cs" Line="378" Column="48" />
+      <File FileName="Assets/Slua/example/example-pbc/Resources/protoTest/testparser.txt" Line="1" Column="1" />
+      <File FileName="Assets/Slua/example/example-pbc/Resources/protobuf.txt" Line="1" Column="1" />
+      <File FileName="Assets/CS/NetFramework/ClientSocket.cs" Line="1" Column="1" />
+      <File FileName="Assets/CS/NetFramework/SocketBuffer.cs" Line="1" Column="1" />
+      <File FileName="Assets/Slua/example/example-pbc/Resources/protoTest/addressbookTxt.txt" Line="1" Column="1" />
+      <File FileName="Assets/CS/NetFramework/NetworkManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/Plugins/Slua_Managed/Logger.cs" Line="1" Column="1" />
+      <File FileName="Assets/Plugins/Slua_Managed/Lua3rdDLL.cs" Line="21" Column="4" />
+      <File FileName="Assets/Plugins/Slua_Managed/Lib3rd/PbcLib.cs" Line="1" Column="1" />
+      <File FileName="Assets/Plugins/Slua_Managed/LuaSvr.cs" Line="1" Column="1" />
+      <File FileName="Assets/CS/Framework/LuaManager.cs" Line="15" Column="23" />
+      <File FileName="Assets/Slua/Editor/CustomEditor.cs" Line="1" Column="1" />
+      <File FileName="Assets/Plugins/Slua_Managed/LuaDLL.cs" Line="1" Column="1" />
     </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="CS" expanded="True">
+              <Node name="Framework" expanded="True">
+                <Node name="LuaManager.cs" selected="True" />
+              </Node>
+              <Node name="NetFramework" expanded="True" />
+            </Node>
+            <Node name="Resources" expanded="True" />
+            <Node name="Slua" expanded="True">
+              <Node name="example" expanded="True">
+                <Node name="example-pbc" expanded="True">
+                  <Node name="Resources" expanded="True">
+                    <Node name="protoTest" expanded="True" />
+                  </Node>
+                </Node>
+              </Node>
+              <Node name="LuaObject" expanded="True" />
+            </Node>
+          </Node>
+          <Node name="Assembly-CSharp-Editor" expanded="True">
+            <Node name="Slua" expanded="True">
+              <Node name="Editor" expanded="True" />
+            </Node>
+          </Node>
+          <Node name="Assembly-CSharp-firstpass" expanded="True">
+            <Node name="Plugins" expanded="True">
+              <Node name="Slua_Managed" expanded="True">
+                <Node name="Lib3rd" expanded="True" />
+              </Node>
+            </Node>
+            <Node name="Slua" expanded="True">
+              <Node name="example" expanded="True">
+                <Node name="example-pbc" expanded="True">
+                  <Node name="Resources" expanded="True">
+                    <Node name="protoTest" expanded="True" />
+                  </Node>
+                </Node>
+              </Node>
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
+      </Pad>
+    </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/zhangyi/code/unity/luaGameFramework/Assets/Plugins/Slua_Managed/LuaDLL.cs" line="601" />
+      <Breakpoint file="/Users/zhangyi/code/unity/luaGameFramework/Assets/CS/NetFramework/ClientSocket.cs" line="104" />
+      <Breakpoint file="/Users/zhangyi/code/unity/luaGameFramework/Assets/CS/NetFramework/ClientSocket.cs" line="98" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches>
+    <Watch file="Assets/CS/NetFramework/SocketBuffer.cs" line="73" offsetX="622" offsetY="1080" expression="packetsize" liveUpdate="True" />
+  </MonoDevelop.Ide.DebuggingService.PinnedWatches>
 </Properties>

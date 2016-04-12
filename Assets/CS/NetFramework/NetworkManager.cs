@@ -8,22 +8,38 @@ public class NetworkManager
 
 	public void Init()
 	{
-		clientSocket = new ClientSocket();
-		clientSocket.Connect("127.0.0.1", 8086);
-
-		string sendtext = "Hello World\n";
-		clientSocket.SendPacket(Encoding.UTF8.GetBytes(sendtext));
+//		clientSocket = new ClientSocket();
+//		clientSocket.Connect("127.0.0.1", 8086);
+//
+//		string sendtext = "Hello World\n";
+//		clientSocket.SendPacket(Encoding.UTF8.GetBytes(sendtext));
 	}
 
 	public void Update(float dt) 
 	{
 		// check network mannager
 
-		clientSocket.MainThreadFunc();
+		if(clientSocket != null)
+		{
+			clientSocket.MainThreadFunc();
+		}
+
 	}
 
 	public void send(byte[] data)
 	{
-		clientSocket.SendPacket(data);
+		if(clientSocket != null)
+		{
+			clientSocket.SendPacket(data);
+		}
+	}
+
+	public void connect()
+	{
+		if(clientSocket == null)
+		{
+			clientSocket = new ClientSocket();
+			clientSocket.Connect("127.0.0.1", 8086);
+		}
 	}
 }

@@ -57,3 +57,19 @@ function HandleTouchUp( x, y )
 
 end
 
+protobuf = require "protobuf"
+parser = require "parser"
+
+local dir_path = UnityEngine.Application.dataPath .. "/Slua/example/example-pbc/Resources/protoTest"
+t = parser.register("addressbookTxt.txt",dir_path)
+
+function HandleNetworkData( packetid, bytedata )
+	
+	print(packetid)
+
+	--dump(bytedata)
+	
+	decode = protobuf.decode("tutorial.Person" , bytedata)
+
+	dump(decode)
+end

@@ -12,7 +12,7 @@ public class LuaManager : MonoBehaviour {
 		Debug.Log("luaManager start");
 
 		l = new LuaSvr();
-		l.init(tick,complete,LuaSvrFlag.LSF_DEBUG);
+		l.init(null,complete);
 
 	}
 
@@ -20,7 +20,7 @@ public class LuaManager : MonoBehaviour {
 	{
 		Debug.Log("compolete  start main");
 
-		//l.start("main");
+		l.start("main");
 	}
 
 	void tick(int p)
